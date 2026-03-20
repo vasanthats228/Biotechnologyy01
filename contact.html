@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>Biotechnology · Contact</title>
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts: Inter + Outfit -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&family=Outfit:wght@300..700&display=swap" rel="stylesheet">
+  <!-- AOS for scroll animations -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', 'Outfit', sans-serif;
+      background: #f5fbfe;
+      color: #0a2647;
+      overflow-x: hidden;
+      width: 100%;
+      line-height: 1.6;
+      padding-top: 0;
+      transition: padding-top 0.3s ease;
+    }
+
+    .contact-page {
+      width: 100%;
+    }
+
+    .con-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 5rem 1.5rem;
+      width: 100%;
+    }
+
+    .con-title {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 700;
+      color: #0a2647;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+
+    /* buttons */
+    .con-btn {
+      display: inline-block;
+      background: #4aa3a2;
+      color: white !important;
+      font-weight: 600;
+      padding: 1rem 2.8rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-size: 1rem;
+      border: 2px solid transparent;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 20px rgba(74, 163, 162, 0.25);
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .con-btn:hover {
+      background: #2c5f7c;
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 15px 30px rgba(44, 95, 124, 0.3);
+    }
+
+    .con-btn-outline {
+      background: transparent;
+      border: 2px solid #4aa3a2;
+      color: #4aa3a2 !important;
+      box-shadow: none;
+    }
+
+    .con-btn-outline:hover {
+      background: #4aa3a2;
+      color: white !important;
+    }
+
+    .con-btn-light {
+      background: white;
+      color: #0a2647 !important;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    }
+
+    .con-btn-light:hover {
+      background: #cdf0ea;
+    }
+
+    /* fallback header/footer */
+    .fallback-header {
+      background: #1e1e2f; 
+      color: white; 
+      padding: 20px; 
+      text-align: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+    .fallback-footer {
+      background: #1a1a2e; 
+      color: white; 
+      padding: 40px; 
+      text-align: center;
+    }
+
+    /* SECTION 1: HERO - FIXED OVERLAP */
+    .con-hero {
+      background: linear-gradient(rgba(10,38,71,0.85), rgba(44,95,124,0.85)), url('b5.webp') center/cover fixed;
+      min-height: 50vh;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      color: white;
+      text-align: center;
+      position: relative;
+      margin-top: 0;
+    }
+
+    .con-hero-content {
+      width: 100%;
+      position: relative;
+      z-index: 2;
+    }
+
+    .con-breadcrumb {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
+    }
+
+    .con-breadcrumb a {
+      color: white;
+      text-decoration: none;
+      opacity: 0.8;
+      transition: all 0.3s ease;
+    }
+
+    .con-breadcrumb a:hover {
+      color: #cdf0ea;
+      opacity: 1;
+      transform: translateY(-2px);
+    }
+
+    .con-breadcrumb span {
+      color: #cdf0ea;
+    }
+
+    /* SECTION 2: Contact form - FIXED overlapping */
+    .con-form-section {
+      background: white;
+      border-radius: 60px;
+      box-shadow: 0 30px 60px -30px #0a2647;
+      padding: 3rem;
+      margin-top: -5rem;
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      overflow: visible;
+    }
+
+    .con-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .con-info-item {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      align-items: flex-start;
+    }
+
+    .con-info-icon {
+      width: 60px;
+      height: 60px;
+      background: #cdf0ea;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: #4aa3a2;
+      flex-shrink: 0;
+    }
+
+    .con-info-text h4 {
+      margin-bottom: 0.3rem;
+    }
+
+    .con-info-text p {
+      color: #2c5f7c;
+    }
+
+    .con-social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .con-social-links a {
+      width: 50px;
+      height: 50px;
+      background: #f0f9ff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #4aa3a2;
+      font-size: 1.3rem;
+      transition: 0.3s;
+      text-decoration: none;
+    }
+
+    .con-social-links a:hover {
+      background: #4aa3a2;
+      color: white;
+      transform: translateY(-5px);
+    }
+
+    /* form styles */
+    .con-form-group {
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .con-input {
+      width: 100%;
+      padding: 1.2rem;
+      border: 2px solid #e0edf5;
+      border-radius: 60px;
+      font-family: inherit;
+      font-size: 1rem;
+      transition: 0.3s;
+      background: white;
+    }
+
+    .con-input:focus {
+      outline: none;
+      border-color: #4aa3a2;
+    }
+
+    .con-textarea {
+      border-radius: 30px;
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .con-input.error {
+      border-color: #e65f5f;
+    }
+
+    /* validation messages - inline */
+    .con-error-message {
+      color: #e65f5f;
+      font-size: 0.85rem;
+      margin-top: 0.3rem;
+      margin-left: 1rem;
+      display: block;
+      min-height: 1.2rem;
+    }
+
+    /* SECTION 3: Google Maps Embed - exactly like reference */
+    .con-map-section {
+      max-width: 1280px;
+      margin: 0 auto 80px;
+      padding: 0 24px;
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    .map-container {
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 25px 40px -12px rgba(10, 38, 71, 0.2);
+      border: 1px solid rgba(74, 163, 162, 0.2);
+      height: 450px;
+      width: 100%;
+      position: relative;
+    }
+
+    .map-container iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    
+    /* responsive - FIXED for all devices */
+    @media (max-width: 1024px) {
+      .con-form-section {
+        padding: 2.5rem;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .con-grid-2 {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+
+      .con-form-section {
+        padding: 2rem;
+        margin-top: -3rem;
+      }
+
+      .con-hero {
+        min-height: 40vh;
+      }
+
+      .con-info-item {
+        margin-bottom: 1.5rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding-top: 0;
+      }
+      
+      .con-container {
+        padding: 4rem 1rem;
+      }
+      
+      .con-hero {
+        min-height: 35vh;
+      }
+      
+      .con-form-section {
+        margin-top: -2rem;
+        padding: 1.5rem;
+      }
+      
+      .con-info-item {
+        gap: 1rem;
+      }
+      
+      .con-info-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.3rem;
+      }
+      
+      
+      .con-map-section {
+        padding: 0 15px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .con-container {
+        padding: 3rem 1rem;
+      }
+
+      .con-form-section {
+        padding: 1.5rem;
+        margin-top: -1.5rem;
+        border-radius: 40px;
+      }
+
+      .con-info-item {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+        gap: 0.8rem;
+      }
+
+      .con-social-links {
+        justify-content: center;
+      }
+
+      .con-btn {
+        width: 100%;
+      }
+
+      .con-breadcrumb {
+        font-size: 1rem;
+      }
+
+      .map-container {
+        height: 300px;
+      }
+      
+      .con-hero {
+        min-height: 30vh;
+      }
+      
+      .con-hero .con-title {
+        font-size: 2.2rem;
+      }
+    }
+
+    /* extra small devices */
+    @media (max-width: 380px) {
+      .con-form-section {
+        padding: 1rem;
+        margin-top: -1rem;
+      }
+
+      .con-info-icon {
+        width: 45px;
+        height: 45px;
+        font-size: 1.1rem;
+      }
+
+      .con-social-links a {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+      }
+      
+      .con-hero .con-title {
+        font-size: 1.8rem;
+      }
+      
+      .map-container {
+        height: 250px;
+      }
+    }
+
+    html, body {
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    /* AOS tweaks */
+    [data-aos] {
+      transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    /* Ensure all iframes are responsive */
+    iframe {
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+
+
+  <!-- HEADER PLACEHOLDER - Header will load here -->
+  <div id="header-placeholder"></div>
+
+  <div class="contact-page">
+    <!-- SECTION 1: HERO with breadcrumb -->
+    <section class="con-hero">
+      <div class="con-container con-hero-content">
+        <div class="con-breadcrumb" data-aos="fade-down">
+          <a href="home1.html"><i class="fas fa-home"></i> Home</a>
+          <span>/</span>
+          <span style="color: white; opacity: 1;">Contact</span>
+        </div>
+        <h1 class="con-title" style="color: white;" data-aos="fade-up" data-aos-delay="100">Get in touch with<br>our team</h1>
+        <p style="font-size: 1.2rem; max-width: 600px; margin: 0 auto;" data-aos="fade-up" data-aos-delay="200">We're here to answer your questions about partnerships, research, or career opportunities.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 2: Contact form + information -->
+    <div class="con-container" style="padding-top: 0;">
+      <div class="con-form-section" data-aos="flip-up">
+        <div class="con-grid-2">
+          <!-- left: contact info -->
+          <div>
+            <h2 class="con-title" style="font-size: 2.2rem; margin-bottom: 2rem;">Contact information</h2>
+            
+            <div class="con-info-item" data-aos="fade-right">
+              <div class="con-info-icon"><i class="fas fa-map-marker-alt"></i></div>
+              <div class="con-info-text">
+                <h4>Headquarters</h4>
+                <p>455 Mission Bay Blvd South<br>San Francisco, CA 94158</p>
+              </div>
+            </div>
+
+            <div class="con-info-item" data-aos="fade-right" data-aos-delay="100">
+              <div class="con-info-icon"><i class="fas fa-phone"></i></div>
+              <div class="con-info-text">
+                <h4>Phone</h4>
+                <p>+1 (415) 555‑9400</p>
+              </div>
+            </div>
+
+            <div class="con-info-item" data-aos="fade-right" data-aos-delay="200">
+              <div class="con-info-icon"><i class="fas fa-envelope"></i></div>
+              <div class="con-info-text">
+                <h4>Email</h4>
+                <p>contact@novabiotech.com</p>
+              </div>
+            </div>
+
+            <div class="con-info-item" data-aos="fade-right" data-aos-delay="300">
+              <div class="con-info-icon"><i class="fas fa-clock"></i></div>
+              <div class="con-info-text">
+                <h4>Office hours</h4>
+                <p>Monday – Friday: 9am – 6pm<br>Saturday: By appointment</p>
+              </div>
+            </div>
+
+            <div class="con-social-links">
+              <a href="404.html" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+              <a href="404.html" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+              <a href="404.html" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="404.html" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            </div>
+          </div>
+
+          <!-- right: contact form with validation -->
+          <div>
+            <h2 class="con-title" style="font-size: 2.2rem; margin-bottom: 2rem;">Send us a message</h2>
+            <form id="contactForm" onsubmit="return false;">
+              <div class="con-form-group">
+                <input type="text" id="conName" placeholder="Your full name *" class="con-input" 
+                       onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || event.charCode === 32"
+                       onpaste="return false" ondrop="return false">
+                <span id="nameError" class="con-error-message"></span>
+              </div>
+              <div class="con-form-group">
+                <input type="email" id="conEmail" placeholder="Email address *" class="con-input">
+                <span id="emailError" class="con-error-message"></span>
+              </div>
+              <div class="con-form-group">
+                <input type="text" id="conSubject" placeholder="Subject" class="con-input">
+              </div>
+              <div class="con-form-group">
+                <textarea id="conMessage" placeholder="Your message *" class="con-input con-textarea"></textarea>
+                <span id="messageError" class="con-error-message"></span>
+              </div>
+              <div class="con-form-group">
+                <button type="button" class="con-btn" style="width: 100%;" onclick="validateContactForm()">Send message</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 3: Google Maps Embed (exactly like your reference) -->
+    <div class="con-map-section" data-aos="zoom-in-up" data-aos-duration="900">
+      <div class="map-container">
+        <iframe 
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.086537302512!2d-122.4214!3d37.7749!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085809c5c3f3f3f%3A0x4f3f3f3f3f3f3f3f!2sMission%20Bay%2C%20San%20Francisco%2C%20CA!5e0!3m2!1sen!2sus!4v1620000000000!5m2!1sen!2sus" 
+          allowfullscreen="" 
+          loading="lazy">
+        </iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER PLACEHOLDER - Footer will load here -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    // ===== AOS INITIALIZATION =====
+    AOS.init({
+      once: false,
+      mirror: true,
+      duration: 900,
+      offset: 20,
+      easing: 'ease-out-cubic'
+    });
+
+    // ===== HEADER & FOOTER LOADER =====
+    document.addEventListener('DOMContentLoaded', function() {
+      // Function to set body padding based on header height
+      function setBodyPadding() {
+        const header = document.querySelector('header');
+        if (header) {
+          const headerHeight = header.offsetHeight;
+          document.body.style.paddingTop = headerHeight + 'px';
+        } else {
+          document.body.style.paddingTop = '0px';
+        }
+      }
+
+      // Load header
+      fetch('header1.html')
+        .then(response => {
+          if (!response.ok) throw new Error('Header file not found');
+          return response.text();
+        })
+        .then(data => {
+          document.getElementById('header-placeholder').innerHTML = data;
+          // Set body padding after header loads
+          setTimeout(() => {
+            setBodyPadding();
+            initHeaderInteractions();
+          }, 100);
+          
+          // Update padding on window resize
+          window.addEventListener('resize', setBodyPadding);
+        })
+        .catch(error => {
+          console.warn('Header could not be loaded:', error);
+          document.getElementById('header-placeholder').innerHTML = 
+            '<div class="fallback-header">Header Not Found</div>';
+          setBodyPadding();
+        });
+
+      // Load footer
+      fetch('footer1.html')
+        .then(response => {
+          if (!response.ok) throw new Error('Footer file not found');
+          return response.text();
+        })
+        .then(data => {
+          document.getElementById('footer-placeholder').innerHTML = data;
+        })
+        .catch(error => {
+          console.warn('Footer could not be loaded:', error);
+          document.getElementById('footer-placeholder').innerHTML = 
+            '<div class="fallback-footer">Footer Not Found</div>';
+        });
+
+      // Refresh AOS after content loads
+      setTimeout(() => {
+        AOS.refresh();
+      }, 500);
+    });
+
+    // ===== HEADER INTERACTIONS =====
+    function initHeaderInteractions() {
+      const menuToggle = document.getElementById('menuToggle');
+      const navMenu = document.getElementById('navMenu');
+      
+      // Mobile menu toggle
+      if (menuToggle && navMenu) {
+        menuToggle.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          this.classList.toggle('active');
+          navMenu.classList.toggle('active');
+          
+          if (navMenu.classList.contains('active')) {
+            document.body.style.overflow = 'hidden';
+          } else {
+            document.body.style.overflow = 'auto';
+            document.querySelectorAll('.dropdown-menu').forEach(menu => {
+              menu.classList.remove('show');
+            });
+            document.querySelectorAll('.dropdown-icon').forEach(btn => {
+              btn.classList.remove('active');
+            });
+          }
+        });
+      }
+      
+      // Dropdown functionality
+      document.querySelectorAll('.dropdown-icon').forEach(button => {
+        button.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          const dropdownId = this.getAttribute('data-dropdown');
+          const dropdown = document.getElementById(dropdownId);
+          
+          if (!dropdown) return;
+          
+          document.querySelectorAll('.dropdown-menu').forEach(menu => {
+            if (menu.id !== dropdownId) {
+              menu.classList.remove('show');
+            }
+          });
+          document.querySelectorAll('.dropdown-icon').forEach(btn => {
+            if (btn !== this) {
+              btn.classList.remove('active');
+            }
+          });
+          
+          dropdown.classList.toggle('show');
+          this.classList.toggle('active');
+        });
+      });
+      
+      // Close dropdowns when clicking outside
+      document.addEventListener('click', function(e) {
+        if (!e.target.closest('.nav-item-with-dropdown')) {
+          document.querySelectorAll('.dropdown-menu').forEach(menu => {
+            menu.classList.remove('show');
+          });
+          document.querySelectorAll('.dropdown-icon').forEach(btn => {
+            btn.classList.remove('active');
+          });
+        }
+      });
+      
+      // Close mobile menu when clicking on a link
+      document.querySelectorAll('.nav-menu a').forEach(link => {
+        link.addEventListener('click', function() {
+          if (window.innerWidth <= 768) {
+            if (menuToggle) menuToggle.classList.remove('active');
+            if (navMenu) navMenu.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            
+            document.querySelectorAll('.dropdown-menu').forEach(menu => {
+              menu.classList.remove('show');
+            });
+            document.querySelectorAll('.dropdown-icon').forEach(btn => {
+              btn.classList.remove('active');
+            });
+          }
+        });
+      });
+      
+      // Handle window resize
+      window.addEventListener('resize', function() {
+        if (window.innerWidth > 768) {
+          if (menuToggle) menuToggle.classList.remove('active');
+          if (navMenu) navMenu.classList.remove('active');
+          document.body.style.overflow = 'auto';
+          
+          document.querySelectorAll('.dropdown-menu').forEach(menu => {
+            menu.classList.remove('show');
+          });
+          document.querySelectorAll('.dropdown-icon').forEach(btn => {
+            btn.classList.remove('active');
+          });
+        }
+      });
+    }
+
+
+    // ===== FORM VALIDATION =====
+    window.validateContactForm = function() {
+      const name = document.getElementById('conName');
+      const email = document.getElementById('conEmail');
+      const message = document.getElementById('conMessage');
+      
+      const nameError = document.getElementById('nameError');
+      const emailError = document.getElementById('emailError');
+      const messageError = document.getElementById('messageError');
+      
+      let isValid = true;
+
+      // Name validation (letters only)
+      const nameRegex = /^[A-Za-z\s]+$/;
+      if (!name.value.trim()) {
+        nameError.textContent = 'Name is required';
+        name.classList.add('error');
+        isValid = false;
+      } else if (!nameRegex.test(name.value)) {
+        nameError.textContent = 'Name can only contain letters';
+        name.classList.add('error');
+        isValid = false;
+      } else {
+        nameError.textContent = '';
+        name.classList.remove('error');
+      }
+
+      // Email validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!email.value.trim()) {
+        emailError.textContent = 'Email is required';
+        email.classList.add('error');
+        isValid = false;
+      } else if (!emailRegex.test(email.value)) {
+        emailError.textContent = 'Please enter a valid email address';
+        email.classList.add('error');
+        isValid = false;
+      } else {
+        emailError.textContent = '';
+        email.classList.remove('error');
+      }
+
+      // Message validation
+      if (!message.value.trim()) {
+        messageError.textContent = 'Message is required';
+        message.classList.add('error');
+        isValid = false;
+      } else {
+        messageError.textContent = '';
+        message.classList.remove('error');
+      }
+
+      if (isValid) {
+        window.location.href = '404.html';
+      }
+    };
+  </script>
+</body>
+</html>

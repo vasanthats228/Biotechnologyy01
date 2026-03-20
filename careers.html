@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>Biotechnology · Careers</title>
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts: Inter + Outfit -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&family=Outfit:wght@300..700&display=swap" rel="stylesheet">
+  <!-- AOS for scroll animations -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    /* ----- SAME COLOR PALETTE ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', 'Outfit', sans-serif;
+      background: #f5fbfe;
+      color: #0a2647;
+      overflow-x: hidden;
+      width: 100%;
+      line-height: 1.6;
+      padding-top: 0;
+      transition: padding-top 0.3s ease;
+    }
+
+    .careers-page {
+      width: 100%;
+    }
+
+    .car-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 6rem 1.5rem;
+      width: 100%;
+    }
+
+    .car-title {
+      font-size: clamp(2.4rem, 5vw, 3.5rem);
+      font-weight: 700;
+      color: #0a2647;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+
+    /* buttons */
+    .car-btn {
+      display: inline-block;
+      background: #4aa3a2;
+      color: white !important;
+      font-weight: 600;
+      padding: 1rem 2.8rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-size: 1rem;
+      border: 2px solid transparent;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 20px rgba(74, 163, 162, 0.25);
+      cursor: pointer;
+      margin: 0.5rem 0.5rem 0 0;
+      text-align: center;
+      z-index: 10;
+    }
+
+    .car-btn:hover {
+      background: #2c5f7c;
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 15px 30px rgba(44, 95, 124, 0.3);
+    }
+
+    .car-btn-outline {
+      background: transparent;
+      border: 2px solid #4aa3a2;
+      color: #4aa3a2 !important;
+      box-shadow: none;
+    }
+
+    .car-btn-outline:hover {
+      background: #4aa3a2;
+      color: white !important;
+    }
+
+    .car-btn-light {
+      background: white;
+      color: #0a2647 !important;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    }
+
+    .car-btn-light:hover {
+      background: #cdf0ea;
+    }
+
+    /* ===== 10 UNIQUE SECTIONS ===== */
+
+    /* SECTION 1: HERO - FIXED OVERLAP */
+    .car-hero {
+      background: #0a2647;
+      position: relative;
+      min-height: 100vh;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      color: white;
+      overflow: hidden;
+      margin-top: 0;
+    }
+
+    .car-hero-bg {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 60%;
+      height: 100%;
+      background: url('b10.webp') center/cover;
+      clip-path: polygon(25% 0%, 100% 0%, 100% 100%, 0% 100%);
+      opacity: 0.3;
+      z-index: 1;
+    }
+
+    .car-hero-content {
+      position: relative;
+      z-index: 3;
+      max-width: 700px;
+    }
+
+    .car-hero-badge {
+      background: rgba(74, 163, 162, 0.2);
+      backdrop-filter: blur(8px);
+      padding: 0.6rem 2rem;
+      border-radius: 60px;
+      display: inline-block;
+      margin-bottom: 2rem;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .car-hero-stats {
+      display: flex;
+      gap: 3rem;
+      margin-top: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .car-hero-stat span {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #cdf0ea;
+      display: block;
+    }
+
+    /* SECTION 2: Z-pattern */
+    .car-zigzag {
+      display: flex;
+      flex-direction: column;
+      gap: 4rem;
+    }
+
+    .car-zigzag-item {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .car-zigzag-item:nth-child(even) {
+      direction: rtl;
+    }
+
+    .car-zigzag-img {
+      height: 320px;
+      background-size: cover;
+      background-position: center;
+      border-radius: 40px;
+      box-shadow: 0 25px 40px -20px #0a2647;
+      width: 100%;
+    }
+
+    /* SECTION 3: Ribbon */
+    .car-ribbon-section {
+      background: #f0f9ff;
+    }
+
+    .car-ribbon {
+      position: relative;
+      margin: 4rem 0;
+    }
+
+    .car-ribbon-line {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: #4aa3a2;
+      transform: translateY(-50%);
+      z-index: 1;
+    }
+
+    .car-ribbon-items {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      z-index: 2;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .car-ribbon-item {
+      background: white;
+      padding: 1.2rem 2.2rem;
+      border-radius: 60px;
+      box-shadow: 0 10px 25px -8px #4aa3a2;
+      border: 2px solid #4aa3a2;
+      font-weight: 600;
+    }
+
+    /* SECTION 4: Polaroid */
+    .car-polaroid-wall {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5rem;
+    }
+
+    .car-polaroid {
+      background: white;
+      padding: 1rem 1rem 2rem;
+      box-shadow: 0 20px 35px -15px rgba(10,38,71,0.2);
+      transform: rotate(var(--rot, 0deg));
+      transition: 0.3s;
+      border-radius: 20px;
+      height: 100%;
+    }
+
+    .car-polaroid:nth-child(1) { --rot: -2deg; }
+    .car-polaroid:nth-child(2) { --rot: 3deg; }
+    .car-polaroid:nth-child(3) { --rot: 1deg; }
+
+    .car-polaroid:hover {
+      transform: rotate(0deg) scale(1.02);
+    }
+
+    .car-polaroid img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      border-radius: 15px;
+      margin-bottom: 1.2rem;
+    }
+
+    /* SECTION 5: Comparison */
+    .car-comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+    }
+
+    .car-comp-col {
+      background: white;
+      padding: 3rem;
+      border-radius: 40px;
+      box-shadow: 0 20px 40px -20px #0a2647;
+      height: 100%;
+    }
+
+    .car-comp-col:first-child {
+      background: #0a2647;
+      color: white;
+    }
+
+    .car-comp-col ul {
+      list-style: none;
+      margin: 2rem 0;
+    }
+
+    .car-comp-col li {
+      margin-bottom: 1rem;
+    }
+
+    .car-comp-col i {
+      margin-right: 0.5rem;
+    }
+
+    /* SECTION 6: Stacked cards - FIXED alignment */
+    .car-stack-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      align-items: start;
+    }
+
+    .car-stack-card {
+      background: white;
+      padding: 2.5rem;
+      border-radius: 30px;
+      box-shadow: 0 25px 40px -20px rgba(10,38,71,0.15);
+      transition: 0.4s;
+      border: 1px solid #e0edf5;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .car-stack-card:nth-child(1) { transform: translateY(0); }
+    .car-stack-card:nth-child(2) { transform: translateY(20px); }
+    .car-stack-card:nth-child(3) { transform: translateY(40px); }
+
+    .car-stack-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 35px 50px -20px #4aa3a2;
+      z-index: 10;
+    }
+
+    .car-stack-icon {
+      font-size: 3rem;
+      color: #4aa3a2;
+      margin-bottom: 1.5rem;
+    }
+
+    .car-stack-card .car-btn {
+      margin-top: auto;
+      align-self: flex-start;
+    }
+
+    /* SECTION 7: Bubble benefits */
+    .car-bubble-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+
+    .car-bubble {
+      background: white;
+      padding: 2.5rem 1.5rem;
+      border-radius: 60% 40% 60% 40% / 40% 60% 40% 60%;
+      text-align: center;
+      box-shadow: 0 25px 40px -20px #4aa3a2;
+      transition: 0.3s;
+      height: 100%;
+    }
+
+    .car-bubble:hover {
+      border-radius: 40% 60% 40% 60% / 60% 40% 60% 40%;
+      background: #4aa3a2;
+      color: white;
+    }
+
+    .car-bubble i {
+      font-size: 3rem;
+      color: #4aa3a2;
+      margin-bottom: 1rem;
+    }
+
+    .car-bubble:hover i {
+      color: white;
+    }
+
+    /* SECTION 8: Metro tiles - FIXED alignment */
+    .car-metro-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .car-metro-tile {
+      background: white;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 20px 30px -15px rgba(10,38,71,0.1);
+      transition: 0.3s;
+      border-left: 8px solid #4aa3a2;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      height: 100%;
+    }
+
+    .car-metro-tile:hover {
+      transform: translateX(10px);
+      box-shadow: 0 25px 40px -20px #4aa3a2;
+    }
+
+    .car-metro-number {
+      font-size: 4rem;
+      font-weight: 700;
+      color: #cdf0ea;
+      line-height: 1;
+      min-width: 80px;
+      text-align: center;
+    }
+
+    /* SECTION 9: Location cards */
+    .car-location-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .car-location-card {
+      position: relative;
+      height: 320px;
+      border-radius: 40px;
+      overflow: hidden;
+    }
+
+    .car-location-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: 0.5s;
+    }
+
+    .car-location-card:hover img {
+      transform: scale(1.1);
+    }
+
+    .car-location-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(145deg, #0a2647, transparent);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 2rem;
+    }
+
+    .car-location-overlay .car-btn {
+      margin-top: 1rem;
+      align-self: flex-start;
+    }
+
+    /* SECTION 10: Form - NO ALERT, just prevents */
+    .car-float-form {
+      background: white;
+      border-radius: 60px;
+      padding: 4rem;
+      box-shadow: 0 30px 60px -30px #0a2647;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .car-form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .car-input {
+      padding: 1.2rem;
+      border: 2px solid #e0edf5;
+      border-radius: 60px;
+      font-family: inherit;
+      width: 100%;
+      transition: 0.3s;
+    }
+
+    .car-input:focus {
+      outline: none;
+      border-color: #4aa3a2;
+    }
+
+    .car-input.error {
+      border-color: #e65f5f;
+    }
+
+    /* fallback header/footer */
+    .fallback-header {
+      background: #1e1e2f; 
+      color: white; 
+      padding: 20px; 
+      text-align: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+    .fallback-footer {
+      background: #1a1a2e; 
+      color: white; 
+      padding: 40px; 
+      text-align: center;
+    }
+
+    /* responsive */
+    @media (max-width: 1024px) {
+      .car-bubble-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .car-zigzag-item,
+      .car-comparison,
+      .car-form-grid,
+      .car-polaroid-wall,
+      .car-stack-grid,
+      .car-metro-grid,
+      .car-location-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .car-zigzag-item:nth-child(even) {
+        direction: ltr;
+      }
+
+      .car-ribbon-items {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .car-ribbon-line {
+        display: none;
+      }
+
+      .car-float-form {
+        padding: 2rem;
+      }
+
+      .car-metro-tile {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .car-stack-card:nth-child(2),
+      .car-stack-card:nth-child(3) {
+        transform: translateY(0);
+      }
+
+      .car-hero-bg {
+        width: 100%;
+        clip-path: none;
+        opacity: 0.2;
+      }
+      
+      .car-bubble-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding-top: 0;
+      }
+      
+      .car-container {
+        padding: 4rem 1rem;
+      }
+      
+      .car-hero {
+        min-height: 100vh;
+      }
+      
+      .car-hero-stats {
+        gap: 1.5rem;
+        justify-content: center;
+      }
+
+      .car-hero-stat span {
+        font-size: 2rem;
+      }
+
+      .car-zigzag-img {
+        height: 240px;
+      }
+      
+      .car-stack-card {
+        padding: 1.5rem;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .car-btn {
+        width: 100%;
+        margin: 0.5rem 0;
+        padding: 0.8rem 1.5rem;
+      }
+
+      .car-hero-content {
+        text-align: center;
+      }
+      
+      .car-hero-stats {
+        justify-content: center;
+      }
+      
+      .car-bubble-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .car-location-grid {
+        gap: 1rem;
+      }
+      
+      .car-location-card {
+        height: 280px;
+      }
+    }
+
+    html, body {
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER PLACEHOLDER - Header will load here -->
+<div id="header-placeholder"></div>
+
+  <div class="careers-page">
+    <!-- SECTION 1: HERO - FIXED -->
+    <section class="car-hero">
+      <div class="car-hero-bg"></div>
+      <div class="car-container">
+        <div class="car-hero-content">
+          <div class="car-hero-badge" data-aos="fade-down">🚀 JOIN OUR MISSION</div>
+          <h1 class="car-title" style="color: white;" data-aos="fade-up" data-aos-delay="100">Shape the future<br>of biotechnology</h1>
+          <p style="font-size: 1.3rem; margin-bottom: 2rem;" data-aos="fade-up" data-aos-delay="200">We're looking for passionate scientists, engineers, and innovators to solve humanity's toughest challenges.</p>
+          <div data-aos="fade-up" data-aos-delay="300">
+            <a href="404.html" class="car-btn">View openings</a>
+            <a href="404.html" class="car-btn car-btn-light">Our culture</a>
+          </div>
+          <div class="car-hero-stats" data-aos="fade-up" data-aos-delay="400">
+            <div class="car-hero-stat"><span id="statEmployees">320</span> employees</div>
+            <div class="car-hero-stat"><span id="statTeams">28</span> teams</div>
+            <div class="car-hero-stat"><span id="statLabs">12</span> labs</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: Z-pattern -->
+    <section>
+      <div class="car-container">
+        <h2 class="car-title" data-aos="fade-down">Why join us?</h2>
+        <div class="car-zigzag">
+          <div class="car-zigzag-item" data-aos="fade-right">
+            <div>
+              <h3>Impactful science</h3>
+              <p style="margin: 1rem 0 1.5rem;">Work on therapies that reach patients, from rare diseases to global health challenges.</p>
+              <a href="404.html" class="car-btn car-btn-outline">Learn more</a>
+            </div>
+            <div class="car-zigzag-img" style="background-image: url('b11.webp')"></div>
+          </div>
+          <div class="car-zigzag-item" data-aos="fade-left">
+            <div>
+              <h3>World-class facilities</h3>
+              <p style="margin: 1rem 0 1.5rem;">$50M+ equipment, 24/7 access, and dedicated maker spaces.</p>
+              <a href="404.html" class="car-btn car-btn-outline">Take a tour</a>
+            </div>
+            <div class="car-zigzag-img" style="background-image: url('b12.webp')"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: Ribbon -->
+    <section class="car-ribbon-section">
+      <div class="car-container">
+        <h2 class="car-title" data-aos="fade-down">Your career journey</h2>
+        <div class="car-ribbon">
+          <div class="car-ribbon-line"></div>
+          <div class="car-ribbon-items">
+            <div class="car-ribbon-item" data-aos="zoom-in">Onboarding</div>
+            <div class="car-ribbon-item" data-aos="zoom-in" data-aos-delay="100">Mentorship</div>
+            <div class="car-ribbon-item" data-aos="zoom-in" data-aos-delay="200">Lead projects</div>
+            <div class="car-ribbon-item" data-aos="zoom-in" data-aos-delay="300">Publish</div>
+            <div class="car-ribbon-item" data-aos="zoom-in" data-aos-delay="400">Promotion</div>
+          </div>
+        </div>
+        <div style="text-align: center; margin-top: 3rem;">
+          <a href="404.html" class="car-btn">See growth paths</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: Polaroid -->
+    <section>
+      <div class="car-container">
+        <h2 class="car-title" data-aos="fade-down">Life at NovaBiotech</h2>
+        <div class="car-polaroid-wall">
+          <div class="car-polaroid" data-aos="flip-left">
+            <img src="b13.webp" alt="team">
+            <h4>Team retreats</h4>
+          </div>
+          <div class="car-polaroid" data-aos="flip-left" data-aos-delay="100">
+            <img src="b14.webp" alt="lab">
+            <h4>State-of-the-art labs</h4>
+          </div>
+          <div class="car-polaroid" data-aos="flip-left" data-aos-delay="200">
+            <img src="b15.webp" alt="events">
+            <h4>Hackathons & events</h4>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: Comparison -->
+    <section style="background: #f0f9ff;">
+      <div class="car-container">
+        <h2 class="car-title" data-aos="fade-down">Why choose us?</h2>
+        <div class="car-comparison">
+          <div class="car-comp-col" data-aos="fade-right">
+            <h3 style="color: white;">NovaBiotech</h3>
+            <ul>
+              <li><i class="fas fa-check" style="color: #4aa3a2;"></i> Publish openly</li>
+              <li><i class="fas fa-check" style="color: #4aa3a2;"></i> $5k learning stipend</li>
+              <li><i class="fas fa-check" style="color: #4aa3a2;"></i> 6% 401k match</li>
+              <li><i class="fas fa-check" style="color: #4aa3a2;"></i> Unlimited PTO</li>
+            </ul>
+            <a href="404.html" class="car-btn">View benefits</a>
+          </div>
+          <div class="car-comp-col" data-aos="fade-left">
+            <h3>Industry average</h3>
+            <ul>
+              <li><i class="fas fa-times" style="color: #e65f5f;"></i> Restricted publication</li>
+              <li><i class="fas fa-times" style="color: #e65f5f;"></i> $1k stipend</li>
+              <li><i class="fas fa-times" style="color: #e65f5f;"></i> 3% match</li>
+              <li><i class="fas fa-times" style="color: #e65f5f;"></i> 2 weeks PTO</li>
+            </ul>
+            <a href="404.html" class="car-btn car-btn-outline">Compare</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: Stacked cards - FIXED alignment -->
+    <section>
+      <div class="car-container">
+        <h2 class="car-title" data-aos="fade-down">Departments hiring</h2>
+        <div class="car-stack-grid">
+          <div class="car-stack-card" data-aos="fade-up">
+            <i class="fas fa-dna car-stack-icon"></i>
+            <h3>R&D</h3>
+            <p style="margin: 1rem 0 2rem;">12 openings in gene editing, cell therapy, and protein engineering.</p>
+            <a href="404.html" class="car-btn car-btn-outline">Explore</a>
+          </div>
+          <div class="car-stack-card" data-aos="fade-up" data-aos-delay="100">
+            <i class="fas fa-microscope car-stack-icon"></i>
+            <h3>Engineering</h3>
+            <p style="margin: 1rem 0 2rem;">8 openings in bioprocess, automation, and fermentation.</p>
+            <a href="404.html" class="car-btn car-btn-outline">Explore</a>
+          </div>
+          <div class="car-stack-card" data-aos="fade-up" data-aos-delay="200">
+            <i class="fas fa-robot car-stack-icon"></i>
+            <h3>Bioinformatics</h3>
+            <p style="margin: 1rem 0 2rem;">5 openings in ML, multi-omics, and software development.</p>
+            <a href="404.html" class="car-btn car-btn-outline">Explore</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 7: Bubble benefits -->
+    <section style="background: #f0f9ff;">
+      <div class="car-container">
+        <h2 class="car-title" data-aos="fade-down">Benefits & perks</h2>
+        <div class="car-bubble-grid">
+          <div class="car-bubble" data-aos="zoom-in"><i class="fas fa-heart"></i><h4>Health</h4></div>
+          <div class="car-bubble" data-aos="zoom-in" data-aos-delay="100"><i class="fas fa-piggy-bank"></i><h4>401k match</h4></div>
+          <div class="car-bubble" data-aos="zoom-in" data-aos-delay="200"><i class="fas fa-graduation-cap"></i><h4>$5k learning</h4></div>
+          <div class="car-bubble" data-aos="zoom-in" data-aos-delay="300"><i class="fas fa-umbrella-beach"></i><h4>Flexible PTO</h4></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 8: Metro tiles - FIXED alignment -->
+    <section>
+      <div class="car-container">
+        <h2 class="car-title" data-aos="fade-down">Hiring process</h2>
+        <div class="car-metro-grid">
+          <div class="car-metro-tile" data-aos="fade-right">
+            <div class="car-metro-number">01</div>
+            <div><h3>Apply</h3><p>Submit your resume</p></div>
+          </div>
+          <div class="car-metro-tile" data-aos="fade-right" data-aos-delay="100">
+            <div class="car-metro-number">02</div>
+            <div><h3>Intro call</h3><p>30-min chat</p></div>
+          </div>
+          <div class="car-metro-tile" data-aos="fade-right" data-aos-delay="200">
+            <div class="car-metro-number">03</div>
+            <div><h3>Technical</h3><p>With team lead</p></div>
+          </div>
+          <div class="car-metro-tile" data-aos="fade-right" data-aos-delay="300">
+            <div class="car-metro-number">04</div>
+            <div><h3>Offer</h3><p>Welcome!</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 9: Location cards -->
+    <section style="background: #f0f9ff;">
+      <div class="car-container">
+        <h2 class="car-title" data-aos="fade-down">Our locations</h2>
+        <div class="car-location-grid">
+          <div class="car-location-card" data-aos="flip-left">
+            <img src="b3.webp" alt="SF">
+            <div class="car-location-overlay">
+              <h3>San Francisco</h3>
+              <p>HQ · 200+ employees</p>
+              <a href="404.html" class="car-btn car-btn-light">Openings</a>
+            </div>
+          </div>
+          <div class="car-location-card" data-aos="flip-left" data-aos-delay="100">
+            <img src="b2.webp" alt="Boston">
+            <div class="car-location-overlay">
+              <h3>Boston</h3>
+              <p>R&D · 80+ employees</p>
+              <a href="404.html" class="car-btn car-btn-light">Openings</a>
+            </div>
+          </div>
+          <div class="car-location-card" data-aos="flip-left" data-aos-delay="200">
+            <img src="b1.webp" alt="Heidelberg">
+            <div class="car-location-overlay">
+              <h3>Heidelberg</h3>
+              <p>European lab · 40+ employees</p>
+              <a href="404.html" class="car-btn car-btn-light">Openings</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 10: Form - NO ALERT, strict letter-only validation -->
+    <section>
+      <div class="car-container">
+        <div class="car-float-form" data-aos="flip-up">
+          <h2 class="car-title" style="text-align: center;">Don't see the right role?</h2>
+          <p style="text-align: center; margin-bottom: 2rem;">Send us your details and we'll keep you in mind.</p>
+          <form id="careerForm" onsubmit="return false;">
+            <div class="car-form-grid">
+              <input type="text" id="name" placeholder="Your name *" class="car-input" 
+                     onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || event.charCode === 32"
+                     onpaste="return false" ondrop="return false">
+              <input type="email" id="email" placeholder="Email *" class="car-input" required>
+              <input type="text" id="role" placeholder="Role interested in" class="car-input">
+              <button type="button" class="car-btn" style="width: 100%;" onclick="validateAndRedirect()">Send application</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- FOOTER PLACEHOLDER - Footer will load here -->
+<div id="footer-placeholder"></div>
+
+  <!-- AOS and validation -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    // ===== HEADER & FOOTER LOADER =====
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: false,
+            mirror: true,
+            offset: 50,
+            easing: 'ease-in-out'
+        });
+
+        // Function to set body padding based on header height
+        function setBodyPadding() {
+            const header = document.querySelector('header');
+            if (header) {
+                const headerHeight = header.offsetHeight;
+                document.body.style.paddingTop = headerHeight + 'px';
+            } else {
+                document.body.style.paddingTop = '0px';
+            }
+        }
+
+        // Load header
+        fetch('header1.html')
+            .then(response => {
+                if (!response.ok) throw new Error('Header file not found');
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('header-placeholder').innerHTML = data;
+                // Set body padding after header loads
+                setTimeout(() => {
+                    setBodyPadding();
+                    initHeaderInteractions();
+                }, 100);
+                
+                // Update padding on window resize
+                window.addEventListener('resize', setBodyPadding);
+            })
+            .catch(error => {
+                console.warn('Header could not be loaded:', error);
+                document.getElementById('header-placeholder').innerHTML = 
+                    '<div class="fallback-header">Header Not Found</div>';
+                setBodyPadding();
+            });
+
+        // Load footer
+        fetch('footer1.html')
+            .then(response => {
+                if (!response.ok) throw new Error('Footer file not found');
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('footer-placeholder').innerHTML = data;
+            })
+            .catch(error => {
+                console.warn('Footer could not be loaded:', error);
+                document.getElementById('footer-placeholder').innerHTML = 
+                    '<div class="fallback-footer">Footer Not Found</div>';
+            });
+
+        // Refresh AOS after content loads
+        setTimeout(() => {
+            AOS.refresh();
+        }, 500);
+    });
+
+    // ===== HEADER INTERACTIONS (Hamburger Menu, Dropdowns, etc.) =====
+    function initHeaderInteractions() {
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+        
+        // Mobile menu toggle (hamburger)
+        if (menuToggle && navMenu) {
+            menuToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                this.classList.toggle('active');
+                navMenu.classList.toggle('active');
+                
+                // Prevent body scroll when mobile menu is open
+                if (navMenu.classList.contains('active')) {
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    document.body.style.overflow = 'auto';
+                    // Close all dropdowns when closing mobile menu
+                    document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                        menu.classList.remove('show');
+                    });
+                    document.querySelectorAll('.dropdown-icon').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                }
+            });
+        }
+        
+        // Dropdown functionality (for desktop and mobile)
+        document.querySelectorAll('.dropdown-icon').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const dropdownId = this.getAttribute('data-dropdown');
+                const dropdown = document.getElementById(dropdownId);
+                
+                if (!dropdown) return;
+                
+                // Close other dropdowns
+                document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                    if (menu.id !== dropdownId) {
+                        menu.classList.remove('show');
+                    }
+                });
+                document.querySelectorAll('.dropdown-icon').forEach(btn => {
+                    if (btn !== this) {
+                        btn.classList.remove('active');
+                    }
+                });
+                
+                // Toggle current dropdown
+                dropdown.classList.toggle('show');
+                this.classList.toggle('active');
+            });
+        });
+        
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.nav-item-with-dropdown')) {
+                document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                    menu.classList.remove('show');
+                });
+                document.querySelectorAll('.dropdown-icon').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+            }
+        });
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', function() {
+                if (window.innerWidth <= 768) {
+                    if (menuToggle) menuToggle.classList.remove('active');
+                    if (navMenu) navMenu.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                    
+                    // Close all dropdowns
+                    document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                        menu.classList.remove('show');
+                    });
+                    document.querySelectorAll('.dropdown-icon').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                }
+            });
+        });
+        
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                // Reset mobile menu state on desktop
+                if (menuToggle) menuToggle.classList.remove('active');
+                if (navMenu) navMenu.classList.remove('active');
+                document.body.style.overflow = 'auto';
+                
+                // Close all dropdowns
+                document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                    menu.classList.remove('show');
+                });
+                document.querySelectorAll('.dropdown-icon').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+            }
+        });
+    }
+
+    // ===== BACK TO TOP BUTTON =====
+    const backToTop = document.getElementById('backToTop');
+    
+    if (backToTop) {
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 500) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+        });
+
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+
+    // ===== NUMBER ANIMATION AND FORM VALIDATION =====
+    (function() {
+      // Number animation
+      const employees = document.getElementById('statEmployees');
+      const teams = document.getElementById('statTeams');
+      const labs = document.getElementById('statLabs');
+      
+      setInterval(() => {
+        if(employees) employees.innerText = Math.floor(Math.random() * (350 - 300 + 1)) + 300;
+        if(teams) teams.innerText = Math.floor(Math.random() * (32 - 24 + 1)) + 24;
+        if(labs) labs.innerText = Math.floor(Math.random() * (15 - 10 + 1)) + 10;
+      }, 3000);
+
+      // Validation function - no alerts
+      window.validateAndRedirect = function() {
+        const name = document.getElementById('name');
+        const email = document.getElementById('email');
+        let isValid = true;
+
+        // Name validation: only letters (already prevented by onkeypress)
+        const nameRegex = /^[A-Za-z\s]+$/;
+        if (!name.value.trim() || !nameRegex.test(name.value)) {
+          name.classList.add('error');
+          isValid = false;
+        } else {
+          name.classList.remove('error');
+        }
+
+        // Email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email.value)) {
+          email.classList.add('error');
+          isValid = false;
+        } else {
+          email.classList.remove('error');
+        }
+
+        if (isValid) {
+          window.location.href = '404.html';
+        }
+      };
+    })();
+  </script>
+</body>
+</html>

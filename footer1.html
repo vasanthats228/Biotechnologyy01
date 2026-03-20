@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>BioTech Hub · Footer</title>
+    <!-- Font Awesome & Google Fonts (same as header) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: #f5f9ff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ----- BIOTECH FOOTER (matches header dark tone & accents) ----- */
+        .biotech-footer {
+            background: #0a1c2c;       /* same as main-nav background */
+            color: #e6f0fa;
+            border-top: 1px solid #1f3b4e;
+            padding: 50px 0 20px;
+            font-family: 'Inter', sans-serif;
+            width: 100%;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        /* main grid */
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.8fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        /* company intro */
+        .footer-about {
+            max-width: 360px;
+        }
+
+        .footer-logo {
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .footer-logo img {
+            height: 68px;
+            width: auto;
+            max-width: 170px;
+            display: block;
+            filter: brightness(1.05); /* keeps logo visible on dark */
+        }
+
+        .footer-about p {
+            color: #bdd6ec;
+            line-height: 1.7;
+            margin-bottom: 25px;
+            font-size: 15px;
+        }
+
+        /* social icons (circular, teal accent on hover) */
+        .footer-social {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            background: #1f3b4e;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #d6e6f5;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            border: 1px solid #3e5e7a;
+            font-size: 18px;
+        }
+
+        .footer-social a:hover {
+            background: #0e6b56;       /* biotech green-teal */
+            color: white;
+            transform: translateY(-4px);
+            border-color: #0e6b56;
+            box-shadow: 0 8px 18px rgba(14,107,86,0.3);
+        }
+
+        /* footer headings (no underline) */
+        .biotech-footer h3 {
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 22px;
+            letter-spacing: 0.3px;
+        }
+
+        /* link columns */
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 14px;
+        }
+
+        .footer-links a {
+            color: #bdd6ec;
+            text-decoration: none;
+            font-size: 15px;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-links a:hover {
+            color: #62c5b2;        /* lighter teal */
+            transform: translateX(5px);
+        }
+
+        .footer-links a i {
+            font-size: 12px;
+            color: #1f9a8a;        /* getstarted color */
+        }
+
+        /* contact column */
+        .footer-contact .contact-item {
+            display: flex;
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        .footer-contact .contact-item i {
+            color: #1f9a8a;
+            font-size: 16px;
+            margin-top: 4px;
+            min-width: 22px;
+        }
+
+        .footer-contact .contact-item p,
+        .footer-contact .contact-item a {
+            color: #bdd6ec;
+            font-size: 14px;
+            line-height: 1.6;
+            text-decoration: none;
+        }
+
+        .footer-contact .contact-item a:hover {
+            color: #62c5b2;
+        }
+
+        /* stats / bio badge */
+        .biobadge {
+            background: rgba(14,107,86,0.12);
+            border: 1px solid #1f9a8a;
+            border-radius: 16px;
+            padding: 18px 16px;
+            margin-top: 20px;
+            backdrop-filter: blur(2px);
+        }
+
+        .biobadge p {
+            margin-bottom: 6px;
+            font-weight: 500;
+            color: white;
+        }
+
+        .biobadge .highlight {
+            color: #5ed9c5;
+            font-weight: 700;
+            font-size: 22px;
+            margin-right: 4px;
+        }
+
+        .biobadge small {
+            color: #9bb7d4;
+            font-size: 12px;
+            display: block;
+            margin-top: 8px;
+        }
+
+        /* newsletter section (full width inside grid) */
+        .footer-newsletter {
+            grid-column: 1 / -1;
+            background: #102a3c;          /* slightly lighter than footer */
+            border-radius: 24px;
+            padding: 30px 35px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+            border: 1px solid #2b4b66;
+            margin-top: 10px;
+        }
+
+        .newsletter-text h4 {
+            color: white;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .newsletter-text p {
+            color: #bdd6ec;
+            font-size: 15px;
+        }
+
+        .newsletter-form {
+            min-width: 360px;
+            flex: 1;
+            max-width: 500px;
+        }
+
+        .input-group {
+            display: flex;
+            align-items: center;
+            background: #1c3b50;
+            border-radius: 60px;
+            padding: 4px 4px 4px 20px;
+            border: 1px solid #3f6280;
+            transition: 0.2s;
+        }
+
+        .input-group:focus-within {
+            border-color: #1f9a8a;
+            box-shadow: 0 0 0 2px rgba(31,154,138,0.25);
+        }
+
+        .input-group i {
+            color: #62c5b2;
+            font-size: 16px;
+        }
+
+        .input-group input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 14px 12px;
+            color: white;
+            font-size: 15px;
+            outline: none;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .input-group input::placeholder {
+            color: #7b9aba;
+        }
+
+        .input-group button {
+            background: #1f9a8a;      /* getstarted teal */
+            border: none;
+            color: white;
+            font-weight: 600;
+            padding: 10px 28px;
+            border-radius: 40px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.2s ease;
+            white-space: nowrap;
+            letter-spacing: 0.3px;
+        }
+
+        .input-group button:hover {
+            background: #0e7b6e;
+            transform: scale(1.02);
+            box-shadow: 0 6px 16px rgba(14,107,86,0.5);
+        }
+
+        /* footer bottom */
+        .footer-bottom {
+            border-top: 1px solid #1f3b4e;
+            padding-top: 28px;
+            margin-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .footer-bottom p {
+            color: #9bb7d4;
+            font-size: 13px;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .footer-legal a {
+            color: #9bb7d4;
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.2s;
+        }
+
+        .footer-legal a:hover {
+            color: #62c5b2;
+        }
+
+        /* responsive */
+        @media (max-width: 1100px) {
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 35px;
+            }
+            .footer-about {
+                grid-column: span 2;
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .footer-container {
+                padding: 0 20px;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer-about {
+                grid-column: span 1;
+            }
+            .footer-newsletter {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 25px;
+            }
+            .newsletter-form {
+                width: 100%;
+                min-width: auto;
+            }
+            .input-group {
+                flex-wrap: wrap;
+                background: transparent;
+                padding: 0;
+                gap: 12px;
+            }
+            .input-group i {
+                display: none;
+            }
+            .input-group input {
+                background: #1c3b50;
+                border-radius: 60px;
+                padding: 15px 20px;
+                width: 100%;
+                border: 1px solid #3f6280;
+            }
+            .input-group button {
+                width: 100%;
+                padding: 15px;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+            .footer-legal {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-container {
+                padding: 0 15px;
+            }
+            .footer-logo img {
+                height: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- === BIOTECH FOOTER (matching header dark theme & teal accents) === -->
+    <footer class="biotech-footer">
+        <div class="footer-container">
+
+            <!-- main grid -->
+            <div class="footer-grid">
+                <!-- Column 1: logo + about + social -->
+                <div class="footer-about">
+                    <a href="home1.html" class="footer-logo">
+                        <!-- using same logo2.webp as header (Stackly biotech) -->
+                        <img src="logo2.webp" alt="Stackly BioTech" onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'170\' height=\'68\' viewBox=\'0 0 170 68\'%3E%3Crect width=\'170\' height=\'68\' fill=\'%230a1c2c\'/%3E%3Ctext x=\'24\' y=\'44\' fill=\'%231f9a8a\' font-size=\'34\' font-weight=\'700\'%3ESTACKLY%3C/text%3E%3Ctext x=\'24\' y=\'64\' fill=\'%23bdd6ec\' font-size=\'16\'%3Ebiotech%3C/text%3E%3C/svg%3E';">
+                    </a>
+                    <p>Advancing life sciences through CRISPR, synthetic biology, and bio‑data AI. We bridge research and real‑world impact.</p>
+                    <div class="footer-social">
+                        <a href="404.html" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="404.html" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="404.html" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="404.html" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="404.html" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+
+                <!-- Column 2: Quick links (similar to header) -->
+                <div class="footer-links">
+                    <h3>Explore</h3>
+                    <ul>
+                        <li><a href="home1.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="research.html"><i class="fas fa-chevron-right"></i> Research</a></li>
+                        <li><a href="innovation.html"><i class="fas fa-chevron-right"></i> Innovation</a></li>
+                        <li><a href="careers.html"><i class="fas fa-chevron-right"></i> Careers</a></li>
+                        <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                        <li><a href="login.html"><i class="fas fa-chevron-right"></i> Login</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: resources & deep tech -->
+                <div class="footer-links">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="crispr.html"><i class="fas fa-chevron-right"></i> CRISPR Gene Editing</a></li>
+                        <li><a href="404.html"><i class="fas fa-chevron-right"></i> Synthetic Biology</a></li>
+                        <li><a href="404.html"><i class="fas fa-chevron-right"></i> Bio‑Data AI</a></li>
+                        <li><a href="bioprocess.html"><i class="fas fa-chevron-right"></i> Bioprocess Eng.</a></li>
+                        <li><a href="404.html"><i class="fas fa-chevron-right"></i> Protocol Library</a></li>
+                        <li><a href="404.html"><i class="fas fa-chevron-right"></i> White papers</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: contact & biotech badge -->
+                <div class="footer-contact">
+                    <h3>Connect</h3>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <p>BioInnovation Park, Cambridge<br>MA 02142, United States</p>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <p><a href="tel:+12222281525">+1 (222) 228-1525</a></p>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <p><a href="mailto:info@biotechhub.com">info@biotechhub.com</a></p>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <p>Mon–Fri · 9:00 – 18:00 EST</p>
+                    </div>
+
+                    <!-- badge : latest bio stats -->
+                    <div class="biobadge">
+                        <p><span class="highlight">180+</span> active R&D projects</p>
+                        <p><span class="highlight">47</span> patents filed in 2025</p>
+                        <small>weekly bio‑informatics updates</small>
+                    </div>
+                </div>
+            </div> <!-- end footer-grid -->
+
+            <!-- Newsletter section (biotech alert) -->
+            <div class="footer-newsletter">
+                <div class="newsletter-text">
+                    <h4>Get biotech insights</h4>
+                    <p>Latest on gene editing, synbio & funding opportunities</p>
+                </div>
+                <form class="newsletter-form" action="404.html" method="GET">
+                    <div class="input-group">
+                        <i class="fas fa-dna"></i>
+                        <input type="email" placeholder="Your work email" required>
+                        <button type="submit">Subscribe</button>
+                    </div>
+                    <p style="font-size:12px; color:#7fa3c2; margin-top:10px;">We respect your data — read our <a href="404.html" style="color:#62c5b2; text-decoration: none;">Privacy notice</a></p>
+                </form>
+            </div>
+
+            <!-- footer bottom -->
+            <div class="footer-bottom">
+                <p>© 2026 Stackly BioTech Hub. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="404.html">Privacy</a>
+                    <a href="404.html">Terms</a>
+                    <a href="404.html">Cookies</a>
+                    <a href="404.html">Sitemap</a>
+                    <a href="404.html">Your choices</a>
+                </div>
+            </div>
+        </div> <!-- end footer-container -->
+    </footer>
+
+    <!-- tiny script for logo fallback (same as header style) -->
+    <script>
+        (function() {
+            const footerLogo = document.querySelector('.footer-logo img');
+            if (footerLogo) {
+                footerLogo.addEventListener('error', function() {
+                    // already handled by onerror attr, but ensure visibility
+                    this.style.display = 'block';
+                });
+            }
+            // optional: prevent newsletter form from actually navigating (if needed)
+            const newsForm = document.querySelector('.footer-newsletter form');
+            if (newsForm) {
+                newsForm.addEventListener('submit', function(e) {
+                    // it's fine, goes to 404.html (placeholder)
+                });
+            }
+        })();
+    </script>
+</body>
+</html>

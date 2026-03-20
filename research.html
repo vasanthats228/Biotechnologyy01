@@ -1,0 +1,1791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>Biotechnology · Research</title>
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts: Inter + Outfit -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&family=Outfit:wght@300..700&display=swap" rel="stylesheet">
+  <!-- AOS for scroll animations -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    /* ----- RESEARCH PAGE COLOR PALETTE (Biotech themed) ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', 'Outfit', sans-serif;
+      background: #f8fcff;
+      color: #0a2a44;
+      overflow-x: hidden;
+      width: 100%;
+      line-height: 1.6;
+      padding-top: 0;
+      transition: padding-top 0.3s ease;
+    }
+
+    .research-page {
+      width: 100%;
+    }
+
+    .res-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 6rem 1.5rem;
+      width: 100%;
+    }
+
+    .res-title {
+      font-size: clamp(2.4rem, 5vw, 3.5rem);
+      font-weight: 700;
+      color: #0a2a44;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+      text-align: left;
+    }
+
+    .res-title-center {
+      text-align: center;
+    }
+
+    .res-subtitle {
+      font-size: 1.2rem;
+      color: #4a6a8a;
+      max-width: 800px;
+      margin-bottom: 3rem;
+      text-align: left;
+    }
+
+    .res-subtitle-center {
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* buttons - neatly aligned */
+    .res-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #2a7a7a;
+      color: white !important;
+      font-weight: 600;
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-size: 1rem;
+      border: 2px solid transparent;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 20px rgba(42, 122, 122, 0.25);
+      cursor: pointer;
+      margin: 0.5rem 0.5rem 0 0;
+      text-align: center;
+      z-index: 10;
+      min-width: 180px;
+      white-space: nowrap;
+    }
+
+    .res-btn i {
+      margin-right: 8px;
+    }
+
+    .res-btn:hover {
+      background: #1d5a7a;
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 15px 30px rgba(29, 90, 122, 0.3);
+    }
+
+    .res-btn-outline {
+      background: transparent;
+      border: 2px solid #2a7a7a;
+      color: #2a7a7a !important;
+      box-shadow: none;
+    }
+
+    .res-btn-outline:hover {
+      background: #2a7a7a;
+      color: white !important;
+    }
+
+    .res-btn-light {
+      background: white;
+      color: #0a2a44 !important;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    }
+
+    .res-btn-light:hover {
+      background: #e0f0f0;
+    }
+
+    .res-btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .res-btn-group-center {
+      justify-content: center;
+    }
+
+    /* fallback header/footer */
+    .fallback-header {
+      background: #1e3a5f; 
+      color: white; 
+      padding: 20px; 
+      text-align: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+    .fallback-footer {
+      background: #1a2a3a; 
+      color: white; 
+      padding: 40px; 
+      text-align: center;
+    }
+
+    /* ===== 10 UNIQUE RESEARCH SECTIONS ===== */
+
+    /* SECTION 1: HERO - Full Background Image */
+    .res-hero {
+      position: relative;
+      min-height: 90vh;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      color: white;
+      overflow: hidden;
+      margin-top: 0;
+      background: url('b5.webp') center/cover;
+      background-attachment: fixed;
+    }
+
+    .res-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #0a2a44cc 0%, #1d5a7acc 100%);
+      z-index: 1;
+    }
+
+    .res-hero-dna {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 50%;
+      height: 100%;
+      opacity: 0.15;
+      background: repeating-linear-gradient(90deg, 
+        transparent, 
+        transparent 20px, 
+        rgba(255,255,255,0.3) 20px, 
+        rgba(255,255,255,0.3) 40px);
+      mask-image: linear-gradient(to right, transparent, black);
+      z-index: 2;
+    }
+
+    .res-hero-dna::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('b6.webp') center/cover;
+      background-size: 100px 100px;
+      opacity: 0.5;
+    }
+
+    .res-hero-content {
+      position: relative;
+      z-index: 3;
+      max-width: 700px;
+    }
+
+    .res-hero-badge {
+      background: rgba(42, 122, 122, 0.3);
+      backdrop-filter: blur(8px);
+      padding: 0.6rem 2rem;
+      border-radius: 60px;
+      display: inline-block;
+      margin-bottom: 2rem;
+      border: 1px solid rgba(255,255,255,0.2);
+      font-weight: 500;
+    }
+
+    .res-hero-stats {
+      display: flex;
+      gap: 3rem;
+      margin-top: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .res-hero-stat {
+      text-align: center;
+    }
+
+    .res-hero-stat span {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #a0e0e0;
+      display: block;
+    }
+
+    /* SECTION 2: Research Pillars - Cards with images */
+    .res-pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+
+    .res-pillar-card {
+      background: white;
+      border-radius: 30px;
+      padding: 2rem;
+      box-shadow: 0 20px 40px -20px #0a2a44;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #e0eef5;
+    }
+
+    .res-pillar-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 120px;
+      background: url('b7.webp') center/cover;
+      opacity: 0.1;
+      z-index: 0;
+    }
+
+    .res-pillar-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 30px 50px -20px #2a7a7a;
+    }
+
+    .res-pillar-icon {
+      font-size: 3rem;
+      color: #2a7a7a;
+      margin-bottom: 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .res-pillar-card h3, .res-pillar-card p {
+      position: relative;
+      z-index: 1;
+    }
+
+    .res-pillar-progress {
+      margin-top: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .res-progress-bar {
+      flex: 1;
+      height: 8px;
+      background: #e0eef5;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .res-progress-fill {
+      height: 100%;
+      background: #2a7a7a;
+      border-radius: 10px;
+      width: var(--width, 0%);
+    }
+
+    .res-pillar-footer {
+      margin-top: auto;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .res-pillar-btn {
+      padding: 0.5rem 1.5rem;
+      background: #f0f8fa;
+      color: #2a7a7a;
+      border-radius: 50px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .res-pillar-btn:hover {
+      background: #2a7a7a;
+      color: white;
+    }
+
+    /* SECTION 3: Timeline - Research Milestones */
+    .res-timeline {
+      position: relative;
+      padding: 2rem 0;
+    }
+
+    .res-timeline::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 100%;
+      background: #2a7a7a;
+      opacity: 0.3;
+    }
+
+    .res-timeline-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4rem;
+      position: relative;
+    }
+
+    .res-timeline-item:nth-child(even) {
+      flex-direction: row-reverse;
+    }
+
+    .res-timeline-content {
+      width: 45%;
+      background: white;
+      padding: 2rem;
+      border-radius: 30px;
+      box-shadow: 0 20px 40px -20px #0a2a44;
+      position: relative;
+      border-left: 6px solid #2a7a7a;
+    }
+
+    .res-timeline-year {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #2a7a7a;
+      margin-bottom: 0.5rem;
+    }
+
+    .res-timeline-dot {
+      width: 20px;
+      height: 20px;
+      background: #2a7a7a;
+      border-radius: 50%;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 4px solid white;
+      box-shadow: 0 0 0 3px rgba(42,122,122,0.3);
+    }
+
+    .res-timeline-img {
+      width: 45%;
+      height: 200px;
+      border-radius: 30px;
+      overflow: hidden;
+      box-shadow: 0 20px 30px -15px #0a2a44;
+    }
+
+    .res-timeline-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* SECTION 4: Publications Wall */
+    .res-pub-wall {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .res-pub-card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 15px 30px -15px #0a2a44;
+      transition: 0.3s;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .res-pub-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px -15px #2a7a7a;
+    }
+
+    .res-pub-header {
+      background: linear-gradient(135deg, #0a2a44, #1d5a7a);
+      color: white;
+      padding: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .res-pub-header::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 100%;
+      height: 200%;
+      background: url('b8.webp') center/cover;
+      opacity: 0.1;
+      transform: rotate(15deg);
+    }
+
+    .res-pub-journal {
+      font-size: 0.9rem;
+      opacity: 0.8;
+      margin-bottom: 0.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .res-pub-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      line-height: 1.4;
+      position: relative;
+      z-index: 1;
+    }
+
+    .res-pub-body {
+      padding: 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .res-pub-authors {
+      color: #4a6a8a;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .res-pub-meta {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.85rem;
+      color: #2a7a7a;
+      margin-bottom: 1.5rem;
+    }
+
+    .res-pub-footer {
+      margin-top: auto;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .res-pub-link {
+      color: #2a7a7a;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* SECTION 5: Labs & Facilities - Full width images */
+    .res-labs-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+
+    .res-lab-card {
+      position: relative;
+      height: 400px;
+      border-radius: 40px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .res-lab-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: 0.5s;
+    }
+
+    .res-lab-card:hover img {
+      transform: scale(1.1);
+    }
+
+    .res-lab-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(145deg, #0a2a44cc, #1d5a7acc);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 2.5rem;
+      opacity: 0.9;
+      transition: 0.3s;
+    }
+
+    .res-lab-card:hover .res-lab-overlay {
+      opacity: 1;
+    }
+
+    .res-lab-stats {
+      display: flex;
+      gap: 2rem;
+      margin: 1.5rem 0 1rem;
+    }
+
+    .res-lab-stat {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .res-lab-btn {
+      align-self: flex-start;
+    }
+
+    /* SECTION 6: Collaborations Network */
+    .res-collab-section {
+      background: #0a2a44;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .res-collab-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('b9.webp') center/cover;
+      opacity: 0.1;
+    }
+
+    .res-collab-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .res-collab-card {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 30px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      transition: 0.3s;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .res-collab-card:hover {
+      background: rgba(42,122,122,0.3);
+      transform: translateY(-5px);
+    }
+
+    .res-collab-logo {
+      width: 100px;
+      height: 100px;
+      background: white;
+      border-radius: 50%;
+      margin: 0 auto 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      color: #0a2a44;
+    }
+
+    .res-collab-type {
+      display: inline-block;
+      padding: 0.3rem 1.5rem;
+      background: #2a7a7a;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      margin-top: 1rem;
+    }
+
+    .res-collab-footer {
+      margin-top: auto;
+      display: flex;
+      justify-content: center;
+    }
+
+    /* SECTION 7: Technologies - Cards with images */
+    .res-tech-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+
+    .res-tech-card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px -20px #0a2a44;
+      transition: 0.3s;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .res-tech-card:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 25px 45px -20px #2a7a7a;
+    }
+
+    .res-tech-img {
+      height: 160px;
+      overflow: hidden;
+    }
+
+    .res-tech-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: 0.5s;
+    }
+
+    .res-tech-card:hover .res-tech-img img {
+      transform: scale(1.1);
+    }
+
+    .res-tech-content {
+      padding: 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .res-tech-icon {
+      font-size: 2rem;
+      color: #2a7a7a;
+      margin-bottom: 1rem;
+    }
+
+    .res-tech-badge {
+      display: inline-block;
+      padding: 0.2rem 1rem;
+      background: #e0f0f0;
+      color: #2a7a7a;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      margin-top: 1rem;
+      align-self: flex-start;
+    }
+
+    /* SECTION 8: Grants & Funding */
+    .res-funding-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .res-funding-card {
+      background: white;
+      border-radius: 30px;
+      padding: 2.5rem;
+      box-shadow: 0 15px 30px -15px #0a2a44;
+      border-left: 8px solid #2a7a7a;
+      transition: 0.3s;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .res-funding-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100px;
+      height: 100px;
+      background: url('b10.webp') center/cover;
+      opacity: 0.05;
+      border-radius: 50%;
+    }
+
+    .res-funding-card:hover {
+      transform: translateX(10px);
+      box-shadow: 0 20px 40px -20px #2a7a7a;
+    }
+
+    .res-funding-amount {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #2a7a7a;
+      margin: 1rem 0;
+    }
+
+    .res-funding-agency {
+      font-size: 0.9rem;
+      color: #4a6a8a;
+    }
+
+    .res-funding-footer {
+      margin-top: auto;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    /* SECTION 9: Research Impact - Data visualization */
+    .res-impact-section {
+      background: linear-gradient(135deg, #f0f8fa, #ffffff);
+      position: relative;
+    }
+
+    .res-impact-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+
+    .res-impact-item {
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      background: white;
+      border-radius: 30px;
+      box-shadow: 0 15px 30px -15px #0a2a44;
+      transition: 0.3s;
+    }
+
+    .res-impact-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px -15px #2a7a7a;
+    }
+
+    .res-impact-number {
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: #2a7a7a;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .res-impact-label {
+      font-size: 1rem;
+      color: #4a6a8a;
+    }
+
+    .res-impact-chart {
+      height: 250px;
+      background: white;
+      border-radius: 40px;
+      padding: 2.5rem;
+      display: flex;
+      align-items: flex-end;
+      gap: 2.5rem;
+      justify-content: center;
+      box-shadow: 0 15px 30px -15px #0a2a44;
+    }
+
+    .res-chart-bar {
+      width: 70px;
+      background: linear-gradient(180deg, #2a7a7a, #1d5a7a);
+      border-radius: 20px 20px 0 0;
+      height: var(--height);
+      transition: 0.3s;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .res-chart-bar:hover {
+      background: #1d5a7a;
+      transform: scale(1.05);
+    }
+
+    .res-chart-bar::after {
+      content: attr(data-label);
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.9rem;
+      color: #0a2a44;
+      font-weight: 600;
+    }
+
+    .res-chart-bar::before {
+      content: attr(data-value);
+      position: absolute;
+      top: -60px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1rem;
+      color: #2a7a7a;
+      font-weight: 700;
+      opacity: 0;
+      transition: 0.3s;
+    }
+
+    .res-chart-bar:hover::before {
+      opacity: 1;
+      top: -70px;
+    }
+
+    /* SECTION 10: Newsletter & Updates */
+    .res-newsletter {
+      background: white;
+      border-radius: 60px;
+      padding: 4rem;
+      box-shadow: 0 30px 60px -30px #0a2a44;
+      max-width: 1000px;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .res-newsletter::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 100%;
+      height: 200%;
+      background: url('b11.webp') center/cover;
+      opacity: 0.03;
+      transform: rotate(15deg);
+    }
+
+    .res-form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .res-input {
+      padding: 1.2rem 1.5rem;
+      border: 2px solid #e0eef5;
+      border-radius: 60px;
+      font-family: inherit;
+      width: 100%;
+      transition: 0.3s;
+      font-size: 1rem;
+    }
+
+    .res-input:focus {
+      outline: none;
+      border-color: #2a7a7a;
+    }
+
+    .res-input.error {
+      border-color: #e65f5f;
+    }
+
+    .res-interests {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin: 1.5rem 0;
+      justify-content: center;
+    }
+
+    .res-interest-tag {
+      padding: 0.7rem 2rem;
+      background: #f0f8fa;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: 0.3s;
+      user-select: none;
+      font-size: 0.95rem;
+    }
+
+    .res-interest-tag.selected {
+      background: #2a7a7a;
+      color: white;
+    }
+
+    .res-interest-tag:hover {
+      background: #e0f0f0;
+    }
+
+    .res-interest-tag.selected:hover {
+      background: #1d5a7a;
+    }
+
+    /* responsive */
+    @media (max-width: 1200px) {
+      .res-pillars-grid,
+      .res-tech-grid,
+      .res-impact-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .res-pub-wall,
+      .res-collab-grid,
+      .res-funding-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .res-btn {
+        min-width: 160px;
+        padding: 0.9rem 2rem;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .res-timeline::before {
+        left: 30px;
+      }
+      
+      .res-timeline-item,
+      .res-timeline-item:nth-child(even) {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-left: 60px;
+        gap: 1.5rem;
+      }
+      
+      .res-timeline-content,
+      .res-timeline-img {
+        width: 100%;
+      }
+      
+      .res-timeline-dot {
+        left: 30px;
+      }
+      
+      .res-hero-stats {
+        gap: 2rem;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .res-pillars-grid,
+      .res-pub-wall,
+      .res-labs-grid,
+      .res-collab-grid,
+      .res-tech-grid,
+      .res-funding-grid,
+      .res-impact-grid,
+      .res-form-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .res-hero-dna {
+        width: 100%;
+        opacity: 0.1;
+      }
+      
+      .res-newsletter {
+        padding: 2rem;
+      }
+      
+      .res-impact-chart {
+        flex-wrap: wrap;
+        height: auto;
+        padding: 2rem;
+      }
+      
+      .res-btn-group {
+        justify-content: center;
+      }
+      
+      .res-title, .res-subtitle {
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding-top: 0;
+      }
+      
+      .res-container {
+        padding: 4rem 1rem;
+      }
+      
+      .res-hero {
+        min-height: 100vh;
+        background-attachment: scroll;
+      }
+      
+      .res-hero-stats {
+        gap: 1.5rem;
+        justify-content: center;
+      }
+      
+      .res-hero-stat span {
+        font-size: 2rem;
+      }
+      
+      .res-lab-card {
+        height: 320px;
+      }
+      
+      .res-btn {
+        width: 100%;
+        margin: 0.5rem 0;
+      }
+      
+      .res-btn-group {
+        flex-direction: column;
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .res-hero-content {
+        text-align: center;
+      }
+      
+      .res-hero-stats {
+        justify-content: center;
+      }
+      
+      .res-timeline-item {
+        margin-left: 40px;
+      }
+      
+      .res-timeline::before {
+        left: 20px;
+      }
+      
+      .res-timeline-dot {
+        left: 20px;
+      }
+      
+      .res-impact-grid {
+        gap: 1rem;
+      }
+      
+      .res-impact-item {
+        padding: 1.5rem;
+      }
+      
+      .res-impact-number {
+        font-size: 2.5rem;
+      }
+    }
+
+    html, body {
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER PLACEHOLDER - Header will load here -->
+  <div id="header-placeholder"></div>
+
+  <div class="research-page">
+    <!-- SECTION 1: HERO - Full Background Image -->
+    <section class="res-hero">
+      <div class="res-hero-dna"></div>
+      <div class="res-container">
+        <div class="res-hero-content" data-aos="fade-right">
+          <div class="res-hero-badge" data-aos="fade-down">🔬 CUTTING-EDGE RESEARCH</div>
+          <h1 class="res-title" style="color: white;">Advancing the<br>frontiers of biology</h1>
+          <p style="font-size: 1.3rem; margin-bottom: 2rem; color: rgba(255,255,255,0.9);" data-aos="fade-up" data-aos-delay="200">From fundamental discoveries to translational breakthroughs — our labs are shaping the future of biotechnology.</p>
+          <div class="res-btn-group" data-aos="fade-up" data-aos-delay="300">
+            <a href="404.html" class="res-btn"><i class="fas fa-file-alt"></i> Publications</a>
+            <a href="404.html" class="res-btn res-btn-light"><i class="fas fa-flask"></i> Our facilities</a>
+          </div>
+          <div class="res-hero-stats" data-aos="fade-up" data-aos-delay="400">
+            <div class="res-hero-stat"><span id="statProjects">156</span> active projects</div>
+            <div class="res-hero-stat"><span id="statPapers">342</span> publications</div>
+            <div class="res-hero-stat"><span id="statCitations">12.5k</span> citations</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: Research Pillars - 4 Core Areas -->
+    <section>
+      <div class="res-container">
+        <h2 class="res-title" data-aos="fade-down">Research pillars</h2>
+        <p class="res-subtitle" data-aos="fade-down">Our four core areas of biotechnology research, driving innovation from lab to clinic.</p>
+        <div class="res-pillars-grid">
+          <div class="res-pillar-card" data-aos="fade-up">
+            <i class="fas fa-dna res-pillar-icon"></i>
+            <h3>Gene Editing</h3>
+            <p>CRISPR-Cas9, base editing, and next-generation precision genome engineering platforms.</p>
+            <div class="res-pillar-progress">
+              <span>24 projects</span>
+              <div class="res-progress-bar"><div class="res-progress-fill" style="--width: 75%"></div></div>
+            </div>
+            <div class="res-pillar-footer">
+              <a href="404.html" class="res-pillar-btn">Explore <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+          <div class="res-pillar-card" data-aos="fade-up" data-aos-delay="100">
+            <i class="fas fa-microscope res-pillar-icon"></i>
+            <h3>Synthetic Biology</h3>
+            <p>Designing novel biological systems, genetic circuits, and engineered <br> organisms.</p>
+            <div class="res-pillar-progress">
+              <span>18 projects</span>
+              <div class="res-progress-bar"><div class="res-progress-fill" style="--width: 60%"></div></div>
+            </div>
+            <div class="res-pillar-footer">
+              <a href="404.html" class="res-pillar-btn">Explore <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+          <div class="res-pillar-card" data-aos="fade-up" data-aos-delay="200">
+            <i class="fas fa-brain res-pillar-icon"></i>
+            <h3>Neurobiology</h3>
+            <p>Understanding neural circuits and developing treatments for neurodegenerative.</p>
+            <div class="res-pillar-progress">
+              <span>15 projects</span>
+              <div class="res-progress-bar"><div class="res-progress-fill" style="--width: 55%"></div></div>
+            </div>
+            <div class="res-pillar-footer">
+              <a href="404.html" class="res-pillar-btn">Explore <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+          <div class="res-pillar-card" data-aos="fade-up" data-aos-delay="300">
+            <i class="fas fa-flask res-pillar-icon"></i>
+            <h3>Bioprocessing</h3>
+            <p>Scale-up fermentation, purification, and manufacturing of  <br>biologics.</p>
+            <div class="res-pillar-progress">
+              <span>12 projects</span>
+              <div class="res-progress-bar"><div class="res-progress-fill" style="--width: 45%"></div></div>
+            </div>
+            <div class="res-pillar-footer">
+              <a href="404.html" class="res-pillar-btn">Explore <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: Research Milestones Timeline -->
+    <section style="background: #f0f8fa;">
+      <div class="res-container">
+        <h2 class="res-title" data-aos="fade-down">Research milestones</h2>
+        <div class="res-timeline">
+          <div class="res-timeline-item" data-aos="fade-right">
+            <div class="res-timeline-dot"></div>
+            <div class="res-timeline-content">
+              <div class="res-timeline-year">2024</div>
+              <h3>First-in-human CRISPR therapy</h3>
+              <p>Successful phase I trial for genetic blindness treatment using base editing.</p>
+              <a href="404.html" class="res-pillar-btn" style="margin-top: 1rem;">Read paper <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="res-timeline-img">
+              <img src="b14.webp" alt="CRISPR therapy">
+            </div>
+          </div>
+          <div class="res-timeline-item" data-aos="fade-left">
+            <div class="res-timeline-dot"></div>
+            <div class="res-timeline-content">
+              <div class="res-timeline-year">2023</div>
+              <h3>Synthetic yeast genome</h3>
+              <p>Completed synthesis of chromosome VI, published in Cell.</p>
+              <a href="404.html" class="res-pillar-btn" style="margin-top: 1rem;">Read paper <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="res-timeline-img">
+              <img src="b13.webp" alt="Synthetic biology">
+            </div>
+          </div>
+          <div class="res-timeline-item" data-aos="fade-right">
+            <div class="res-timeline-dot"></div>
+            <div class="res-timeline-content">
+              <div class="res-timeline-year">2022</div>
+              <h3>Novel antibiotic discovery</h3>
+              <p>Identified new class of antimicrobials using AI-powered screening.</p>
+              <a href="404.html" class="res-pillar-btn" style="margin-top: 1rem;">Read paper <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="res-timeline-img">
+              <img src="b12.webp" alt="Antibiotic research">
+            </div>
+          </div>
+        </div>
+        <div class="res-btn-group-center" style="display: flex; justify-content: center; margin-top: 3rem;">
+          <a href="404.html" class="res-btn res-btn-outline">View all milestones <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: Recent Publications Wall -->
+    <section>
+      <div class="res-container">
+        <h2 class="res-title" data-aos="fade-down">Latest publications</h2>
+        <div class="res-pub-wall">
+          <div class="res-pub-card" data-aos="flip-left">
+            <div class="res-pub-header">
+              <div class="res-pub-journal">Nature Biotechnology</div>
+              <div class="res-pub-title">Engineered Cas12f variants enable efficient gene editing in human cells</div>
+            </div>
+            <div class="res-pub-body">
+              <div class="res-pub-authors">Chen et al. | March 2024</div>
+              <div class="res-pub-meta">
+                <span><i class="far fa-file-alt"></i> 24 pages</span>
+                <span><i class="far fa-eye"></i> 3.2k views</span>
+              </div>
+              <div class="res-pub-footer">
+                <a href="404.html" class="res-pub-link">Read full paper <i class="fas fa-arrow-right"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="res-pub-card" data-aos="flip-left" data-aos-delay="100">
+            <div class="res-pub-header">
+              <div class="res-pub-journal">Cell</div>
+              <div class="res-pub-title">Synthetic gene circuits for programmable T-cell therapies</div>
+            </div>
+            <div class="res-pub-body">
+              <div class="res-pub-authors">Rodriguez et al. | February 2024</div>
+              <div class="res-pub-meta">
+                <span><i class="far fa-file-alt"></i> 18 pages</span>
+                <span><i class="far fa-eye"></i> 4.1k views</span>
+              </div>
+              <div class="res-pub-footer">
+                <a href="404.html" class="res-pub-link">Read full paper <i class="fas fa-arrow-right"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="res-pub-card" data-aos="flip-left" data-aos-delay="200">
+            <div class="res-pub-header">
+              <div class="res-pub-journal">Science</div>
+              <div class="res-pub-title">Bioluminescent imaging reveals real-time neural activity</div>
+            </div>
+            <div class="res-pub-body">
+              <div class="res-pub-authors">Williams et al. | January 2024</div>
+              <div class="res-pub-meta">
+                <span><i class="far fa-file-alt"></i> 15 pages</span>
+                <span><i class="far fa-eye"></i> 5.6k views</span>
+              </div>
+              <div class="res-pub-footer">
+                <a href="404.html" class="res-pub-link">Read full paper <i class="fas fa-arrow-right"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="res-btn-group-center" style="display: flex; justify-content: center; margin-top: 3rem;">
+          <a href="404.html" class="res-btn res-btn-outline">View all publications <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: Labs & Facilities -->
+    <section style="background: #0a2a44; color: white;">
+      <div class="res-container">
+        <h2 class="res-title" style="color: white;" data-aos="fade-down">Our facilities</h2>
+        <p style="color: rgba(255,255,255,0.8); margin-bottom: 3rem;" data-aos="fade-down">State-of-the-art laboratories equipped for breakthrough research.</p>
+        <div class="res-labs-grid">
+          <div class="res-lab-card" data-aos="zoom-in">
+            <img src="b16.webp" alt="Gene editing lab">
+            <div class="res-lab-overlay">
+              <h3 style="font-size: 2rem;">Gene Editing Suite</h3>
+              <p style="font-size: 1.1rem;">BSL-2+ laboratories with automated workstations</p>
+              <div class="res-lab-stats">
+                <div><span class="res-lab-stat">8</span> workstations</div>
+                <div><span class="res-lab-stat">24/7</span> access</div>
+              </div>
+              <a href="404.html" class="res-btn res-btn-light res-lab-btn">Take a tour <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+          <div class="res-lab-card" data-aos="zoom-in" data-aos-delay="100">
+            <img src="b15.webp" alt="Bioprocessing">
+            <div class="res-lab-overlay">
+              <h3 style="font-size: 2rem;">Bioprocessing Pilot Plant</h3>
+              <p style="font-size: 1.1rem;">50L to 500L fermentation capacity</p>
+              <div class="res-lab-stats">
+                <div><span class="res-lab-stat">12</span> bioreactors</div>
+                <div><span class="res-lab-stat">4</span> purification suites</div>
+              </div>
+              <a href="404.html" class="res-btn res-btn-light res-lab-btn">Take a tour <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: Collaborations Network -->
+    <section class="res-collab-section">
+      <div class="res-container">
+        <h2 class="res-title" style="color: white;" data-aos="fade-down">Global collaborations</h2>
+        <p style="color: rgba(255,255,255,0.8); margin-bottom: 3rem;" data-aos="fade-down">Partnering with leading institutions worldwide.</p>
+        <div class="res-collab-grid">
+          <div class="res-collab-card" data-aos="fade-up">
+            <div class="res-collab-logo">🏛️</div>
+            <h3>Harvard Medical</h3>
+            <p>Gene therapy consortium</p>
+            <span class="res-collab-type">Academic</span>
+            <div class="res-collab-footer">
+              <a href="404.html" class="res-pub-link" style="color: white;">Learn more <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+          <div class="res-collab-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="res-collab-logo">🏭</div>
+            <h3>Pfizer</h3>
+            <p>Vaccine development</p>
+            <span class="res-collab-type">Industry</span>
+            <div class="res-collab-footer">
+              <a href="404.html" class="res-pub-link" style="color: white;">Learn more <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+          <div class="res-collab-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="res-collab-logo">🏥</div>
+            <h3>Mayo Clinic</h3>
+            <p>Clinical trials</p>
+            <span class="res-collab-type">Medical</span>
+            <div class="res-collab-footer">
+              <a href="404.html" class="res-pub-link" style="color: white;">Learn more <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="res-btn-group-center" style="display: flex; justify-content: center; margin-top: 3rem;">
+          <a href="404.html" class="res-btn res-btn-outline" style="border-color: white; color: white !important;">View all partners <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 7: Key Technologies -->
+    <section>
+      <div class="res-container">
+        <h2 class="res-title" data-aos="fade-down">Key technologies</h2>
+        <div class="res-tech-grid">
+          <div class="res-tech-card" data-aos="flip-up">
+            <div class="res-tech-img">
+              <img src="b20.webp" alt="CRISPR">
+            </div>
+            <div class="res-tech-content">
+              <i class="fas fa-cut res-tech-icon"></i>
+              <h3>CRISPR-Cas9</h3>
+              <p>Precision genome editing platform</p>
+              <span class="res-tech-badge">12 patents</span>
+              <a href="404.html" class="res-pub-link" style="margin-top: 1rem;">Learn more <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+          <div class="res-tech-card" data-aos="flip-up" data-aos-delay="100">
+            <div class="res-tech-img">
+              <img src="b19.webp" alt="Automation">
+            </div>
+            <div class="res-tech-content">
+              <i class="fas fa-robot res-tech-icon"></i>
+              <h3>Automated screening</h3>
+              <p>High-throughput <br> platforms</p>
+              <span class="res-tech-badge">10k assays/day</span>
+              <a href="404.html" class="res-pub-link" style="margin-top: 1rem;">Learn more <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+          <div class="res-tech-card" data-aos="flip-up" data-aos-delay="200">
+            <div class="res-tech-img">
+              <img src="b18.webp" alt="Omics">
+            </div>
+            <div class="res-tech-content">
+              <i class="fas fa-chart-line res-tech-icon"></i>
+              <h3>Single-cell omics</h3>
+              <p>10x Genomics, Spatial platforms</p>
+              <span class="res-tech-badge">5 platforms</span>
+              <a href="404.html" class="res-pub-link" style="margin-top: 1rem;">Learn more <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+          <div class="res-tech-card" data-aos="flip-up" data-aos-delay="300">
+            <div class="res-tech-img">
+              <img src="b17.webp" alt="Bioinformatics">
+            </div>
+            <div class="res-tech-content">
+              <i class="fas fa-database res-tech-icon"></i>
+              <h3>Bioinformatics</h3>
+              <p>AI/ML pipelines for drug discovery</p>
+              <span class="res-tech-badge">2PB storage</span>
+              <a href="404.html" class="res-pub-link" style="margin-top: 1rem;">Learn more <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 8: Grants & Funding -->
+    <section style="background: #f0f8fa;">
+      <div class="res-container">
+        <h2 class="res-title" data-aos="fade-down">Funding & grants</h2>
+        <div class="res-funding-grid">
+          <div class="res-funding-card" data-aos="fade-right">
+            <h3>NIH</h3>
+            <div class="res-funding-amount">$8.2M</div>
+            <p>Gene therapy for rare diseases</p>
+            <div class="res-funding-agency">2024-2028</div>
+            <div class="res-funding-footer">
+              <a href="404.html" class="res-pub-link">View project <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+          <div class="res-funding-card" data-aos="fade-right" data-aos-delay="100">
+            <h3>NSF</h3>
+            <div class="res-funding-amount">$3.5M</div>
+            <p>Synthetic biology foundry</p>
+            <div class="res-funding-agency">2023-2027</div>
+            <div class="res-funding-footer">
+              <a href="404.html" class="res-pub-link">View project <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+          <div class="res-funding-card" data-aos="fade-right" data-aos-delay="200">
+            <h3>Bill & Melinda Gates</h3>
+            <div class="res-funding-amount">$5.1M</div>
+            <p>Global health vaccines</p>
+            <div class="res-funding-agency">2024-2026</div>
+            <div class="res-funding-footer">
+              <a href="404.html" class="res-pub-link">View project <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 9: Research Impact Metrics -->
+    <section class="res-impact-section">
+      <div class="res-container">
+        <h2 class="res-title" data-aos="fade-down">Research impact</h2>
+        <div class="res-impact-grid">
+          <div class="res-impact-item" data-aos="zoom-in">
+            <div class="res-impact-number" id="impactPapers">342</div>
+            <div class="res-impact-label">Peer-reviewed papers</div>
+          </div>
+          <div class="res-impact-item" data-aos="zoom-in" data-aos-delay="100">
+            <div class="res-impact-number" id="impactPatents">28</div>
+            <div class="res-impact-label">Active patents</div>
+          </div>
+          <div class="res-impact-item" data-aos="zoom-in" data-aos-delay="200">
+            <div class="res-impact-number" id="impactTrials">12</div>
+            <div class="res-impact-label">Clinical trials</div>
+          </div>
+          <div class="res-impact-item" data-aos="zoom-in" data-aos-delay="300">
+            <div class="res-impact-number" id="impactStartups">5</div>
+            <div class="res-impact-label">Spin-off companies</div>
+          </div>
+        </div>
+        
+        <div class="res-impact-chart" data-aos="fade-up">
+          <div class="res-chart-bar" style="--height: 180px;" data-label="2019" data-value="45"></div>
+          <div class="res-chart-bar" style="--height: 120px;" data-label="2020" data-value="32"></div>
+          <div class="res-chart-bar" style="--height: 150px;" data-label="2021" data-value="38"></div>
+          <div class="res-chart-bar" style="--height: 200px;" data-label="2022" data-value="52"></div>
+          <div class="res-chart-bar" style="--height: 220px;" data-label="2023" data-value="58"></div>
+          <div class="res-chart-bar" style="--height: 250px;" data-label="2024" data-value="67"></div>
+        </div>
+        <p style="text-align: center; margin-top: 2rem; color: #4a6a8a;">Publications per year (2019-2024)</p>
+      </div>
+    </section>
+
+    <!-- SECTION 10: Research Updates Newsletter - No alerts -->
+    <section>
+      <div class="res-container">
+        <div class="res-newsletter" data-aos="flip-up">
+          <h2 class="res-title res-title-center">Stay updated</h2>
+          <p style="text-align: center; margin-bottom: 2rem; color: #4a6a8a;">Get the latest research news, publications, and funding opportunities.</p>
+          <form id="researchForm" onsubmit="return false;">
+            <div class="res-form-grid">
+              <input type="text" id="resName" placeholder="Full name *" class="res-input" 
+                     onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || event.charCode === 32"
+                     onpaste="return false" ondrop="return false">
+              <input type="email" id="resEmail" placeholder="Email address *" class="res-input" required>
+            </div>
+            
+            <div class="res-interests">
+              <span class="res-interest-tag" onclick="toggleInterest(this)">Gene Editing</span>
+              <span class="res-interest-tag" onclick="toggleInterest(this)">Synthetic Biology</span>
+              <span class="res-interest-tag" onclick="toggleInterest(this)">Neuroscience</span>
+              <span class="res-interest-tag" onclick="toggleInterest(this)">Bioprocessing</span>
+            </div>
+            
+            <div class="res-btn-group-center">
+              <button type="button" class="res-btn" style="min-width: 250px;" onclick="validateResearchForm()"><i class="fas fa-envelope"></i> Subscribe to updates</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- FOOTER PLACEHOLDER - Footer will load here -->
+  <div id="footer-placeholder"></div>
+
+  <!-- AOS and validation -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    // ===== HEADER & FOOTER LOADER =====
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: false,
+            mirror: true,
+            offset: 50,
+            easing: 'ease-in-out'
+        });
+
+        // Function to set body padding based on header height
+        function setBodyPadding() {
+            const header = document.querySelector('header');
+            if (header) {
+                const headerHeight = header.offsetHeight;
+                document.body.style.paddingTop = headerHeight + 'px';
+            } else {
+                document.body.style.paddingTop = '0px';
+            }
+        }
+
+        // Load header
+        fetch('header1.html')
+            .then(response => {
+                if (!response.ok) throw new Error('Header file not found');
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('header-placeholder').innerHTML = data;
+                // Set body padding after header loads
+                setTimeout(() => {
+                    setBodyPadding();
+                    initHeaderInteractions();
+                }, 100);
+                
+                // Update padding on window resize
+                window.addEventListener('resize', setBodyPadding);
+            })
+            .catch(error => {
+                console.warn('Header could not be loaded:', error);
+                document.getElementById('header-placeholder').innerHTML = 
+                    '<div class="fallback-header">Header Not Found</div>';
+                setBodyPadding();
+            });
+
+        // Load footer
+        fetch('footer1.html')
+            .then(response => {
+                if (!response.ok) throw new Error('Footer file not found');
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('footer-placeholder').innerHTML = data;
+            })
+            .catch(error => {
+                console.warn('Footer could not be loaded:', error);
+                document.getElementById('footer-placeholder').innerHTML = 
+                    '<div class="fallback-footer">Footer Not Found</div>';
+            });
+
+        // Refresh AOS after content loads
+        setTimeout(() => {
+            AOS.refresh();
+        }, 500);
+    });
+
+    // ===== HEADER INTERACTIONS (Hamburger Menu, Dropdowns, etc.) =====
+    function initHeaderInteractions() {
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+        
+        // Mobile menu toggle (hamburger)
+        if (menuToggle && navMenu) {
+            menuToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                this.classList.toggle('active');
+                navMenu.classList.toggle('active');
+                
+                // Prevent body scroll when mobile menu is open
+                if (navMenu.classList.contains('active')) {
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    document.body.style.overflow = 'auto';
+                    // Close all dropdowns when closing mobile menu
+                    document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                        menu.classList.remove('show');
+                    });
+                    document.querySelectorAll('.dropdown-icon').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                }
+            });
+        }
+        
+        // Dropdown functionality (for desktop and mobile)
+        document.querySelectorAll('.dropdown-icon').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const dropdownId = this.getAttribute('data-dropdown');
+                const dropdown = document.getElementById(dropdownId);
+                
+                if (!dropdown) return;
+                
+                // Close other dropdowns
+                document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                    if (menu.id !== dropdownId) {
+                        menu.classList.remove('show');
+                    }
+                });
+                document.querySelectorAll('.dropdown-icon').forEach(btn => {
+                    if (btn !== this) {
+                        btn.classList.remove('active');
+                    }
+                });
+                
+                // Toggle current dropdown
+                dropdown.classList.toggle('show');
+                this.classList.toggle('active');
+            });
+        });
+        
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.nav-item-with-dropdown')) {
+                document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                    menu.classList.remove('show');
+                });
+                document.querySelectorAll('.dropdown-icon').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+            }
+        });
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', function() {
+                if (window.innerWidth <= 768) {
+                    if (menuToggle) menuToggle.classList.remove('active');
+                    if (navMenu) navMenu.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                    
+                    // Close all dropdowns
+                    document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                        menu.classList.remove('show');
+                    });
+                    document.querySelectorAll('.dropdown-icon').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                }
+            });
+        });
+        
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                // Reset mobile menu state on desktop
+                if (menuToggle) menuToggle.classList.remove('active');
+                if (navMenu) navMenu.classList.remove('active');
+                document.body.style.overflow = 'auto';
+                
+                // Close all dropdowns
+                document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                    menu.classList.remove('show');
+                });
+                document.querySelectorAll('.dropdown-icon').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+            }
+        });
+    }
+
+    // ===== BACK TO TOP BUTTON =====
+    const backToTop = document.getElementById('backToTop');
+    
+    if (backToTop) {
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 500) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+        });
+
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+
+    // ===== NUMBER ANIMATION AND FORM VALIDATION =====
+    (function() {
+      // Number animation for hero stats
+      const projects = document.getElementById('statProjects');
+      const papers = document.getElementById('statPapers');
+      const citations = document.getElementById('statCitations');
+      const impactPapers = document.getElementById('impactPapers');
+      const impactPatents = document.getElementById('impactPatents');
+      const impactTrials = document.getElementById('impactTrials');
+      const impactStartups = document.getElementById('impactStartups');
+      
+      setInterval(() => {
+        if(projects) projects.innerText = Math.floor(Math.random() * (180 - 140 + 1)) + 140;
+        if(papers) papers.innerText = Math.floor(Math.random() * (380 - 320 + 1)) + 320;
+        if(citations) {
+          const val = (Math.random() * (14 - 11) + 11).toFixed(1);
+          citations.innerText = val + 'k';
+        }
+        
+        // Impact numbers
+        if(impactPapers) impactPapers.innerText = Math.floor(Math.random() * (380 - 320 + 1)) + 320;
+        if(impactPatents) impactPatents.innerText = Math.floor(Math.random() * (35 - 22 + 1)) + 22;
+        if(impactTrials) impactTrials.innerText = Math.floor(Math.random() * (18 - 8 + 1)) + 8;
+        if(impactStartups) impactStartups.innerText = Math.floor(Math.random() * (8 - 3 + 1)) + 3;
+      }, 4000);
+
+      // Interest tags toggle
+      window.toggleInterest = function(element) {
+        element.classList.toggle('selected');
+      };
+
+      // Validation function - no alerts
+      window.validateResearchForm = function() {
+        const name = document.getElementById('resName');
+        const email = document.getElementById('resEmail');
+        let isValid = true;
+
+        // Name validation: only letters (already prevented by onkeypress)
+        const nameRegex = /^[A-Za-z\s]+$/;
+        if (!name.value.trim() || !nameRegex.test(name.value)) {
+          name.classList.add('error');
+          isValid = false;
+        } else {
+          name.classList.remove('error');
+        }
+
+        // Email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email.value)) {
+          email.classList.add('error');
+          isValid = false;
+        } else {
+          email.classList.remove('error');
+        }
+
+        if (isValid) {
+          window.location.href = '404.html';
+        }
+      };
+    })();
+  </script>
+</body>
+</html>

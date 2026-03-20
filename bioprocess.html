@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>NovaBiotech · Bioprocess Engineering</title>
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts: Inter + Outfit -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&family=Outfit:wght@300..700&display=swap" rel="stylesheet">
+  <!-- AOS for scroll animations -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    /* ----- ALL STYLES IN STYLE TAG ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', 'Outfit', sans-serif;
+      background: #f5fbfe;
+      color: #0a2647;
+      overflow-x: hidden;
+      width: 100%;
+      line-height: 1.6;
+    }
+
+    /* ----- GLASS EFFECT FIXED BACK BUTTON (fully visible on mobile) ----- */
+    .back-to-research {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+    }
+
+    .glass-back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(10, 38, 71, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(74, 163, 162, 0.6);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      padding: 12px 28px;
+      border-radius: 60px;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .glass-back-btn i {
+      font-size: 1.2rem;
+      transition: transform 0.3s ease;
+    }
+
+    .glass-back-btn:hover {
+      background: #4aa3a2;
+      border-color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(74, 163, 162, 0.5);
+    }
+
+    .glass-back-btn:hover i {
+      transform: translateX(-5px);
+    }
+
+    /* mobile adjustment */
+    @media (max-width: 600px) {
+      .back-to-research {
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+      }
+      
+      .glass-back-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 12px 20px;
+        background: rgba(10, 38, 71, 0.9);
+        border: 2px solid #4aa3a2;
+      }
+      
+      body {
+        padding-top: 80px;
+      }
+    }
+
+    /* section containers */
+    .section-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 6rem 1.5rem;
+    }
+
+    .section-title {
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      font-weight: 700;
+      color: #0a2647;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+
+    .section-subtitle {
+      font-size: 1.2rem;
+      color: #2c5f7c;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ----- BUTTONS ----- */
+    .btn {
+      display: inline-block;
+      background: #4aa3a2;
+      color: white;
+      font-weight: 600;
+      padding: 0.9rem 2.2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-size: 1rem;
+      border: 2px solid transparent;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 20px rgba(74, 163, 162, 0.25);
+      cursor: pointer;
+      margin: 0.75rem 0.75rem 0 0;
+      text-align: center;
+    }
+
+    .btn:hover {
+      background: #2c5f7c;
+      transform: translateY(-3px);
+      box-shadow: 0 15px 30px rgba(44, 95, 124, 0.3);
+    }
+
+    .btn-outline-light {
+      background: transparent;
+      border: 2px solid white;
+      color: white;
+      box-shadow: none;
+    }
+
+    .btn-outline-light:hover {
+      background: white;
+      color: #0a2647;
+    }
+
+    .btn-outline-dark {
+      background: transparent;
+      border: 2px solid #0a2647;
+      color: #0a2647;
+      box-shadow: none;
+    }
+
+    .btn-outline-dark:hover {
+      background: #0a2647;
+      color: white;
+    }
+
+    .btn-secondary {
+      background: #cdf0ea;
+      color: #0a2647;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    }
+
+    .btn-secondary:hover {
+      background: #4aa3a2;
+      color: white;
+    }
+
+    /* ----- SECTION 1: HERO WITH FERMENTATION THEME ----- */
+    .hero-bioprocess {
+      background: linear-gradient(135deg, #0a2647 0%, #1e3a5f 100%);
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bioprocess::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('b12.webp') center/cover;
+      opacity: 0.1;
+      mix-blend-mode: overlay;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(74, 163, 162, 0.3);
+      backdrop-filter: blur(5px);
+      padding: 0.5rem 2rem;
+      border-radius: 60px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .hero-stats-flex {
+      display: flex;
+      gap: 1.5rem;
+      margin: 2.5rem 0;
+      flex-wrap: wrap;
+    }
+
+    .stat-glass {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      padding: 1.2rem 2rem;
+      border-radius: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      text-align: center;
+      min-width: 120px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    .stat-glass span {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #4aa3a2;
+      display: block;
+    }
+
+    .hero-image-wrapper {
+      position: relative;
+    }
+
+    .hero-image-wrapper img {
+      width: 100%;
+      border-radius: 40px;
+      border: 4px solid #4aa3a2;
+      box-shadow: 0 30px 40px -20px rgba(0,0,0,0.5);
+    }
+
+    .floating-icon {
+      position: absolute;
+      top: -20px;
+      right: -20px;
+      background: #4aa3a2;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      color: white;
+      box-shadow: 0 10px 30px rgba(74,163,162,0.5);
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    /* ----- SECTION 2: PROCESS FLOW (step cards) ----- */
+    .process-flow {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .process-step {
+      background: white;
+      padding: 2rem 1.5rem;
+      border-radius: 30px;
+      box-shadow: 0 20px 40px -15px rgba(10,38,71,0.1);
+      transition: all 0.3s ease;
+      text-align: center;
+      position: relative;
+    }
+
+    .process-step:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 30px 50px -20px #4aa3a2;
+    }
+
+    .step-number {
+      font-size: 3rem;
+      font-weight: 700;
+      color: rgba(74, 163, 162, 0.2);
+      margin-bottom: 0.5rem;
+    }
+
+    .step-icon {
+      font-size: 2.5rem;
+      color: #4aa3a2;
+      margin-bottom: 1rem;
+    }
+
+    .process-step::after {
+      content: '→';
+      position: absolute;
+      right: -20px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 2rem;
+      color: #4aa3a2;
+      font-weight: 300;
+    }
+
+    .process-step:last-child::after {
+      display: none;
+    }
+
+    /* ----- SECTION 3: FERMENTATION CAPABILITIES (pills grid) ----- */
+    .capabilities-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+
+    .capability-card {
+      background: white;
+      padding: 2.5rem;
+      border-radius: 40px;
+      box-shadow: 0 20px 40px -15px rgba(10,38,71,0.1);
+      transition: 0.3s;
+      border-left: 8px solid #4aa3a2;
+    }
+
+    .capability-card:hover {
+      transform: scale(1.02) translateX(10px);
+      box-shadow: 0 30px 50px -20px #4aa3a2;
+    }
+
+    .capability-stats {
+      display: flex;
+      gap: 2rem;
+      margin: 1.5rem 0;
+      flex-wrap: wrap;
+    }
+
+    .cap-stat {
+      background: #f0f9ff;
+      padding: 0.8rem 1.5rem;
+      border-radius: 60px;
+      font-weight: 600;
+    }
+
+    /* ----- SECTION 4: DOWNSTREAM PROCESSING (zigzag) ----- */
+    .downstream-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+
+    .downstream-item {
+      background: linear-gradient(145deg, white, #f5fbfe);
+      padding: 2rem;
+      border-radius: 40px;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      box-shadow: 0 20px 40px -15px rgba(10,38,71,0.1);
+    }
+
+    .downstream-icon {
+      font-size: 3rem;
+      color: #4aa3a2;
+      min-width: 80px;
+      text-align: center;
+    }
+
+    .downstream-content h3 {
+      margin-bottom: 0.5rem;
+    }
+
+    .efficiency-bar {
+      height: 8px;
+      background: #e0edf5;
+      border-radius: 8px;
+      margin: 1rem 0 0.5rem;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      background: #4aa3a2;
+      border-radius: 8px;
+    }
+
+    /* ----- SECTION 5: TEAM (hexagon style but different) ----- */
+    .team-diamond {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+
+    .diamond-card {
+      background: white;
+      padding: 2rem 1.5rem;
+      border-radius: 30px;
+      box-shadow: 0 20px 40px -15px rgba(10,38,71,0.1);
+      transition: 0.3s;
+      text-align: center;
+      transform: rotate(1deg);
+    }
+
+    .diamond-card:nth-child(even) {
+      transform: rotate(-1deg);
+    }
+
+    .diamond-card:hover {
+      transform: rotate(0deg) scale(1.05);
+      box-shadow: 0 30px 50px -20px #4aa3a2;
+    }
+
+    .diamond-card img {
+      width: 130px;
+      height: 130px;
+      border-radius: 30px;
+      object-fit: cover;
+      margin-bottom: 1.5rem;
+      border: 4px solid #4aa3a2;
+    }
+
+    /* responsive */
+    @media (max-width: 1024px) {
+      .team-diamond {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .process-flow {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .process-step::after {
+        display: none;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .capabilities-grid,
+      .downstream-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .downstream-item {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .team-diamond {
+        grid-template-columns: 1fr;
+      }
+      
+      .process-flow {
+        grid-template-columns: 1fr;
+      }
+      
+      .hero-stats-flex {
+        justify-content: center;
+      }
+      
+      .stat-glass {
+        width: 100%;
+      }
+      
+      .floating-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 2rem;
+        top: -10px;
+        right: -10px;
+      }
+      
+      .btn {
+        width: 100%;
+        margin: 0.5rem 0;
+      }
+      
+      .capability-card {
+        padding: 1.5rem;
+      }
+    }
+
+    /* no horizontal scroll */
+    html, body {
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+  </style>
+</head>
+<body>
+  <!-- GLASS EFFECT FIXED BACK BUTTON -->
+  <div class="back-to-research">
+    <a href="research.html" class="glass-back-btn">
+      <i class="fas fa-arrow-left"></i> Back to Research
+    </a>
+  </div>
+
+  <!-- SECTION 1: Hero with Bioprocess theme -->
+  <section class="hero-bioprocess">
+    <div class="section-container">
+      <div class="hero-grid">
+        <div data-aos="fade-right" data-aos-duration="1000">
+          <span class="hero-badge"><i class="fas fa-flask"></i> BIOPROCESS ENGINEERING</span>
+          <h1 class="section-title" style="color: white;">From lab to life: scaling the future</h1>
+          <p style="font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.95;">Integrated solutions for strain development, fermentation optimization, and downstream processing at cGMP scale.</p>
+          <div class="hero-stats-flex">
+            <div class="stat-glass" data-aos="zoom-in" data-aos-delay="200"><span id="statStrains">80</span>+ strains</div>
+            <div class="stat-glass" data-aos="zoom-in" data-aos-delay="300"><span id="statCapacity">50</span>kL capacity</div>
+            <div class="stat-glass" data-aos="zoom-in" data-aos-delay="400"><span id="statPurity">98</span>% purity</div>
+          </div>
+          <div class="button-group" data-aos="fade-up" data-aos-delay="500">
+            <a href="404.html" class="btn">Explore capabilities</a>
+            <a href="404.html" class="btn btn-outline-light">Request consultation</a>
+          </div>
+        </div>
+        <div class="hero-image-wrapper" data-aos="fade-left" data-aos-duration="1000">
+          <img src="b13.webp" alt="Fermentation facility">
+          <div class="floating-icon" data-aos="zoom-in" data-aos-delay="600">
+            <i class="fas fa-flask"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: Process Flow (4 steps) -->
+  <section>
+    <div class="section-container">
+      <h2 class="section-title" data-aos="fade-down">Bioprocess workflow</h2>
+      <p class="section-subtitle" data-aos="fade-down" data-aos-delay="100">From strain to purified product</p>
+      <div class="process-flow">
+        <div class="process-step" data-aos="flip-left" data-aos-delay="200">
+          <div class="step-number">01</div>
+          <div class="step-icon"><i class="fas fa-dna"></i></div>
+          <h3>Strain engineering</h3>
+          <p>80+ microbial strains optimized for high-yield production using CRISPR and adaptive evolution.</p>
+          <a href="404.html" class="btn btn-secondary" style="margin-top: 1rem;">Learn more</a>
+        </div>
+        <div class="process-step" data-aos="flip-left" data-aos-delay="300">
+          <div class="step-number">02</div>
+          <div class="step-icon"><i class="fas fa-chart-line"></i></div>
+          <h3>Media optimization</h3>
+          <p>DOE and metabolomics-driven formulation for maximum productivity and yield.</p>
+          <a href="404.html" class="btn btn-secondary" style="margin-top: 1rem;">Learn more</a>
+        </div>
+        <div class="process-step" data-aos="flip-left" data-aos-delay="400">
+          <div class="step-number">03</div>
+          <div class="step-icon"><i class="fas fa-industry"></i></div>
+          <h3>Fermentation scale-up</h3>
+          <p>From 10L to 50,000L cGMP bioreactors with real-time monitoring and control.</p>
+          <a href="404.html" class="btn btn-secondary" style="margin-top: 1rem;">Learn more</a>
+        </div>
+        <div class="process-step" data-aos="flip-left" data-aos-delay="500">
+          <div class="step-number">04</div>
+          <div class="step-icon"><i class="fas fa-filter"></i></div>
+          <h3>Downstream processing</h3>
+          <p>Centrifugation, chromatography, TFF, and lyophilization for >98% purity.</p>
+          <a href="404.html" class="btn btn-secondary" style="margin-top: 1rem;">Learn more</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: Fermentation Capabilities -->
+  <section style="background: #f0f9ff;">
+    <div class="section-container">
+      <h2 class="section-title" data-aos="fade-down">cGMP fermentation capabilities</h2>
+      <div class="capabilities-grid">
+        <div class="capability-card" data-aos="fade-right" data-aos-delay="200">
+          <i class="fas fa-biohazard fa-3x" style="color: #4aa3a2;"></i>
+          <h3 style="margin: 1rem 0;">Microbial fermentation</h3>
+          <p>E. coli, yeast, filamentous fungi up to 50,000L. Fed-batch, continuous, and perfusion modes.</p>
+          <div class="capability-stats">
+            <span class="cap-stat"><span id="statMicrobial">80</span>+ strains</span>
+            <span class="cap-stat"><span id="statTiter">15</span> g/L titer</span>
+          </div>
+          <a href="404.html" class="btn btn-outline-dark">View strains</a>
+        </div>
+        <div class="capability-card" data-aos="fade-left" data-aos-delay="300">
+          <i class="fas fa-heartbeat fa-3x" style="color: #4aa3a2;"></i>
+          <h3 style="margin: 1rem 0;">Mammalian cell culture</h3>
+          <p>CHO, HEK293, and other cell lines for monoclonal antibodies and recombinant proteins.</p>
+          <div class="capability-stats">
+            <span class="cap-stat"><span id="statLines">12</span> cell lines</span>
+            <span class="cap-stat"><span id="statYield">5</span> g/L yield</span>
+          </div>
+          <a href="404.html" class="btn btn-outline-dark">Learn more</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: Downstream Processing -->
+  <section>
+    <div class="section-container">
+      <h2 class="section-title" data-aos="fade-down">Downstream purification</h2>
+      <p class="section-subtitle" data-aos="fade-down" data-aos-delay="100">Multi-step purification for highest purity</p>
+      <div class="downstream-grid">
+        <div class="downstream-item" data-aos="fade-up" data-aos-delay="200">
+          <div class="downstream-icon"><i class="fas fa-centrifuge"></i></div>
+          <div class="downstream-content">
+            <h3>Centrifugation & depth filtration</h3>
+            <p>Clarification of harvest with disc-stack centrifuges and depth filters.</p>
+            <div class="efficiency-bar"><div class="bar-fill" style="width: 99%;"></div></div>
+            <small>99% solids removal</small>
+          </div>
+        </div>
+        <div class="downstream-item" data-aos="fade-up" data-aos-delay="300">
+          <div class="downstream-icon"><i class="fas fa-chromatography"></i></div>
+          <div class="downstream-content">
+            <h3>Chromatography</h3>
+            <p>AKTA systems with affinity, IEX, HIC, and SEC columns.</p>
+            <div class="efficiency-bar"><div class="bar-fill" style="width: 98%;"></div></div>
+            <small>98% purity</small>
+          </div>
+        </div>
+        <div class="downstream-item" data-aos="fade-up" data-aos-delay="400">
+          <div class="downstream-icon"><i class="fas fa-water"></i></div>
+          <div class="downstream-content">
+            <h3>Tangential flow filtration</h3>
+            <p>Concentration and diafiltration with TFF systems.</p>
+            <div class="efficiency-bar"><div class="bar-fill" style="width: 95%;"></div></div>
+            <small>95% recovery</small>
+          </div>
+        </div>
+        <div class="downstream-item" data-aos="fade-up" data-aos-delay="500">
+          <div class="downstream-icon"><i class="fas fa-snowflake"></i></div>
+          <div class="downstream-content">
+            <h3>Lyophilization</h3>
+            <p>Freeze-drying for stable final product formulation.</p>
+            <div class="efficiency-bar"><div class="bar-fill" style="width: 99%;"></div></div>
+            <small>99% stability</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5: Bioprocess Team -->
+  <section style="background: #f0f9ff;">
+    <div class="section-container">
+      <h2 class="section-title" data-aos="fade-down">Bioprocess leadership</h2>
+      <p class="section-subtitle" data-aos="fade-down" data-aos-delay="100">Experts in scale-up and manufacturing</p>
+      <div class="team-diamond">
+        <div class="diamond-card" data-aos="zoom-in" data-aos-delay="200">
+          <img src="p2.webp" alt="Malik Jones">
+          <h3>Dr. Malik Jones</h3>
+          <p style="color: #2c5f7c;">Head of Bioprocess</p>
+          <p style="font-size: 0.95rem;">Ex-Genzyme <br> 15 years industry</p>
+          <a href="404.html" class="btn btn-secondary" style="margin-top: 1rem;">Contact</a>
+        </div>
+        <div class="diamond-card" data-aos="zoom-in" data-aos-delay="300">
+          <img src="p4.webp" alt="Sarah Chen">
+          <h3>Dr. Sarah Chen</h3>
+          <p style="color: #2c5f7c;">Fermentation Lead</p>
+          <p style="font-size: 0.95rem;">20+ years in microbial fermentation</p>
+          <a href="404.html" class="btn btn-secondary" style="margin-top: 1rem;">Contact</a>
+        </div>
+        <div class="diamond-card" data-aos="zoom-in" data-aos-delay="400">
+          <img src="p1.webp" alt="Elena Voss">
+          <h3>Dr. Elena Voss</h3>
+          <p style="color: #2c5f7c;">CSO</p>
+          <p style="font-size: 0.95rem;">34 patents <br> bioprocess pioneer</p>
+          <a href="404.html" class="btn btn-secondary" style="margin-top: 1rem;">Contact</a>
+        </div>
+        <div class="diamond-card" data-aos="zoom-in" data-aos-delay="500">
+          <img src="p3.webp" alt="R. Chen">
+          <h3>Prof. R. Chen</h3>
+          <p style="color: #2c5f7c;">Downstream Advisor</p>
+          <p style="font-size: 0.95rem;">Stanford, chromatography expert</p>
+          <a href="404.html" class="btn btn-secondary" style="margin-top: 1rem;">Contact</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AOS and number animation scripts -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    (function() {
+      // Number animation - continuously changing
+      const statElements = {
+        strains: document.getElementById('statStrains'),
+        capacity: document.getElementById('statCapacity'),
+        purity: document.getElementById('statPurity'),
+        microbial: document.getElementById('statMicrobial'),
+        titer: document.getElementById('statTiter'),
+        lines: document.getElementById('statLines'),
+        yield: document.getElementById('statYield')
+      };
+
+      function getRandom(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+
+      setInterval(() => {
+        if (statElements.strains) statElements.strains.innerText = getRandom(75, 85);
+        if (statElements.capacity) statElements.capacity.innerText = getRandom(45, 55);
+        if (statElements.purity) statElements.purity.innerText = getRandom(96, 99);
+        if (statElements.microbial) statElements.microbial.innerText = getRandom(75, 85);
+        if (statElements.titer) statElements.titer.innerText = getRandom(12, 18);
+        if (statElements.lines) statElements.lines.innerText = getRandom(10, 15);
+        if (statElements.yield) statElements.yield.innerText = getRandom(3, 7);
+      }, 3000);
+
+      AOS.init({ 
+        duration: 800, 
+        once: false, 
+        mirror: true,
+        offset: 30,
+        easing: 'ease-out-quad'
+      });
+    })();
+  </script>
+</body>
+</html>

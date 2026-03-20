@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>Biotechnology · Home</title>
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts: Inter + Outfit -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&family=Outfit:wght@300..700&display=swap" rel="stylesheet">
+  <!-- AOS (Animate on Scroll) -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', 'Outfit', sans-serif;
+      background: #f5fbfe;
+      color: #0a2647;
+      overflow-x: hidden;
+      width: 100%;
+      line-height: 1.5;
+      padding-top: 0;
+      transition: padding-top 0.3s ease;
+    }
+
+    /* ===== FRESH BIOTECH COLOR PALETTE ===== */
+    .section-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 5rem 1.5rem;
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      font-weight: 700;
+      color: #0a2647;
+      margin-bottom: 1.2rem;
+      line-height: 1.2;
+    }
+
+    .section-subtitle {
+      font-size: 1.2rem;
+      color: #2c5f7c;
+      margin-bottom: 2rem;
+      font-weight: 400;
+    }
+
+    /* buttons */
+    .btn {
+      display: inline-block;
+      background: #4aa3a2;
+      color: white;
+      font-weight: 600;
+      padding: 0.9rem 2.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-size: 1rem;
+      border: 2px solid transparent;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 20px rgba(74, 163, 162, 0.25);
+      cursor: pointer;
+      margin: 0.5rem 0.5rem 0 0;
+    }
+
+    .btn:hover {
+      background: #2c5f7c;
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 15px 30px rgba(44, 95, 124, 0.3);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid #4aa3a2;
+      color: #4aa3a2;
+      box-shadow: none;
+    }
+
+    .btn-outline:hover {
+      background: #4aa3a2;
+      color: white;
+    }
+
+    .btn-white {
+      background: white;
+      color: #0a2647;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    }
+    .btn-white:hover {
+      background: #cdf0ea;
+      color: #0a2647;
+    }
+
+    /* stat pills */
+    .stat-pill {
+      background: #cdf0ea;
+      color: #0a2647;
+      padding: 0.4rem 1.6rem;
+      border-radius: 60px;
+      font-weight: 600;
+      display: inline-block;
+      margin: 0.5rem 0.5rem 0.5rem 0;
+      font-size: 0.95rem;
+    }
+
+    .stat-pill-dark {
+      background: #0a2647;
+      color: white;
+    }
+
+    /* image styles */
+    .img-round {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      border-radius: 30px;
+      transition: all 0.4s ease;
+      box-shadow: 0 20px 30px -10px rgba(10,38,71,0.2);
+    }
+    .img-round:hover {
+      transform: scale(1.02) translateY(-8px);
+      box-shadow: 0 30px 40px -10px #4aa3a2;
+    }
+
+    .img-circle {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #cdf0ea;
+      transition: 0.3s;
+      margin: 0 auto 1rem;
+    }
+    .img-circle:hover {
+      transform: scale(1.05) rotate(2deg);
+      border-color: #4aa3a2;
+    }
+
+    .img-cover {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 24px;
+      transition: 0.3s;
+    }
+    .img-cover:hover {
+      transform: scale(1.02);
+      box-shadow: 0 20px 28px -8px #4aa3a2;
+    }
+
+    /* grids - FULLY RESPONSIVE */
+    .grid-2 { display: grid; grid-template-columns: repeat(2,1fr); gap: 2.5rem; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 2rem; }
+    .grid-special { display: grid; grid-template-columns: 1.2fr 0.9fr; gap: 2rem; }
+    .grid-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+
+    @media (max-width: 1024px) {
+      .grid-4 { grid-template-columns: repeat(2,1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .grid-2, .grid-3, .grid-4, .grid-special, .grid-stats { 
+        grid-template-columns: 1fr; 
+        gap: 2rem;
+      }
+      .section-container {
+        padding: 3rem 1rem;
+      }
+    }
+
+    /* card styles */
+    .card-glass {
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(10px);
+      border-radius: 30px;
+      padding: 2rem;
+      border: 1px solid rgba(255,255,255,0.5);
+      box-shadow: 0 20px 40px -12px rgba(10,38,71,0.15);
+      color: #0a2647;
+    }
+
+    .card-white {
+      background: white;
+      border-radius: 30px;
+      padding: 2rem;
+      box-shadow: 0 20px 40px -12px rgba(10,38,71,0.1);
+      transition: transform 0.3s;
+      height: 100%;
+      border: 1px solid #e9f2fa;
+      color: #0a2647;
+    }
+    .card-white:hover { transform: translateY(-10px); }
+
+    .card-accent {
+      background: #cdf0ea;
+      border-radius: 30px;
+      padding: 2rem;
+      color: #0a2647;
+    }
+
+    .bg-gradient-1 {
+      background: linear-gradient(135deg, #0a2647 0%, #1e3a5f 50%, #2c5f7c 100%);
+      color: white;
+    }
+    .bg-gradient-1 .section-title { color: white; }
+    .bg-gradient-1 .card-white .section-title { color: #0a2647; }
+
+    .bg-teal-light {
+      background: #cdf0ea;
+      color: #0a2647;
+    }
+
+    .bg-soft-white {
+      background: #f0f9ff;
+      color: #0a2647;
+    }
+
+    /* hero - FIXED OVERLAP ISSUE */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      color: white;
+      overflow: hidden;
+      background-color: #0a2647;
+      margin-top: 0;
+    }
+
+    .hero-slides {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    .hero-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transition: opacity 1.8s ease;
+    }
+
+    .hero-slide.active {
+      opacity: 1;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(10,38,71,0.95) 0%, rgba(44,95,124,0.85) 100%);
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+      width: 100%;
+    }
+
+    .hero-content h1 {
+      font-size: clamp(2.5rem, 8vw, 4.8rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+      max-width: 900px;
+    }
+
+    .hero-desc {
+      font-size: clamp(1.2rem, 4vw, 1.5rem);
+      margin-bottom: 2rem;
+      max-width: 700px;
+      opacity: 0.95;
+    }
+
+    .hero-extra {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-stat {
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(4px);
+      padding: 0.8rem 2rem;
+      border-radius: 60px;
+      font-weight: 500;
+      border: 1px solid rgba(255,255,255,0.25);
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    /* no horizontal scroll */
+    html, body { 
+      max-width: 100%; 
+      overflow-x: hidden; 
+    }
+    img { max-width: 100%; }
+
+    /* fallback header/footer */
+    .fallback-header {
+      background: #1e1e2f; 
+      color: white; 
+      padding: 20px; 
+      text-align: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+    .fallback-footer {
+      background: #1a1a2e; 
+      color: white; 
+      padding: 40px; 
+      text-align: center;
+    }
+
+    /* climate impact numbers */
+    .climate-number {
+      font-size: 3.5rem; 
+      font-weight: 700; 
+      color: #4aa3a2;
+    }
+    .climate-number-small {
+      font-size: 2.5rem; 
+      font-weight: 700; 
+      color: #4aa3a2;
+    }
+    .climate-number-medium {
+      font-size: 2rem; 
+      font-weight: 700; 
+      color: #4aa3a2;
+    }
+
+    /* biofoundry stats */
+    .biofoundry-stat {
+      font-size: 2rem; 
+      font-weight: 700; 
+      color: #4aa3a2;
+    }
+
+    /* rare disease initiative */
+    .rare-disease-badge {
+      background: #0a2647; 
+      color: white; 
+      padding: 0.5rem 2rem; 
+      border-radius: 60px;
+    }
+    .rare-disease-container {
+      background: #cdf0ea; 
+      border-radius: 4rem; 
+      padding: 3rem;
+    }
+
+    /* contact images */
+    .contact-img {
+      width: 140px; 
+      height: 140px; 
+      border-radius: 30px; 
+      object-fit: cover; 
+      transition: transform 0.3s;
+    }
+    .contact-img:hover {
+      transform: scale(1.05);
+    }
+
+    /* responsive fixes */
+    @media screen and (max-width: 768px) {
+      .hero {
+        min-height: 100vh;
+      }
+      .rare-disease-container {
+        border-radius: 2rem;
+        padding: 2rem 1rem;
+      }
+      .climate-number {
+        font-size: 2.5rem;
+      }
+      .climate-number-small {
+        font-size: 2rem;
+      }
+      .climate-number-medium {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER PLACEHOLDER - Header will load here -->
+  <div id="header-placeholder"></div>
+
+  <!-- 1. HERO SECTION - every element gets data-aos -->
+  <section class="hero">
+    <div class="hero-slides">
+      <div class="hero-slide active" style="background-image: url('b1.webp');" data-aos="fade" data-aos-duration="1000"></div>
+      <div class="hero-slide" style="background-image: url('b2.webp');" data-aos="fade" data-aos-duration="1000"></div>
+      <div class="hero-slide" style="background-image: url('b3.webp');" data-aos="fade" data-aos-duration="1000"></div>
+    </div>
+    <div class="hero-overlay" data-aos="fade" data-aos-duration="1200"></div>
+    <div class="hero-content">
+      <h1 id="hero-title" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">Precision gene editing for tomorrow's cures</h1>
+      <p id="hero-desc" class="hero-desc" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">CRISPR 2.0, base editing, and epigenetic modifiers with 98% efficiency. 12 programs in clinical phase.</p>
+      <div class="hero-extra" id="hero-extra" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
+        <span class="hero-stat"><i class="fas fa-dna"></i> 3400+ edits</span>
+        <span class="hero-stat"><i class="fas fa-flask"></i> 12 clinical assets</span>
+        <span class="hero-stat"><i class="fas fa-microscope"></i> 98% precision</span>
+      </div>
+      <div class="hero-buttons" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
+        <a href="404.html" class="btn" data-aos="zoom-in" data-aos-duration="600">Discover platform</a>
+        <a href="404.html" class="btn btn-outline" data-aos="zoom-in" data-aos-duration="600" data-aos-delay="100">Partner with us</a>
+        <a href="404.html" class="btn btn-white" data-aos="zoom-in" data-aos-duration="600" data-aos-delay="200">View pipeline</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. AI BIOFOUNDRY - every element animated -->
+  <div class="section-container">
+    <div class="grid-special">
+      <div class="card-glass" data-aos="fade-right" data-aos-duration="1000">
+        <span class="stat-pill stat-pill-dark" data-aos="fade-down" data-aos-duration="600"><i class="fas fa-robot"></i> AI-POWERED FOUNDRY</span>
+        <h2 class="section-title" data-aos="fade-up" data-aos-duration="700">Intelligent biofoundry</h2>
+        <p class="section-subtitle" data-aos="fade-up" data-aos-duration="700" data-aos-delay="100">Fully automated platform with real‑time machine learning optimization.</p>
+        <div class="grid-stats" style="margin:2rem 0;" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+          <div><span class="biofoundry-stat">99.7%</span><br>accuracy</div>
+          <div><span class="biofoundry-stat">450k</span><br>constructs/month</div>
+          <div><span class="biofoundry-stat">24/7</span><br>automation</div>
+        </div>
+        <p data-aos="fade-up" data-aos-duration="700" data-aos-delay="300"><strong>Throughput:</strong> 5000+ experiments/day • <strong>Turnaround:</strong> 48h for standard constructs • <strong>AI models:</strong> trained on 15M+ datapoints</p>
+        <a href="404.html" class="btn" style="margin-top:1.5rem;" data-aos="zoom-in" data-aos-duration="600" data-aos-delay="400">Explore platform</a>
+      </div>
+      <img class="img-round" src="b4.webp" alt="lab robot" data-aos="fade-left" data-aos-duration="1000">
+    </div>
+  </div>
+
+  <!-- 3. CORE TECHNOLOGIES -->
+  <div class="bg-teal-light">
+    <div class="section-container">
+      <h2 class="section-title" data-aos="fade-down" data-aos-duration="800">Core technologies</h2>
+      <div class="grid-3">
+        <div class="card-white" data-aos="flip-left" data-aos-duration="800">
+          <i class="fas fa-dna fa-3x" style="color:#4aa3a2;" data-aos="zoom-in" data-aos-duration="600"></i>
+          <h3 data-aos="fade-up" data-aos-duration="600">CRISPR 2.0 platform</h3>
+          <p data-aos="fade-up" data-aos-duration="600" data-aos-delay="100">Base editing, prime editing, epigenomic modulation. 98% efficiency across 3400+ edits. Delivery via LNP, AAV, and virus-like particles.</p>
+          <a href="404.html" class="btn" data-aos="zoom-in" data-aos-duration="600" data-aos-delay="200">Learn more</a>
+        </div>
+        <div class="card-white" data-aos="flip-left" data-aos-duration="800" data-aos-delay="100">
+          <i class="fas fa-microscope fa-3x" style="color:#4aa3a2;" data-aos="zoom-in" data-aos-duration="600"></i>
+          <h3 data-aos="fade-up" data-aos-duration="600">Single-cell multiomics</h3>
+          <p data-aos="fade-up" data-aos-duration="600" data-aos-delay="100">Simultaneous RNA, DNA, protein, and epigenetic profiling. 10x compatible, with custom analysis pipelines and AI-powered clustering.</p>
+          <a href="404.html" class="btn" data-aos="zoom-in" data-aos-duration="600" data-aos-delay="200">Learn more</a>
+        </div>
+        <div class="card-white" data-aos="flip-left" data-aos-duration="800" data-aos-delay="200">
+          <i class="fas fa-flask fa-3x" style="color:#4aa3a2;" data-aos="zoom-in" data-aos-duration="600"></i>
+          <h3 data-aos="fade-up" data-aos-duration="600">Precision fermentation</h3>
+          <p data-aos="fade-up" data-aos-duration="600" data-aos-delay="100">Strain engineering, media optimization, scale-up to 50,000L. cGMP capacity available. 80+ microbial strains in <br> library.</p>
+          <a href="404.html" class="btn" data-aos="zoom-in" data-aos-duration="600" data-aos-delay="200">Learn more</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. THERAPEUTIC PIPELINE -->
+  <div class="section-container">
+    <div class="grid-2">
+      <img class="img-round" src="b5.webp" alt="therapy" data-aos="fade-right" data-aos-duration="1000">
+      <div data-aos="fade-left" data-aos-duration="1000">
+        <span class="stat-pill" data-aos="fade-down" data-aos-duration="600">🧬 PIPELINE (15 PROGRAMS)</span>
+        <h2 class="section-title" data-aos="fade-up" data-aos-duration="700">Gene therapy portfolio</h2>
+        <ul style="list-style:none; margin:2rem 0;">
+          <li style="margin-bottom:1rem;" data-aos="fade-up" data-aos-duration="500" data-aos-delay="100"><i class="fas fa-circle-check" style="color:#4aa3a2;"></i> <strong>LNP formulations:</strong> 5 INDs filed, 3 in Phase I</li>
+          <li style="margin-bottom:1rem;" data-aos="fade-up" data-aos-duration="500" data-aos-delay="200"><i class="fas fa-circle-check" style="color:#4aa3a2;"></i> <strong>AAV vectors:</strong> Rare eye diseases, haemophilia A</li>
+          <li style="margin-bottom:1rem;" data-aos="fade-up" data-aos-duration="500" data-aos-delay="300"><i class="fas fa-circle-check" style="color:#4aa3a2;"></i> <strong>Ex vivo editing:</strong> Sickle cell, beta-thalassemia</li>
+          <li style="margin-bottom:1rem;" data-aos="fade-up" data-aos-duration="500" data-aos-delay="400"><i class="fas fa-circle-check" style="color:#4aa3a2;"></i> <strong>Oncology:</strong> CAR-T next-gen, allogeneic</li>
+        </ul>
+        <a href="404.html" class="btn" data-aos="zoom-in" data-aos-duration="600" data-aos-delay="500">View full pipeline</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. SCIENTIFIC ADVISORY BOARD - EVERY CARD ELEMENT ANIMATED -->
+  <div class="bg-soft-white">
+    <div class="section-container">
+      <h2 class="section-title" data-aos="fade-right" data-aos-duration="800">Scientific advisory board</h2>
+      <div class="grid-4">
+        <div data-aos="zoom-in" data-aos-duration="700" style="text-align: center;">
+          <img class="img-circle" src="p1.webp" alt="Elena Voss" data-aos="zoom-in" data-aos-duration="600">
+          <h4 data-aos="fade-up" data-aos-duration="500" data-aos-delay="100">Dr. Elena Voss</h4>
+          <p style="color:#2c5f7c;" data-aos="fade-up" data-aos-duration="500" data-aos-delay="150">CSO, CRISPR pioneer<br>34 patents, Nature author</p>
+          <a href="404.html" class="btn btn-outline" style="padding:0.4rem 1.5rem; margin-top:0.5rem;" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="200">Contact</a>
+        </div>
+        <div data-aos="zoom-in" data-aos-duration="700" data-aos-delay="100" style="text-align: center;">
+          <img class="img-circle" src="p2.webp" alt="R. Chen" data-aos="zoom-in" data-aos-duration="600">
+          <h4 data-aos="fade-up" data-aos-duration="500" data-aos-delay="100">Prof. R. Chen</h4>
+          <p style="color:#2c5f7c;" data-aos="fade-up" data-aos-duration="500" data-aos-delay="150">Gene therapy<br>Stanford, 200+ publications</p>
+          <a href="404.html" class="btn btn-outline" style="padding:0.4rem 1.5rem; margin-top:0.5rem;" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="200">Contact</a>
+        </div>
+        <div data-aos="zoom-in" data-aos-duration="700" data-aos-delay="200" style="text-align: center;">
+          <img class="img-circle" src="p3.webp" alt="Malik Jones" data-aos="zoom-in" data-aos-duration="600">
+          <h4 data-aos="fade-up" data-aos-duration="500" data-aos-delay="100">Dr. Malik Jones</h4>
+          <p style="color:#2c5f7c;" data-aos="fade-up" data-aos-duration="500" data-aos-delay="150">Bioprocess engineering<br>Ex-Genzyme, 15 years industry</p>
+          <a href="404.html" class="btn btn-outline" style="padding:0.4rem 1.5rem; margin-top:0.5rem;" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="200">Contact</a>
+        </div>
+        <div data-aos="zoom-in" data-aos-duration="700" data-aos-delay="300" style="text-align: center;">
+          <img class="img-circle" src="p4.webp" alt="Aisha Kumar" data-aos="zoom-in" data-aos-duration="600">
+          <h4 data-aos="fade-up" data-aos-duration="500" data-aos-delay="100">Dr. Aisha Kumar</h4>
+          <p style="color:#2c5f7c;" data-aos="fade-up" data-aos-duration="500" data-aos-delay="150">Agri-biotech<br>Rockefeller, Gates Foundation</p>
+          <a href="404.html" class="btn btn-outline" style="padding:0.4rem 1.5rem; margin-top:0.5rem;" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="200">Contact</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. WHY NOVABIOTECH -->
+  <div class="section-container">
+    <div class="grid-special">
+      <div data-aos="fade-right" data-aos-duration="1000">
+        <h2 class="section-title" data-aos="fade-up" data-aos-duration="700">Why partners choose us</h2>
+        <div style="display:flex; flex-direction:column; gap:1.5rem;">
+          <div data-aos="fade-up" data-aos-duration="600" data-aos-delay="100"><i class="fas fa-shield-halved fa-2x" style="color:#4aa3a2; width:40px;"></i> <strong>Ethical governance</strong> – Independent review board, GLP/GMP compliant, patient-first policies.</div>
+          <div data-aos="fade-up" data-aos-duration="600" data-aos-delay="200"><i class="fas fa-gauge-high fa-2x" style="color:#4aa3a2;"></i> <strong>Rapid iteration</strong> – 66% faster development cycle (bench to IND in 18 months).</div>
+          <div data-aos="fade-up" data-aos-duration="600" data-aos-delay="300"><i class="fas fa-leaf fa-2x" style="color:#4aa3a2;"></i> <strong>Carbon neutral</strong> – Certified since 2024, zero-waste facilities.</div>
+          <div data-aos="fade-up" data-aos-duration="600" data-aos-delay="400"><i class="fas fa-handshake fa-2x" style="color:#4aa3a2;"></i> <strong>Flexible IP</strong> – Shared ownership, licensing, and royalty models.</div>
+        </div>
+        <a href="404.html" class="btn" style="margin-top:2rem;" data-aos="zoom-in" data-aos-duration="600" data-aos-delay="500">Read more</a>
+      </div>
+      <img class="img-round" src="b6.webp" alt="lab" data-aos="fade-left" data-aos-duration="1000">
+    </div>
+  </div>
+
+  <!-- 7. LATEST INNOVATIONS -->
+  <div class="bg-gradient-1">
+    <div class="section-container">
+      <h2 class="section-title" style="color:white;" data-aos="fade-down" data-aos-duration="800">Latest innovations</h2>
+      <div class="grid-3">
+        <div class="card-white" data-aos="fade-up" data-aos-duration="800">
+          <img class="img-cover" src="b7.webp" alt="mRNA" data-aos="zoom-in" data-aos-duration="600">
+          <h3 style="margin-top:1rem;" data-aos="fade-up" data-aos-duration="500">mRNA delivery 2.0</h3>
+          <p data-aos="fade-up" data-aos-duration="500" data-aos-delay="100">Novel ionizable lipids with 3x higher expression. T cell targeting achieved. IND filing Q3 2026.</p>
+          <a href="404.html" class="btn" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="200">Read publication</a>
+        </div>
+        <div class="card-white" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+          <img class="img-cover" src="b8.webp" alt="wheat" data-aos="zoom-in" data-aos-duration="600">
+          <h3 style="margin-top:1rem;" data-aos="fade-up" data-aos-duration="500">Drought-tolerant wheat</h3>
+          <p data-aos="fade-up" data-aos-duration="500" data-aos-delay="100">Field trials in Kenya and Australia show 32% yield increase under water stress. Regulatory submission 2026.</p>
+          <a href="404.html" class="btn" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="200">Read more</a>
+        </div>
+        <div class="card-white" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+          <img class="img-cover" src="b9.webp" alt="enzyme" data-aos="zoom-in" data-aos-duration="600">
+          <h3 style="margin-top:1rem;" data-aos="fade-up" data-aos-duration="500">AI-designed enzymes</h3>
+          <p data-aos="fade-up" data-aos-duration="500" data-aos-delay="100">De novo PETase with 8x faster degradation. 3 industry partnerships for scale-up.</p>
+          <a href="404.html" class="btn" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="200">Read more</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. ENZYME ENGINEERING -->
+  <div class="section-container">
+    <div class="grid-2">
+      <img class="img-round" src="b10.webp" alt="enzyme" data-aos="fade-right" data-aos-duration="1000">
+      <div data-aos="fade-left" data-aos-duration="1000">
+        <h2 class="section-title" data-aos="fade-up" data-aos-duration="700">Enzyme engineering</h2>
+        <div class="card-accent" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+          <p data-aos="fade-up" data-aos-duration="500"><i class="fas fa-flask"></i> <strong>3 novel PETases</strong> – pilot scale (1000L) Q2 2026</p>
+          <p data-aos="fade-up" data-aos-duration="500" data-aos-delay="100"><i class="fas fa-chart-line"></i> <strong>8x faster degradation</strong> vs wild-type</p>
+          <p data-aos="fade-up" data-aos-duration="500" data-aos-delay="200"><i class="fas fa-industry"></i> <strong>3 industry partners</strong> – packaging, textile, recycling</p>
+          <p data-aos="fade-up" data-aos-duration="500" data-aos-delay="300"><i class="fas fa-microscope"></i> <strong>Structure solved</strong> – Cryo-EM at 2.1Å</p>
+          <a href="404.html" class="btn" style="margin-top:1rem;" data-aos="zoom-in" data-aos-duration="600" data-aos-delay="400">Licensing opportunities</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 9. MICROBIOME PLATFORMS -->
+  <div class="bg-teal-light">
+    <div class="section-container">
+      <h2 class="section-title" data-aos="fade-down" data-aos-duration="800">Microbiome platforms</h2>
+      <div class="grid-2">
+        <div class="card-white" data-aos="fade-right" data-aos-duration="800">
+          <i class="fas fa-seedling fa-3x" style="color:#4aa3a2;" data-aos="zoom-in" data-aos-duration="600"></i>
+          <h3 data-aos="fade-up" data-aos-duration="500">Biofertilizers</h3>
+          <p data-aos="fade-up" data-aos-duration="500" data-aos-delay="100">Nitrogen-fixing microbes for maize, soybean, wheat. Average yield increase 30%. Field trials in 8 countries. EPA exemption granted.</p>
+          <a href="404.html" class="btn" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="200">Product sheet</a>
+        </div>
+        <div class="card-white" data-aos="fade-left" data-aos-duration="800">
+          <i class="fas fa-bug fa-3x" style="color:#4aa3a2;" data-aos="zoom-in" data-aos-duration="600"></i>
+          <h3 data-aos="fade-up" data-aos-duration="500">RNAi pesticides</h3>
+          <p data-aos="fade-up" data-aos-duration="500" data-aos-delay="100">Species-specific dsRNA targeting corn rootworm, Colorado beetle. No off-target effects. EPA approved 2026.</p>
+          <a href="404.html" class="btn" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="200">Technical data</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 10. CLIMATE IMPACT -->
+  <div class="section-container">
+    <h2 class="section-title" data-aos="fade-down" data-aos-duration="800">Climate impact</h2>
+    <div class="grid-2">
+      <img class="img-round" src="b11.webp" alt="climate" data-aos="fade-right" data-aos-duration="1000">
+      <div style="display:flex; flex-direction:column; gap:1.5rem;" data-aos="fade-left" data-aos-duration="1000">
+        <div data-aos="fade-up" data-aos-duration="600"><span class="climate-number">2.5M</span><br>tons CO₂ captured (2025)</div>
+        <div data-aos="fade-up" data-aos-duration="600" data-aos-delay="100"><span class="climate-number-small">14</span><br>methane‑consuming strains isolated</div>
+        <div data-aos="fade-up" data-aos-duration="600" data-aos-delay="200"><span class="climate-number-medium">100%</span><br>renewable energy in labs</div>
+        <a href="404.html" class="btn" data-aos="zoom-in" data-aos-duration="600" data-aos-delay="300">Explore climate program</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 11. FERMENTATION SERVICES -->
+  <div class="bg-soft-white">
+    <div class="section-container">
+      <div class="grid-special">
+        <div data-aos="fade-right" data-aos-duration="1000">
+          <h2 class="section-title" data-aos="fade-up" data-aos-duration="700">Fermentation services</h2>
+          <ul style="list-style:none; font-size:1.1rem;">
+            <li style="margin-bottom:0.8rem;" data-aos="fade-up" data-aos-duration="500"><i class="fas fa-check-circle" style="color:#4aa3a2;"></i> Strain engineering & high-throughput screening</li>
+            <li style="margin-bottom:0.8rem;" data-aos="fade-up" data-aos-duration="500" data-aos-delay="100"><i class="fas fa-check-circle" style="color:#4aa3a2;"></i> Media optimization (DOE, metabolomics)</li>
+            <li style="margin-bottom:0.8rem;" data-aos="fade-up" data-aos-duration="500" data-aos-delay="200"><i class="fas fa-check-circle" style="color:#4aa3a2;"></i> cGMP batches from 10L to 5000L</li>
+            <li style="margin-bottom:0.8rem;" data-aos="fade-up" data-aos-duration="500" data-aos-delay="300"><i class="fas fa-check-circle" style="color:#4aa3a2;"></i> Downstream purification & lyophilization</li>
+          </ul>
+          <a href="404.html" class="btn" style="margin-top:1rem;" data-aos="zoom-in" data-aos-duration="600" data-aos-delay="400">Request VFM</a>
+        </div>
+        <img class="img-round" src="b12.webp" alt="fermenter" data-aos="fade-left" data-aos-duration="1000">
+      </div>
+    </div>
+  </div>
+
+  <!-- 12. BIOINFORMATICS CLOUD -->
+  <div class="section-container">
+    <h2 class="section-title" data-aos="fade-down" data-aos-duration="800">Bioinformatics cloud</h2>
+    <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:1.5rem; margin:2rem 0;">
+      <div style="text-align:center;" data-aos="zoom-in" data-aos-duration="500"><i class="fas fa-dna fa-2x" style="color:#4aa3a2;"></i><br>RNA-seq</div>
+      <div style="text-align:center;" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="50"><i class="fas fa-chart-pie fa-2x" style="color:#4aa3a2;"></i><br>CRISPR guide</div>
+      <div style="text-align:center;" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="100"><i class="fas fa-project-diagram fa-2x" style="color:#4aa3a2;"></i><br>Pathway</div>
+      <div style="text-align:center;" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="150"><i class="fas fa-database fa-2x" style="color:#4aa3a2;"></i><br>Multi-omics</div>
+      <div style="text-align:center;" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="200"><i class="fas fa-robot fa-2x" style="color:#4aa3a2;"></i><br>ML models</div>
+    </div>
+    <p style="margin-bottom:2rem;" data-aos="fade-up" data-aos-duration="600">Secure, scalable, with API access. 500+ academic users. Free tier for non-profits.</p>
+    <a href="404.html" class="btn" data-aos="zoom-in" data-aos-duration="600" data-aos-delay="300">Launch cloud</a>
+  </div>
+
+  <!-- 13. PARTNERSHIP MODELS -->
+  <div class="bg-gradient-1">
+    <div class="section-container">
+      <h2 class="section-title" style="color:white;" data-aos="fade-down" data-aos-duration="800">Partnership models</h2>
+      <div class="grid-3">
+        <div class="card-white" data-aos="flip-left" data-aos-duration="800">
+          <i class="fas fa-file-signature fa-3x" style="color:#4aa3a2;" data-aos="zoom-in" data-aos-duration="600"></i>
+          <h3 data-aos="fade-up" data-aos-duration="500">Licensing</h3>
+          <p data-aos="fade-up" data-aos-duration="500" data-aos-delay="100">Platform access, field-specific licenses, milestone-based terms.</p>
+          <a href="404.html" class="btn" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="200">Learn</a>
+        </div>
+        <div class="card-white" data-aos="flip-left" data-aos-duration="800" data-aos-delay="100">
+          <i class="fas fa-handshake fa-3x" style="color:#4aa3a2;" data-aos="zoom-in" data-aos-duration="600"></i>
+          <h3 data-aos="fade-up" data-aos-duration="500">Co-development</h3>
+          <p data-aos="fade-up" data-aos-duration="500" data-aos-delay="100">Shared IP, joint ownership, 50/50 investment models.</p>
+          <a href="404.html" class="btn" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="200">Learn</a>
+        </div>
+        <div class="card-white" data-aos="flip-left" data-aos-duration="800" data-aos-delay="200">
+          <i class="fas fa-rocket fa-3x" style="color:#4aa3a2;" data-aos="zoom-in" data-aos-duration="600"></i>
+          <h3 data-aos="fade-up" data-aos-duration="500">Incubator</h3>
+          <p data-aos="fade-up" data-aos-duration="500" data-aos-delay="100">Equity-backed, lab space, funding access, mentorship.</p>
+          <a href="404.html" class="btn" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="200">Learn</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 14. RARE DISEASE INITIATIVE -->
+  <div class="section-container">
+    <div class="rare-disease-container" data-aos="flip-up" data-aos-duration="1000">
+      <span class="rare-disease-badge" data-aos="fade-down" data-aos-duration="600">🩺 RARE DISEASE INITIATIVE</span>
+      <h2 style="font-size:2.5rem; margin:1.5rem 0;" data-aos="fade-up" data-aos-duration="700">40+ active programs</h2>
+      <p style="font-size:1.2rem; margin-bottom:1rem;" data-aos="fade-up" data-aos-duration="600" data-aos-delay="100">25 patient foundations · 6 INDs filed · 3 approvals expected 2026</p>
+      <p data-aos="fade-up" data-aos-duration="600" data-aos-delay="200">Focus areas: Duchenne, Huntington's, ALS, rare metabolic disorders. Open for collaboration.</p>
+      <a href="404.html" class="btn" style="background:#0a2647; color:white; margin-top:1.5rem;" data-aos="zoom-in" data-aos-duration="600" data-aos-delay="300">View programs</a>
+    </div>
+  </div>
+
+  <!-- 15. CONTACT -->
+  <div style="background: linear-gradient(145deg, #ffffff, #f0f9ff);">
+    <div class="section-container">
+      <div class="grid-2" style="align-items:center;">
+        <div data-aos="fade-right" data-aos-duration="1000">
+          <h2 class="section-title" data-aos="fade-up" data-aos-duration="700">Let's innovate together</h2>
+          <p style="font-size:1.3rem; color:#2c5f7c;" data-aos="fade-up" data-aos-duration="600" data-aos-delay="100">Partner with us to shape the future of biotechnology.</p>
+          <p style="margin:1.5rem 0;" data-aos="fade-up" data-aos-duration="600" data-aos-delay="200">We're actively seeking collaborators in therapeutics, agriculture, and climate tech.</p>
+          <a href="404.html" class="btn" data-aos="zoom-in" data-aos-duration="600" data-aos-delay="300">Contact us</a>
+          <a href="404.html" class="btn btn-outline" data-aos="zoom-in" data-aos-duration="600" data-aos-delay="400">Schedule a call</a>
+        </div>
+        <div style="display:flex; gap:1.5rem; flex-wrap:wrap;" data-aos="fade-left" data-aos-duration="1000">
+          <img src="p3.webp" class="contact-img" data-aos="zoom-in" data-aos-duration="600">
+          <img src="p4.webp" class="contact-img" data-aos="zoom-in" data-aos-duration="600" data-aos-delay="100">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER PLACEHOLDER - Footer will load here -->
+  <div id="footer-placeholder"></div>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    // ===== HEADER & FOOTER LOADER =====
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize AOS
+        AOS.init({ 
+            duration: 1000, 
+            once: false, 
+            mirror: true,
+            offset: 50,
+            easing: 'ease-in-out'
+        });
+
+        // Function to set body padding based on header height
+        function setBodyPadding() {
+            const header = document.querySelector('header');
+            if (header) {
+                const headerHeight = header.offsetHeight;
+                document.body.style.paddingTop = headerHeight + 'px';
+            } else {
+                document.body.style.paddingTop = '0px';
+            }
+        }
+
+        // Load header
+        fetch('header1.html')
+            .then(response => {
+                if (!response.ok) throw new Error('Header file not found');
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('header-placeholder').innerHTML = data;
+                setBodyPadding();
+                initHeaderInteractions();
+                
+                window.addEventListener('resize', () => {
+                    setBodyPadding();
+                });
+            })
+            .catch(error => {
+                console.warn('Header could not be loaded:', error);
+                document.getElementById('header-placeholder').innerHTML = 
+                    '<div class="fallback-header">Header Not Found</div>';
+                setBodyPadding();
+            });
+
+        // Load footer
+        fetch('footer1.html')
+            .then(response => {
+                if (!response.ok) throw new Error('Footer file not found');
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('footer-placeholder').innerHTML = data;
+            })
+            .catch(error => {
+                console.warn('Footer could not be loaded:', error);
+                document.getElementById('footer-placeholder').innerHTML = 
+                    '<div class="fallback-footer">Footer Not Found</div>';
+            });
+
+        // Refresh AOS after content loads
+        setTimeout(() => {
+            AOS.refresh();
+        }, 500);
+    });
+
+    // ===== HEADER INTERACTIONS (Hamburger Menu, Dropdowns, etc.) =====
+    function initHeaderInteractions() {
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+        
+        // Mobile menu toggle (hamburger)
+        if (menuToggle && navMenu) {
+            menuToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                this.classList.toggle('active');
+                navMenu.classList.toggle('active');
+                
+                // Prevent body scroll when mobile menu is open
+                if (navMenu.classList.contains('active')) {
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    document.body.style.overflow = 'auto';
+                    // Close all dropdowns when closing mobile menu
+                    document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                        menu.classList.remove('show');
+                    });
+                    document.querySelectorAll('.dropdown-icon').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                }
+            });
+        }
+        
+        // Dropdown functionality (for desktop and mobile)
+        document.querySelectorAll('.dropdown-icon').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const dropdownId = this.getAttribute('data-dropdown');
+                const dropdown = document.getElementById(dropdownId);
+                
+                if (!dropdown) return;
+                
+                // Close other dropdowns
+                document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                    if (menu.id !== dropdownId) {
+                        menu.classList.remove('show');
+                    }
+                });
+                document.querySelectorAll('.dropdown-icon').forEach(btn => {
+                    if (btn !== this) {
+                        btn.classList.remove('active');
+                    }
+                });
+                
+                // Toggle current dropdown
+                dropdown.classList.toggle('show');
+                this.classList.toggle('active');
+            });
+        });
+        
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.nav-item-with-dropdown')) {
+                document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                    menu.classList.remove('show');
+                });
+                document.querySelectorAll('.dropdown-icon').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+            }
+        });
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', function() {
+                if (window.innerWidth <= 768) {
+                    if (menuToggle) menuToggle.classList.remove('active');
+                    if (navMenu) navMenu.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                    
+                    // Close all dropdowns
+                    document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                        menu.classList.remove('show');
+                    });
+                    document.querySelectorAll('.dropdown-icon').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                }
+            });
+        });
+        
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                // Reset mobile menu state on desktop
+                if (menuToggle) menuToggle.classList.remove('active');
+                if (navMenu) navMenu.classList.remove('active');
+                document.body.style.overflow = 'auto';
+                
+                // Close all dropdowns
+                document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                    menu.classList.remove('show');
+                });
+                document.querySelectorAll('.dropdown-icon').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+            }
+        });
+    }
+
+    // ===== HERO SLIDESHOW WITH TEXT UPDATES =====
+    (function() {
+      const slides = document.querySelectorAll('.hero-slide');
+      const titleEl = document.getElementById('hero-title');
+      const descEl = document.getElementById('hero-desc');
+      const extraEl = document.getElementById('hero-extra');
+      if (!slides.length) return;
+
+      const contents = [
+        {
+          title: 'Precision gene editing for tomorrow\'s cures',
+          desc: 'CRISPR 2.0, base editing, and epigenetic modifiers with 98% efficiency. 12 programs in clinical phase.',
+          extra: '<span class="hero-stat"><i class="fas fa-dna"></i> 3400+ edits</span><span class="hero-stat"><i class="fas fa-flask"></i> 12 clinical assets</span><span class="hero-stat"><i class="fas fa-microscope"></i> 98% precision</span>'
+        },
+        {
+          title: 'Enzyme engineering for a sustainable future',
+          desc: 'Novel PETases, plastic-degrading enzymes, and carbon-capturing biocatalysts. 3 pilot plants online.',
+          extra: '<span class="hero-stat"><i class="fas fa-leaf"></i> 6 novel hydrolases</span><span class="hero-stat"><i class="fas fa-recycle"></i> 3 ton/yr pilot</span><span class="hero-stat"><i class="fas fa-flask"></i> 80+ variants</span>'
+        },
+        {
+          title: 'Agricultural biologics & microbiome solutions',
+          desc: 'Drought-tolerant crops, nitrogen-fixing microbes, and RNAi pesticides. Field trials across 4 continents.',
+          extra: '<span class="hero-stat"><i class="fas fa-seedling"></i> +32% yield</span><span class="hero-stat"><i class="fas fa-bug"></i> species-specific</span><span class="hero-stat"><i class="fas fa-globe"></i> 12 countries</span>'
+        }
+      ];
+
+      let current = 0;
+      setInterval(() => {
+        slides[current].classList.remove('active');
+        current = (current + 1) % slides.length;
+        slides[current].classList.add('active');
+        titleEl.textContent = contents[current].title;
+        descEl.textContent = contents[current].desc;
+        extraEl.innerHTML = contents[current].extra;
+      }, 4500);
+    })();
+
+    // ===== BACK TO TOP BUTTON =====
+    const backToTop = document.getElementById('backToTop');
+    
+    if (backToTop) {
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 500) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+        });
+
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>BioTech Hub · Stackly</title>
+    <!-- Font Awesome & Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: #f5f9ff;
+            min-height: 100vh;
+        }
+
+        /* fixed header - now directly at top with no spacing */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: #0a1c2c;
+            box-shadow: 0 6px 18px rgba(0,40,80,0.06);
+        }
+
+        /* ---------- MAIN NAV (DARK) ---------- */
+        .main-nav {
+            background: #0a1c2c;
+        }
+
+        .navbar {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 6px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            z-index: 1002;
+            transition: opacity 0.2s;
+            line-height: 0;
+        }
+
+        .logo img {
+            height: 60px;
+            width: auto;
+            max-width: 160px;
+            display: block;
+            border: none;
+            filter: brightness(1.05);
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            list-style: none;
+        }
+
+        .nav-menu li {
+            position: relative;
+        }
+
+        .nav-link-main {
+            color: #e6f0fa;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 600;
+            padding: 8px 12px;
+            border-radius: 30px;
+            white-space: nowrap;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .nav-link-main:hover {
+            background: rgba(255,255,255,0.08);
+            color: white;
+        }
+
+        .nav-item-with-dropdown {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .dropdown-icon {
+            background: none;
+            border: none;
+            color: #9bb7d4;
+            font-size: 13px;
+            cursor: pointer;
+            padding: 8px 5px 8px 2px;
+            display: flex;
+            align-items: center;
+            transition: all 0.2s;
+        }
+
+        .dropdown-icon:hover {
+            color: white;
+        }
+
+        .dropdown-icon.active i {
+            transform: rotate(180deg);
+        }
+
+        /* DROPDOWN MENU */
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 240px;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0,20,40,0.25);
+            padding: 10px 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.25s ease;
+            z-index: 1001;
+            border: 1px solid #e2ecf5;
+            margin-top: 5px;
+            max-height: calc(100vh - 200px);
+            overflow-y: auto;
+        }
+
+        .dropdown-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(5px);
+        }
+
+        .dropdown-menu li {
+            list-style: none;
+        }
+
+        .dropdown-menu li a {
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #0a1c2c !important;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+            background: white;
+            text-decoration: none;
+        }
+
+        .dropdown-menu li a i {
+            width: 20px;
+            color: #0e6b56;
+        }
+
+        .dropdown-menu li a:hover {
+            background: #f0f7fe;
+            color: #0e6b56 !important;
+            padding-left: 28px;
+        }
+
+        /* Right-align last dropdown to prevent cutoff */
+        .nav-menu li:last-child .dropdown-menu,
+        .nav-menu li:nth-last-child(2) .dropdown-menu {
+            left: auto;
+            right: 0;
+        }
+
+        /* login & get started buttons */
+        .nav-buttons {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: 5px;
+        }
+
+        .login-link {
+            background: transparent;
+            color: #e6f0fa !important;
+            border: 1px solid #4f6f8f;
+            padding: 8px 20px !important;
+            border-radius: 40px;
+            font-weight: 600;
+            transition: 0.25s;
+            white-space: nowrap;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        .login-link:hover {
+            background: #264a66;
+            border-color: #7ca0c0;
+            color: white !important;
+            transform: translateY(-2px);
+        }
+
+        .getstarted-link {
+            background: #1f9a8a;
+            color: white !important;
+            padding: 8px 20px !important;
+            border-radius: 40px;
+            font-weight: 600;
+            border: none;
+            transition: 0.25s;
+            white-space: nowrap;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        .getstarted-link:hover {
+            background: #0e7b6e;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(15,130,100,0.3);
+            color: white !important;
+        }
+
+        /* mobile toggle */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            z-index: 1002;
+            padding: 6px;
+        }
+
+        .menu-toggle span {
+            width: 30px;
+            height: 3px;
+            background: #d6e6f5;
+            border-radius: 4px;
+            transition: 0.3s;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+            background: white;
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+            background: white;
+        }
+
+        /* Placeholder for hero section - this will be directly below header */
+        .hero-placeholder {
+            margin-top: 80px; /* Same as navbar height */
+            height: 600px;
+            background: linear-gradient(135deg, #e6f0fa, #d0e2f0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #0a1c2c;
+            font-size: 2rem;
+            font-weight: 600;
+            border-bottom: 1px solid #c0d4e8;
+        }
+
+        /* responsive */
+        @media (max-width: 1100px) {
+            .nav-link-main, .login-link, .getstarted-link {
+                font-size: 13px;
+                padding: 6px 10px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .navbar {
+                padding: 0 15px;
+            }
+            .hero-placeholder {
+                margin-top: 80px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                height: 70px;
+                padding: 0 15px;
+            }
+
+            .logo img {
+                height: 140px;
+                max-width: 280px;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100vh;
+                background: #0f2638;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 20px;
+                transition: left 0.35s ease;
+                z-index: 1001;
+                padding: 80px 20px 40px;
+                overflow-y: auto;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            body:has(.nav-menu.active) .logo {
+                opacity: 0 !important;
+                pointer-events: none !important;
+            }
+
+            .nav-menu li {
+                width: 100%;
+                text-align: center;
+            }
+
+            .nav-menu li a,
+            .nav-link-main,
+            .login-link,
+            .getstarted-link {
+                font-size: 18px !important;
+                padding: 12px !important;
+                background: transparent !important;
+                border: none !important;
+                color: #ecf3fa !important;
+            }
+
+            .nav-item-with-dropdown {
+                justify-content: center;
+            }
+
+            .dropdown-icon {
+                color: #bbd6f0;
+                font-size: 16px;
+                padding: 12px 5px;
+            }
+
+            .dropdown-menu {
+                position: static;
+                background: #1d3c54;
+                border: none;
+                border-radius: 20px;
+                width: 90%;
+                margin: 8px auto 0;
+                box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+                display: none;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                max-height: none;
+            }
+
+            .dropdown-menu.show {
+                display: block;
+            }
+
+            .dropdown-menu li a {
+                color: #e6f0fa !important;
+                background: transparent !important;
+                justify-content: center;
+                font-size: 16px !important;
+                padding: 12px !important;
+            }
+
+            .dropdown-menu li a i {
+                color: #7bc5b5;
+            }
+
+            .nav-buttons {
+                flex-direction: column;
+                gap: 12px;
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .login-link, .getstarted-link {
+                border: 1px solid #5480a0 !important;
+                width: 80%;
+                max-width: 240px;
+                margin: 0 auto;
+            }
+
+            .getstarted-link {
+                background: #1f9a8a !important;
+            }
+            
+            .hero-placeholder {
+                margin-top: 70px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo img {
+                height: 100px;
+                max-width: 300px;
+            }
+            .hero-placeholder {
+                margin-top: 70px;
+                height: 500px;
+                font-size: 1.5rem;
+            }
+        }
+
+        html, body {
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <!-- MAIN NAV – DARK (top bar completely removed) -->
+        <div class="main-nav">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <img src="logo2.webp" alt="Stackly Biotech" 
+                         onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'170\' height=\'68\' viewBox=\'0 0 170 68\'%3E%3Crect width=\'170\' height=\'68\' fill=\'%230a1c2c\'/%3E%3Ctext x=\'24\' y=\'44\' fill=\'%231f9a8a\' font-size=\'34\' font-weight=\'700\'%3ESTACKLY%3C/text%3E%3Ctext x=\'24\' y=\'64\' fill=\'%23bdd6ec\' font-size=\'16\'%3Ebiotech%3C/text%3E%3C/svg%3E';">
+                </a>
+                <div class="menu-toggle" id="menuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+                <ul class="nav-menu" id="navMenu">
+                    <!-- 1. HOME -->
+                    <li><a href="index.html" class="nav-link-main">Home</a></li>
+
+                    <!-- 2. RESEARCH (dropdown) -->
+                    <li>
+                        <div class="nav-item-with-dropdown">
+                            <a href="research.html" class="nav-link-main">Research</a>
+                            <button class="dropdown-icon" data-dropdown="researchDropdown">
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                        </div>
+                        <ul class="dropdown-menu" id="researchDropdown">
+                            <li><a href="crispr.html"><i class="fas fa-dna"></i> CRISPR Gene Editing</a></li>
+                            <li><a href="bioprocess.html"><i class="fas fa-flask"></i> Bioprocess Engineering</a></li>
+                            <!-- <li><a href="genomics.html"><i class="fas fa-microscope"></i> Genomics</a></li> -->
+                            <!-- <li><a href="neurobiology.html"><i class="fas fa-brain"></i> Neurobiology</a></li> -->
+                        </ul>
+                    </li>
+
+                    <!-- 3. INNOVATION (dropdown) -->
+                    <li><a href="innovation.html" class="nav-link-main">Innovation</a></li>
+
+                    <!-- 4. CAREERS -->
+                    <li><a href="careers.html" class="nav-link-main">Careers</a></li>
+
+                    <!-- 5. CONTACT -->
+                    <li><a href="contact.html" class="nav-link-main">Contact</a></li>
+
+                    <!-- 6. LOGIN + 7. GET STARTED (as one combined item) -->
+                    <li class="nav-buttons">
+                        <a href="login.html" class="login-link">Login</a>
+                        <a href="signup.html" class="getstarted-link">Get started</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+
+    <script>
+        (function() {
+            const menuToggle = document.getElementById('menuToggle');
+            const navMenu = document.getElementById('navMenu');
+            const logo = document.querySelector('.logo');
+
+            if (menuToggle) {
+                menuToggle.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    this.classList.toggle('active');
+                    navMenu.classList.toggle('active');
+
+                    if (navMenu.classList.contains('active')) {
+                        logo.style.setProperty('opacity', '0', 'important');
+                        logo.style.setProperty('pointer-events', 'none', 'important');
+                        document.body.style.overflow = 'hidden';
+                    } else {
+                        logo.style.removeProperty('opacity');
+                        logo.style.removeProperty('pointer-events');
+                        document.body.style.overflow = 'auto';
+                        document.querySelectorAll('.dropdown-menu').forEach(d => d.classList.remove('show'));
+                        document.querySelectorAll('.dropdown-icon').forEach(ic => ic.classList.remove('active'));
+                    }
+                });
+            }
+
+            document.querySelectorAll('.dropdown-icon').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const dropdownId = this.getAttribute('data-dropdown');
+                    const targetDropdown = document.getElementById(dropdownId);
+
+                    document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                        if (menu.id !== dropdownId) menu.classList.remove('show');
+                    });
+                    document.querySelectorAll('.dropdown-icon').forEach(icon => {
+                        if (icon !== this) icon.classList.remove('active');
+                    });
+
+                    if (targetDropdown) {
+                        targetDropdown.classList.toggle('show');
+                        this.classList.toggle('active');
+                    }
+                });
+            });
+
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.nav-item-with-dropdown')) {
+                    document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('show'));
+                    document.querySelectorAll('.dropdown-icon').forEach(i => i.classList.remove('active'));
+                }
+            });
+
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth <= 768) {
+                        menuToggle.classList.remove('active');
+                        navMenu.classList.remove('active');
+                        logo.style.removeProperty('opacity');
+                        logo.style.removeProperty('pointer-events');
+                        document.body.style.overflow = 'auto';
+                        document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('show'));
+                        document.querySelectorAll('.dropdown-icon').forEach(i => i.classList.remove('active'));
+                    }
+                });
+            });
+
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768) {
+                    menuToggle.classList.remove('active');
+                    navMenu.classList.remove('active');
+                    logo.style.removeProperty('opacity');
+                    logo.style.removeProperty('pointer-events');
+                    document.body.style.overflow = 'auto';
+                    document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('show'));
+                    document.querySelectorAll('.dropdown-icon').forEach(i => i.classList.remove('active'));
+                }
+            });
+
+            window.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    if (navMenu.classList.contains('active')) {
+                        menuToggle.classList.remove('active');
+                        navMenu.classList.remove('active');
+                        logo.style.removeProperty('opacity');
+                        logo.style.removeProperty('pointer-events');
+                        document.body.style.overflow = 'auto';
+                    }
+                    document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('show'));
+                    document.querySelectorAll('.dropdown-icon').forEach(i => i.classList.remove('active'));
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,1817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>BioGen · Researcher Dashboard</title>
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts: Inter + Outfit -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&family=Outfit:wght@300..700&display=swap" rel="stylesheet">
+  <!-- Chart.js 4 -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', 'Outfit', sans-serif;
+      background: #f0f5fa;
+      color: #0a2a44;
+      overflow-x: hidden;
+      width: 100%;
+      min-height: 100vh;
+    }
+
+    .dashboard-wrapper {
+      display: flex;
+      min-height: 100vh;
+      width: 100%;
+      position: relative;
+    }
+
+    /* ===== SIDEBAR - FIXED ON DESKTOP ===== */
+    .sidebar {
+      width: 280px;
+      background: linear-gradient(180deg, #0a2a44 0%, #1a3f5a 100%);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      flex-shrink: 0;
+      box-shadow: 4px 0 20px rgba(0,40,80,0.15);
+      z-index: 2000;
+      overflow-y: auto;
+      transition: transform 0.3s ease;
+    }
+
+    /* Close button for mobile */
+    .sidebar-close {
+      display: none;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 50%;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 2010;
+      color: white;
+      font-size: 1.5rem;
+      transition: background 0.2s;
+    }
+
+    .sidebar-close:hover {
+      background: rgba(255,255,255,0.3);
+    }
+
+    .sidebar-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 24px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .sidebar-logo img {
+      width: 70px;
+      height: 70px;
+      object-fit: contain;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .sidebar-logo img:hover {
+      transform: scale(1.05);
+    }
+
+    .sidebar-logo span {
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      color: white;
+    }
+
+    .sidebar-nav {
+      flex: 1;
+      padding: 20px 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 24px;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      transition: all 0.2s;
+      border-left: 4px solid transparent;
+      margin: 2px 0;
+      cursor: pointer;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+      font-size: 1rem;
+      font-family: inherit;
+    }
+
+    .nav-item i {
+      width: 22px;
+      font-size: 1.2rem;
+      color: #4ecdc4;
+    }
+
+    .nav-item:hover {
+      background: rgba(78, 205, 196, 0.1);
+      color: white;
+      border-left-color: #4ecdc4;
+    }
+
+    .nav-item.active {
+      background: rgba(78, 205, 196, 0.15);
+      color: white;
+      border-left-color: #4ecdc4;
+      font-weight: 500;
+    }
+
+    .nav-item.active i {
+      color: #4ecdc4;
+    }
+
+    .sidebar-footer {
+      padding: 20px 0;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    /* ===== MAIN CONTENT - OFFSET FOR FIXED SIDEBAR ===== */
+    .main-content {
+      flex: 1;
+      margin-left: 280px;
+      padding: 24px 32px;
+      background: #f0f5fa;
+      min-height: 100vh;
+      width: calc(100% - 280px);
+    }
+
+    /* Top bar */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    /* Fixed mobile header with hamburger */
+    .mobile-header {
+      display: none;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: #f0f5fa;
+      padding: 15px 0;
+      width: 100%;
+      align-items: center;
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      font-size: 1.8rem;
+      color: #0a2a44;
+      cursor: pointer;
+      background: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    .page-title h1 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #0a2a44;
+    }
+
+    .page-title .welcome-text {
+      font-size: 0.95rem;
+      color: #4a6a8a;
+      margin-top: 4px;
+    }
+
+    .researcher-chip {
+      background: white;
+      border-radius: 60px;
+      padding: 10px 24px;
+      box-shadow: 0 6px 14px rgba(0,40,80,0.06);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 500;
+      border: 1px solid rgba(78,205,196,0.2);
+    }
+
+    .researcher-chip i {
+      color: #2a7a7a;
+      font-size: 1.2rem;
+    }
+
+    .researcher-chip span {
+      color: #0a2a44;
+    }
+
+    .researcher-chip .chip-badge {
+      background: #4ecdc4;
+      color: #0a2a44;
+      padding: 4px 12px;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    /* Stats cards */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .stat-card {
+      background: white;
+      border-radius: 24px;
+      padding: 20px;
+      box-shadow: 0 8px 20px rgba(0,40,80,0.04);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: 1px solid rgba(78,205,196,0.15);
+    }
+
+    .stat-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px rgba(42,122,122,0.12);
+    }
+
+    .stat-icon {
+      width: 54px;
+      height: 54px;
+      background: #e0f0f0;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #2a7a7a;
+      font-size: 1.8rem;
+    }
+
+    .stat-content h3 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #0a2a44;
+      line-height: 1.2;
+    }
+
+    .stat-content p {
+      color: #4a6a8a;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    /* Quick stats bar */
+    .quick-stats-bar {
+      background: white;
+      border-radius: 60px;
+      padding: 16px 28px;
+      margin-bottom: 32px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.02);
+      border: 1px solid #eaf0f5;
+    }
+
+    .quick-stat-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .quick-stat-label {
+      color: #4a6a8a;
+      font-size: 0.9rem;
+    }
+
+    .quick-stat-value {
+      font-weight: 700;
+      color: #0a2a44;
+      background: #f0f8fa;
+      padding: 6px 16px;
+      border-radius: 40px;
+    }
+
+    /* Charts row */
+    .charts-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .chart-card {
+      background: white;
+      border-radius: 24px;
+      padding: 20px;
+      box-shadow: 0 8px 20px rgba(0,40,80,0.04);
+      border: 1px solid #eaf0f5;
+    }
+
+    .chart-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+      color: #0a2a44;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .chart-card h3 i {
+      color: #2a7a7a;
+    }
+
+    .chart-container {
+      height: 200px;
+      position: relative;
+    }
+
+    /* Two-column layout */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 24px;
+      margin-bottom: 30px;
+    }
+
+    /* Section headers */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .section-header h2 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #0a2a44;
+    }
+
+    .section-header a {
+      color: #2a7a7a;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    /* Project cards */
+    .project-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .project-item {
+      background: white;
+      border-radius: 20px;
+      padding: 18px 22px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+      border: 1px solid #e7edf3;
+      transition: all 0.2s;
+    }
+
+    .project-item:hover {
+      border-color: #4ecdc4;
+      box-shadow: 0 8px 18px rgba(78,205,196,0.1);
+    }
+
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .project-title {
+      font-weight: 600;
+      color: #0a2a44;
+      font-size: 1.1rem;
+    }
+
+    .project-badge {
+      background: #4ecdc4;
+      padding: 4px 12px;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #0a2a44;
+    }
+
+    .project-desc {
+      color: #4a6a8a;
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+    }
+
+    .project-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 20px;
+      justify-content: space-between;
+    }
+
+    .team-members {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #2a7a7a;
+    }
+
+    .progress-indicator {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .progress-bar {
+      width: 100px;
+      height: 6px;
+      background: #e0eef5;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: #2a7a7a;
+      border-radius: 10px;
+    }
+
+    .project-stats {
+      display: flex;
+      gap: 20px;
+      color: #4a6a8a;
+      font-size: 0.85rem;
+      margin-top: 10px;
+    }
+
+    /* Right column cards */
+    .right-col {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .info-card {
+      background: white;
+      border-radius: 28px;
+      padding: 24px;
+      box-shadow: 0 8px 22px rgba(0,40,80,0.04);
+      border: 1px solid #eaf0f5;
+    }
+
+    .info-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 18px;
+      color: #0a2a44;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sample-list {
+      list-style: none;
+    }
+
+    .sample-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+      border-bottom: 1px solid #eef4f9;
+    }
+
+    .sample-item:last-child {
+      border-bottom: none;
+    }
+
+    .sample-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .sample-name {
+      font-weight: 600;
+      color: #0a2a44;
+    }
+
+    .sample-meta {
+      font-size: 0.8rem;
+      color: #4a6a8a;
+      display: flex;
+      gap: 12px;
+    }
+
+    .sample-status {
+      font-size: 0.75rem;
+      padding: 4px 12px;
+      border-radius: 40px;
+      background: #e0f0f0;
+      color: #1d5a7a;
+      font-weight: 500;
+    }
+
+    .queue-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid #eef4f9;
+    }
+
+    .queue-item:last-child {
+      border-bottom: none;
+    }
+
+    .queue-left {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .queue-title {
+      font-weight: 600;
+      color: #0a2a44;
+    }
+
+    .queue-sub {
+      font-size: 0.8rem;
+      color: #4a6a8a;
+    }
+
+    .queue-quality {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #2a7a7a;
+    }
+
+    .view-link {
+      color: #2a7a7a;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .ai-section {
+      margin-top: 20px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .ai-btn {
+      background: #f0f8fa;
+      border: 1px solid #d0e4ec;
+      border-radius: 60px;
+      padding: 12px 20px;
+      flex: 1;
+      min-width: 130px;
+      text-align: center;
+      text-decoration: none;
+      color: #0a2a44;
+      font-weight: 500;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .ai-btn i {
+      color: #2a7a7a;
+      margin-right: 8px;
+    }
+
+    .ai-btn:hover {
+      background: #2a7a7a;
+      color: white;
+      border-color: #2a7a7a;
+    }
+
+    .ai-btn:hover i {
+      color: white;
+    }
+
+    /* Content sections */
+    .content-section {
+      display: block;
+    }
+
+    .content-section.hidden {
+      display: none;
+    }
+
+    /* Enhanced content cards */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .enhanced-card {
+      background: #f0f8fa;
+      border-radius: 20px;
+      padding: 20px;
+      border: 1px solid #d0e4ec;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 40px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .badge-active { background: #c8e6c9; color: #256029; }
+    .badge-pending { background: #fff3e0; color: #b85c00; }
+    .badge-completed { background: #d1e3f0; color: #0a2a44; }
+
+    /* Backdrop for mobile */
+    .sidebar-backdrop {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1500;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .sidebar-backdrop.active {
+      display: block;
+      opacity: 1;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1200px) {
+      .stats-row {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .charts-row {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .grid-3 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .main-content {
+        padding: 20px;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .sidebar {
+        transform: translateX(-100%);
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        z-index: 2000;
+      }
+      
+      .sidebar.active {
+        transform: translateX(0);
+      }
+      
+      .sidebar-close {
+        display: flex;
+      }
+      
+      .main-content {
+        margin-left: 0;
+        width: 100%;
+      }
+      
+      /* Fixed mobile header */
+      .mobile-header {
+        display: flex;
+        position: fixed;
+        top: 0;
+        z-index: 1000;
+        background: #f0f5fa;
+        padding: 10px 0;
+        margin-bottom: 15px;
+      }
+      
+      .mobile-menu-btn {
+        display: flex;
+      }
+      
+      .top-bar {
+        margin-top: 0;
+      }
+      
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .grid-2, .grid-3 {
+        grid-template-columns: 1fr;
+      }
+    }
+    /* ===== COMPLETE MOBILE VIEW FIX - HEADINGS VISIBLE ===== */
+@media (max-width: 900px) {
+  /* Fix for top bar overlap - increase padding */
+  .main-content {
+    padding-top: 90px !important; /* More space for fixed header */
+  }
+  
+  /* Fixed header with glass effect */
+  .mobile-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(240, 245, 250, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 16px 24px;
+    z-index: 1000;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border-bottom: 1px solid rgba(78, 205, 196, 0.25);
+  }
+  
+  /* Glass effect for hamburger */
+  .mobile-menu-btn {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(78, 205, 196, 0.4);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+  }
+  
+  /* Ensure top bar is properly positioned */
+  .top-bar {
+    margin-top: 25px;
+    padding-top: 10px;
+  }
+  
+  /* Make page title fully visible */
+  .page-title h1 {
+    font-size: 1.6rem;
+    line-height: 1.3;
+    margin-top: 5px;
+    word-break: break-word;
+  }
+  
+  .page-title .welcome-text {
+    font-size: 0.95rem;
+    margin-top: 8px;
+    line-height: 1.4;
+  }
+  
+  /* Ensure researcher chip doesn't overlap */
+  .researcher-chip {
+    margin-top: 10px;
+    width: auto;
+    min-width: 200px;
+  }
+  
+  /* Glass effect for sidebar */
+  .sidebar.active {
+    background: rgba(10, 42, 68, 0.96);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+  
+  /* Glass effect for close button */
+  .sidebar-close {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    width: 44px;
+    height: 44px;
+    font-size: 1.4rem;
+  }
+}
+
+/* Medium mobile devices */
+@media (max-width: 768px) {
+  .main-content {
+    padding-top: 100px !important;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  
+  .mobile-header {
+    padding: 14px 20px;
+  }
+  
+  .page-title h1 {
+    font-size: 1.5rem;
+  }
+  
+  .stats-row {
+    gap: 15px;
+  }
+  
+  .stat-card {
+    padding: 16px;
+  }
+  
+  .stat-icon {
+    width: 48px;
+    height: 48px;
+    font-size: 1.5rem;
+  }
+  
+  .stat-content h3 {
+    font-size: 1.4rem;
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+  .main-content {
+    padding-top: 95px !important;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  
+  .mobile-header {
+    padding: 12px 16px;
+  }
+  
+  .mobile-menu-btn {
+    width: 48px;
+    height: 48px;
+    font-size: 1.5rem;
+  }
+  
+  .page-title h1 {
+    font-size: 1.3rem;
+  }
+  
+  .page-title .welcome-text {
+    font-size: 0.85rem;
+  }
+  
+  .top-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-top: 20px;
+  }
+  
+  .researcher-chip {
+    width: 100%;
+    justify-content: center;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+  }
+  
+  /* Ensure stat cards are properly spaced */
+  .stats-row {
+    gap: 12px;
+  }
+  
+  .stat-card {
+    padding: 14px;
+  }
+  
+  .stat-icon {
+    width: 44px;
+    height: 44px;
+    font-size: 1.3rem;
+  }
+  
+  .stat-content h3 {
+    font-size: 1.3rem;
+  }
+  
+  .stat-content p {
+    font-size: 0.8rem;
+  }
+  
+  /* Quick stats bar adjustments */
+  .quick-stats-bar {
+    padding: 14px 18px;
+    gap: 12px;
+  }
+  
+  .quick-stat-item {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .quick-stat-label {
+    font-size: 0.85rem;
+  }
+  
+  .quick-stat-value {
+    padding: 4px 12px;
+    font-size: 0.85rem;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 360px) {
+  .main-content {
+    padding-top: 100px !important;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  
+  .page-title h1 {
+    font-size: 1.2rem;
+  }
+  
+  .stat-card {
+    flex-direction: column;
+    text-align: center;
+    gap: 8px;
+  }
+  
+  .stat-icon {
+    margin: 0 auto;
+  }
+}
+
+/* Ensure no overlapping on any device */
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
+}
+
+/* Make sure all content is visible */
+.content-section {
+  display: block;
+  width: 100%;
+}
+
+.content-section.hidden {
+  display: none;
+}
+
+    @media (max-width: 700px) {
+      .stats-row {
+        grid-template-columns: 1fr;
+      }
+      
+      .charts-row {
+        grid-template-columns: 1fr;
+      }
+      
+      .quick-stats-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        border-radius: 28px;
+      }
+      
+      .top-bar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .researcher-chip {
+        width: 100%;
+        justify-content: center;
+      }
+      
+      .project-meta {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .progress-indicator {
+        width: 100%;
+      }
+      
+      .progress-bar {
+        flex: 1;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .main-content {
+        padding: 16px;
+      }
+      
+      .stat-card {
+        padding: 16px;
+      }
+      
+      .stat-icon {
+        width: 48px;
+        height: 48px;
+        font-size: 1.5rem;
+      }
+      
+      .stat-content h3 {
+        font-size: 1.4rem;
+      }
+      
+      .chart-card {
+        padding: 16px;
+      }
+      
+      .info-card {
+        padding: 20px;
+      }
+      
+      .project-item {
+        padding: 16px;
+      }
+      
+      .mobile-menu-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1.4rem;
+      }
+    }
+
+    /* Prevent horizontal scroll */
+    html, body {
+      max-width: 100%;
+      overflow-x: hidden;
+      position: relative;
+    }
+  </style>
+</head>
+<body>
+  <!-- Mobile menu backdrop -->
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+  <div class="dashboard-wrapper">
+    <!-- ===== SIDEBAR WITH CLOSE BUTTON ===== -->
+    <aside class="sidebar" id="sidebar">
+      <!-- Close button for mobile -->
+      <div class="sidebar-close" id="sidebarClose">
+        <i class="fas fa-times"></i>
+      </div>
+
+      <div class="sidebar-logo">
+        <!-- logo2.webp - replace with actual logo2.webp -->
+        <a href="home1.html"><img src="logo2.webp" alt="BioGen Logo"></a>
+      </div>
+
+      <nav class="sidebar-nav">
+        <button class="nav-item active" data-section="dashboard">
+          <i class="fas fa-chart-pie"></i> My Dashboard
+        </button>
+        <button class="nav-item" data-section="experiments">
+          <i class="fas fa-flask"></i> Experiments
+        </button>
+        <button class="nav-item" data-section="samples">
+          <i class="fas fa-vial"></i> My Samples
+        </button>
+        <button class="nav-item" data-section="protocols">
+          <i class="fas fa-book"></i> Protocols
+        </button>
+        <button class="nav-item" data-section="data">
+          <i class="fas fa-chart-line"></i> Data Analysis
+        </button>
+        <button class="nav-item" data-section="publications">
+          <i class="fas fa-file-alt"></i> Publications
+        </button>
+        <button class="nav-item" data-section="settings">
+          <i class="fas fa-cog"></i> Settings
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button class="nav-item" data-section="home">
+          <i class="fas fa-home"></i> Back to Home
+        </button>
+        <button class="nav-item" data-section="login">
+          <i class="fas fa-sign-out-alt"></i> Back to Login
+        </button>
+      </div>
+    </aside>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="main-content">
+      <!-- Fixed mobile header with menu button -->
+      <div class="mobile-header">
+        <div class="mobile-menu-btn" id="mobileMenuBtn">
+          <i class="fas fa-bars"></i>
+        </div>
+      </div>
+
+      <!-- Top bar with researcher chip -->
+      <div class="top-bar">
+        <div class="page-title">
+          <h1 id="pageTitle">Welcome back, Dr. James Wilson!</h1>
+          <div class="welcome-text" id="welcomeText">Your personal research dashboard</div>
+        </div>
+        <div class="researcher-chip">
+          <i class="fas fa-user-md"></i>
+          <span>Senior Researcher</span>
+          <span class="chip-badge">Neuroscience Lab</span>
+        </div>
+      </div>
+
+      <!-- DASHBOARD SECTION (RESEARCHER VIEW) -->
+      <div id="dashboard-section" class="content-section">
+        <!-- Stats cards - RESEARCHER FOCUSED -->
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="stat-icon"><i class="fas fa-flask"></i></div>
+            <div class="stat-content">
+              <h3 id="statProjects">4</h3>
+              <p>My Projects</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon"><i class="fas fa-vial"></i></div>
+            <div class="stat-content">
+              <h3 id="statSamples">127</h3>
+              <p>My Samples</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon"><i class="fas fa-microchip"></i></div>
+            <div class="stat-content">
+              <h3 id="statAnalyses">45</h3>
+              <p>AI Analyses</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon"><i class="fas fa-file-alt"></i></div>
+            <div class="stat-content">
+              <h3 id="statPapers">9</h3>
+              <p>Publications</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick stats - RESEARCHER METRICS -->
+        <div class="quick-stats-bar">
+          <div class="quick-stat-item"><span class="quick-stat-label">Active Experiments</span><span class="quick-stat-value" id="quickExperiments">5</span></div>
+          <div class="quick-stat-item"><span class="quick-stat-label">Samples Processing</span><span class="quick-stat-value" id="quickProcessing">12</span></div>
+          <div class="quick-stat-item"><span class="quick-stat-label">Sequencing Queue</span><span class="quick-stat-value" id="quickQueue">3</span></div>
+          <div class="quick-stat-item"><span class="quick-stat-label">Storage Used</span><span class="quick-stat-value" id="quickStorage">847 GB</span></div>
+        </div>
+
+        <!-- Charts Row - RESEARCHER VIEW -->
+        <div class="charts-row">
+          <div class="chart-card">
+            <h3><i class="fas fa-chart-line" style="color:#2a7a7a;"></i> Weekly Progress</h3>
+            <div class="chart-container">
+              <canvas id="lineChart"></canvas>
+            </div>
+          </div>
+          <div class="chart-card">
+            <h3><i class="fas fa-chart-pie" style="color:#2a7a7a;"></i> Sample Types</h3>
+            <div class="chart-container">
+              <canvas id="pieChart"></canvas>
+            </div>
+          </div>
+          <div class="chart-card">
+            <h3><i class="fas fa-chart-bar" style="color:#2a7a7a;"></i> Assay Performance</h3>
+            <div class="chart-container">
+              <canvas id="barChart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Two column layout - RESEARCHER TASKS -->
+        <div class="dashboard-grid">
+          <!-- Left: My Projects -->
+          <div>
+            <div class="section-header">
+              <h2>My Active Projects</h2>
+              <a href="404.html" class="view-link">View all <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="project-cards">
+              <div class="project-item">
+                <div class="project-header">
+                  <span class="project-title">Alzheimer's Biomarker Discovery</span>
+                  <span class="project-badge">Active</span>
+                </div>
+                <div class="project-desc">Identifying novel protein biomarkers in CSF samples</div>
+                <div class="project-meta">
+                  <div class="team-members"><i class="fas fa-user-md"></i> 3 members</div>
+                  <div class="progress-indicator">
+                    <span>67%</span>
+                    <div class="progress-bar"><div class="progress-fill" style="width:67%"></div></div>
+                  </div>
+                </div>
+                <div class="project-stats">
+                  <span><i class="far fa-file-alt"></i> 2 publications</span>
+                  <span><i class="fas fa-clock"></i> Next milestone: 15d</span>
+                </div>
+              </div>
+              <div class="project-item">
+                <div class="project-header">
+                  <span class="project-title">Tau Protein Aggregation</span>
+                  <span class="project-badge">Data Analysis</span>
+                </div>
+                <div class="project-desc">Kinetic analysis of tau aggregation inhibitors</div>
+                <div class="project-meta">
+                  <div class="team-members"><i class="fas fa-user-md"></i> 2 members</div>
+                  <div class="progress-indicator">
+                    <span>45%</span>
+                    <div class="progress-bar"><div class="progress-fill" style="width:45%"></div></div>
+                  </div>
+                </div>
+              </div>
+              <div class="project-item">
+                <div class="project-header">
+                  <span class="project-title">Microglial Response Study</span>
+                  <span class="project-badge">Sample Prep</span>
+                </div>
+                <div class="project-desc">Analyzing microglial activation in neurodegenerative models</div>
+                <div class="project-meta">
+                  <div class="team-members"><i class="fas fa-user-md"></i> 4 members</div>
+                  <div class="progress-indicator">
+                    <span>28%</span>
+                    <div class="progress-bar"><div class="progress-fill" style="width:28%"></div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right column - RESEARCHER TOOLS -->
+          <div class="right-col">
+            <div class="info-card">
+              <h3><i class="fas fa-boxes"></i> Recent Samples</h3>
+              <ul class="sample-list">
+                <li class="sample-item">
+                  <span class="sample-name">CSF-024 (Patient 42)</span>
+                  <span class="sample-status" style="background:#fff3e0; color:#b85c00;">processing</span>
+                </li>
+                <li class="sample-item">
+                  <span class="sample-name">Brain Tissue - Mouse 15</span>
+                  <span class="sample-status">analyzed</span>
+                </li>
+                <li class="sample-item">
+                  <span class="sample-name">RNA Extract - Exp 7</span>
+                  <span class="sample-status">sequenced</span>
+                </li>
+                <li class="sample-item">
+                  <span class="sample-name">Protein Lysate - WB-234</span>
+                  <span class="sample-status" style="background:#c8e6c9; color:#256029;">ready</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="info-card">
+              <h3><i class="fas fa-chart-line"></i> Sequencing Queue</h3>
+              <div class="queue-item">
+                <div><span class="queue-title">Whole Genome</span><br><span class="queue-sub">Sample: SMP-001</span></div>
+                <span class="queue-quality">98.5%</span>
+              </div>
+              <div class="queue-item">
+                <div><span class="queue-title">RNA-Seq</span><br><span class="queue-sub">Sample: SMP-045</span></div>
+                <span class="queue-quality" style="color:#f57c00;">analyzing</span>
+              </div>
+              <div class="queue-item">
+                <div><span class="queue-title">Exome</span><br><span class="queue-sub">Sample: SMP-089</span></div>
+                <span class="queue-quality">queued</span>
+              </div>
+              <div style="margin-top: 16px;">
+                <a href="404.html" class="view-link">View All Sequences <i class="fas fa-arrow-right"></i></a>
+              </div>
+            </div>
+
+            <div class="info-card">
+              <h3><i class="fas fa-robot"></i> AI Analysis</h3>
+              <p style="color:#4a6a8a; margin-bottom: 20px;">Analyze genetic data with AI</p>
+              <div class="ai-section">
+                <a href="404.html" class="ai-btn"><i class="fas fa-play"></i> New Analysis</a>
+                <a href="404.html" class="ai-btn"><i class="fas fa-file-pdf"></i> Generate Report</a>
+                <a href="404.html" class="ai-btn"><i class="fas fa-chart-bar"></i> Visualize Data</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EXPERIMENTS SECTION -->
+      <div id="experiments-section" class="content-section hidden">
+        <div class="info-card">
+          <h2><i class="fas fa-flask" style="color:#2a7a7a;"></i> My Experiments</h2>
+          <p style="margin: 20px 0; color:#4a6a8a;">Track ongoing and completed experiments.</p>
+          
+          <div class="grid-2">
+            <div class="enhanced-card">
+              <h3>Active Experiments</h3>
+              <div style="margin: 15px 0;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                  <span><i class="fas fa-circle" style="color:#2a7a7a; font-size:0.6rem;"></i> Western Blot - pTau</span>
+                  <span class="badge-active" style="font-size:0.7rem;">ID: WB-234</span>
+                </div>
+                <div class="progress-bar" style="width:100%;"><div class="progress-fill" style="width:65%"></div></div>
+                
+                <div style="display: flex; justify-content: space-between; margin: 15px 0 10px;">
+                  <span><i class="fas fa-circle" style="color:#2a7a7a; font-size:0.6rem;"></i> ELISA - Abeta42</span>
+                  <span class="badge-active" style="font-size:0.7rem;">ID: EL-567</span>
+                </div>
+                <div class="progress-bar" style="width:100%;"><div class="progress-fill" style="width:80%"></div></div>
+                
+                <div style="display: flex; justify-content: space-between; margin: 15px 0 10px;">
+                  <span><i class="fas fa-circle" style="color:#2a7a7a; font-size:0.6rem;"></i> Cell Culture - Neurons</span>
+                  <span class="badge-active" style="font-size:0.7rem;">ID: CC-890</span>
+                </div>
+                <div class="progress-bar" style="width:100%;"><div class="progress-fill" style="width:45%"></div></div>
+              </div>
+              <a href="404.html" class="ai-btn" style="margin-top: 10px; display: inline-block;">Start New Experiment</a>
+            </div>
+
+            <div class="enhanced-card">
+              <h3>Completed</h3>
+              <div style="margin: 15px 0;">
+                <p><i class="fas fa-check-circle" style="color:#2a7a7a;"></i> PCR - Gene Expression (Mar 12)</p>
+                <p><i class="fas fa-check-circle" style="color:#2a7a7a;"></i> Sequencing - Exome (Mar 10)</p>
+                <p><i class="fas fa-check-circle" style="color:#2a7a7a;"></i> Western Blot - Control (Mar 5)</p>
+                <p><i class="fas fa-check-circle" style="color:#2a7a7a;"></i> Immunostaining (Feb 28)</p>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top: 30px;">
+            <h3>Upcoming Experiments</h3>
+            <div class="enhanced-card">
+              <p><i class="fas fa-calendar" style="color:#2a7a7a;"></i> CRISPR Knockout · Tomorrow 10:00 AM</p>
+              <p><i class="fas fa-calendar" style="color:#2a7a7a;"></i> qPCR Array · Wednesday 2:00 PM</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SAMPLES SECTION -->
+      <div id="samples-section" class="content-section hidden">
+        <div class="info-card">
+          <h2><i class="fas fa-vial" style="color:#2a7a7a;"></i> Sample Inventory</h2>
+          <p style="margin: 20px 0; color:#4a6a8a;">Manage your sample inventory.</p>
+          
+          <div class="grid-3">
+            <div class="enhanced-card" style="text-align: center;">
+              <i class="fas fa-dna" style="font-size:2rem; color:#2a7a7a;"></i>
+              <h3>DNA Samples</h3>
+              <p style="font-size:2rem; font-weight:700;">42</p>
+              <p>Freezer A-12</p>
+            </div>
+            <div class="enhanced-card" style="text-align: center;">
+              <i class="fas fa-rna" style="font-size:2rem; color:#2a7a7a;"></i>
+              <h3>RNA Samples</h3>
+              <p style="font-size:2rem; font-weight:700;">67</p>
+              <p>Freezer B-05</p>
+            </div>
+            <div class="enhanced-card" style="text-align: center;">
+              <i class="fas fa-cut" style="font-size:2rem; color:#2a7a7a;"></i>
+              <h3>Tissue Samples</h3>
+              <p style="font-size:2rem; font-weight:700;">18</p>
+              <p>Freezer C-03</p>
+            </div>
+          </div>
+
+          <div style="margin-top: 30px;">
+            <h3>Recently Added</h3>
+            <div class="enhanced-card">
+              <div style="display: flex; justify-content: space-between;">
+                <span><strong>CSF-089</strong> · Patient 45</span>
+                <span class="badge-pending">processing</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+                <span><strong>Brain Tissue-12</strong> · Mouse model</span>
+                <span class="badge-active">ready</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROTOCOLS SECTION -->
+      <div id="protocols-section" class="content-section hidden">
+        <div class="info-card">
+          <h2><i class="fas fa-book" style="color:#2a7a7a;"></i> Lab Protocols</h2>
+          <p style="margin: 20px 0; color:#4a6a8a;">Access laboratory protocols.</p>
+          
+          <div class="grid-2">
+            <div class="enhanced-card">
+              <h3>Molecular Biology</h3>
+              <p><i class="fas fa-file-pdf" style="color:#2a7a7a;"></i> Western Blot Protocol v3.2</p>
+              <p><i class="fas fa-file-pdf" style="color:#2a7a7a;"></i> PCR Amplification Guide</p>
+              <p><i class="fas fa-file-pdf" style="color:#2a7a7a;"></i> RNA Extraction - Trizol Method</p>
+              <p><i class="fas fa-file-pdf" style="color:#2a7a7a;"></i> cDNA Synthesis Protocol</p>
+            </div>
+            <div class="enhanced-card">
+              <h3>Cell Biology</h3>
+              <p><i class="fas fa-file-pdf" style="color:#2a7a7a;"></i> Cell Culture Maintenance</p>
+              <p><i class="fas fa-file-pdf" style="color:#2a7a7a;"></i> Immunohistochemistry Staining</p>
+              <p><i class="fas fa-file-pdf" style="color:#2a7a7a;"></i> Neuronal Differentiation</p>
+              <p><i class="fas fa-file-pdf" style="color:#2a7a7a;"></i> Transfection Protocol</p>
+            </div>
+          </div>
+          <a href="404.html" class="ai-btn" style="margin-top: 20px; display: inline-block;">Browse All Protocols</a>
+        </div>
+      </div>
+
+      <!-- DATA ANALYSIS SECTION -->
+      <div id="data-section" class="content-section hidden">
+        <div class="info-card">
+          <h2><i class="fas fa-chart-line" style="color:#2a7a7a;"></i> Data Analysis</h2>
+          <p style="margin: 20px 0; color:#4a6a8a;">Analyze your experimental data.</p>
+          
+          <div class="grid-2">
+            <div class="enhanced-card">
+              <h3>Recent Datasets</h3>
+              <p><i class="fas fa-database" style="color:#2a7a7a;"></i> RNA-seq Dataset - Project A</p>
+              <div class="progress-bar" style="width:100%; margin:5px 0 15px;"><div class="progress-fill" style="width:100%"></div></div>
+              <p><i class="fas fa-database" style="color:#2a7a7a;"></i> Proteomics - Biomarker Study</p>
+              <div class="progress-bar" style="width:100%; margin:5px 0 15px;"><div class="progress-fill" style="width:65%"></div></div>
+              <p><i class="fas fa-database" style="color:#2a7a7a;"></i> Western Blot Quantification</p>
+              <div class="progress-bar" style="width:100%; margin:5px 0 15px;"><div class="progress-fill" style="width:30%"></div></div>
+            </div>
+            <div class="enhanced-card">
+              <h3>Analysis Tools</h3>
+              <p><i class="fas fa-chart-bar" style="color:#2a7a7a;"></i> Differential Expression</p>
+              <p><i class="fas fa-chart-line" style="color:#2a7a7a;"></i> Pathway Analysis</p>
+              <p><i class="fas fa-chart-pie" style="color:#2a7a7a;"></i> Clustering</p>
+              <p><i class="fas fa-chart-scatter" style="color:#2a7a7a;"></i> PCA Analysis</p>
+            </div>
+          </div>
+          <div class="ai-section" style="margin-top: 20px;">
+            <a href="404.html" class="ai-btn"><i class="fas fa-upload"></i> Upload New Data</a>
+            <a href="404.html" class="ai-btn"><i class="fas fa-download"></i> Export Results</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PUBLICATIONS SECTION -->
+      <div id="publications-section" class="content-section hidden">
+        <div class="info-card">
+          <h2><i class="fas fa-file-alt" style="color:#2a7a7a;"></i> My Publications</h2>
+          <p style="margin: 20px 0; color:#4a6a8a;">View your papers and manuscripts.</p>
+          
+          <div class="enhanced-card">
+            <div style="display: flex; justify-content: space-between;">
+              <span><i class="fas fa-file-pdf" style="color:#2a7a7a;"></i> Nature Biotechnology · Mar 2024</span>
+              <span class="badge-active">Published</span>
+            </div>
+            <p style="font-weight: 600; margin: 10px 0;">Engineered CRISPR-Cas12f for Efficient Gene Editing</p>
+            <p>Wilson J., Chen S., et al.</p>
+          </div>
+
+          <div class="enhanced-card" style="margin-top: 15px;">
+            <div style="display: flex; justify-content: space-between;">
+              <span><i class="fas fa-file-pdf" style="color:#2a7a7a;"></i> Cell · Feb 2024</span>
+              <span class="badge-active">Published</span>
+            </div>
+            <p style="font-weight: 600; margin: 10px 0;">Novel Biomarkers for Early Alzheimer's Detection</p>
+            <p>Wilson J., Patel L., et al.</p>
+          </div>
+
+          <div class="enhanced-card" style="margin-top: 15px;">
+            <div style="display: flex; justify-content: space-between;">
+              <span><i class="fas fa-file-pdf" style="color:#2a7a7a;"></i> Science · Jan 2024</span>
+              <span class="badge-active">Published</span>
+            </div>
+            <p style="font-weight: 600; margin: 10px 0;">Synthetic Gene Circuits for Programmable Cell Therapies</p>
+            <p>Rodriguez M., Wilson J., Kim R., et al.</p>
+          </div>
+
+          <div style="margin-top: 30px;">
+            <h3>Manuscripts in Preparation</h3>
+            <div class="enhanced-card">
+              <p><i class="fas fa-file-word" style="color:#2a7a7a;"></i> Tau Aggregation Mechanisms · Target: Neuron</p>
+              <p><i class="fas fa-file-word" style="color:#2a7a7a;"></i> Microglial Response in AD · Target: Nature Neuro</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SETTINGS SECTION (RESEARCHER VERSION) -->
+      <div id="settings-section" class="content-section hidden">
+        <div class="info-card">
+          <h2><i class="fas fa-cog" style="color:#2a7a7a;"></i> Account Settings</h2>
+          
+          <div class="grid-2" style="margin-top: 30px;">
+            <div class="enhanced-card">
+              <h3>Profile Settings</h3>
+              <div style="margin: 20px 0;">
+                <p><strong>Name:</strong> Dr. James Wilson</p>
+                <p><strong>Email:</strong> j.wilson@biogen.edu</p>
+                <p><strong>Role:</strong> Senior Researcher</p>
+                <p><strong>Lab:</strong> Neuroscience Lab</p>
+              </div>
+              <a href="404.html" class="ai-btn" style="display: inline-block;">Edit Profile</a>
+            </div>
+
+            <div class="enhanced-card">
+              <h3>Notification Preferences</h3>
+              <div style="margin: 20px 0;">
+                <div><input type="checkbox" checked> Experiment completed</div>
+                <div><input type="checkbox" checked> Sequencing results ready</div>
+                <div><input type="checkbox" checked> Sample processing updates</div>
+                <div><input type="checkbox"> Weekly lab meeting reminder</div>
+                <div><input type="checkbox" checked> Publication alerts</div>
+              </div>
+              <a href="404.html" class="ai-btn" style="display: inline-block;">Save Preferences</a>
+            </div>
+
+            <div class="enhanced-card">
+              <h3>Security</h3>
+              <div style="margin: 20px 0;">
+                <p>Last login: Today 09:15 AM</p>
+                <p>Two-factor authentication: Enabled</p>
+                <p>Active sessions: 2</p>
+              </div>
+              <a href="404.html" class="ai-btn" style="display: inline-block;">Change Password</a>
+            </div>
+
+            <div class="enhanced-card">
+              <h3>API Access</h3>
+              <div style="margin: 20px 0;">
+                <p>API Key: res_8x7d...3k9m</p>
+                <p>Rate limit: 500 requests/day</p>
+                <p>Last used: 2 hours ago</p>
+              </div>
+              <a href="404.html" class="ai-btn" style="display: inline-block;">Regenerate Key</a>
+            </div>
+          </div>
+
+          <div style="margin-top: 30px;">
+            <h3>Data Management</h3>
+            <div class="enhanced-card">
+              <p>My storage used: 847 GB / 2 TB</p>
+              <div class="progress-bar"><div class="progress-fill" style="width:42%"></div></div>
+              <div style="margin-top: 20px;">
+                <a href="404.html" class="ai-btn" style="display: inline-block; margin-right: 10px;">Backup My Data</a>
+                <a href="404.html" class="ai-btn" style="display: inline-block;">Archive Old Projects</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // ===== CHART INITIALIZATION =====
+      const lineCtx = document.getElementById('lineChart').getContext('2d');
+      const lineChart = new Chart(lineCtx, {
+        type: 'line',
+        data: {
+          labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6'],
+          datasets: [{
+            label: 'Samples Processed',
+            data: [12, 19, 15, 22, 24, 28],
+            borderColor: '#2a7a7a',
+            backgroundColor: 'rgba(42,122,122,0.1)',
+            tension: 0.4,
+            fill: true
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } }
+        }
+      });
+
+      const pieCtx = document.getElementById('pieChart').getContext('2d');
+      const pieChart = new Chart(pieCtx, {
+        type: 'pie',
+        data: {
+          labels: ['DNA', 'RNA', 'Protein', 'Tissue', 'Cells'],
+          datasets: [{
+            data: [40, 25, 18, 12, 5],
+            backgroundColor: ['#2a7a7a', '#4ecdc4', '#f4a261', '#e76f51', '#9c89b8'],
+            borderWidth: 0
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { position: 'bottom' } }
+        }
+      });
+
+      const barCtx = document.getElementById('barChart').getContext('2d');
+      const barChart = new Chart(barCtx, {
+        type: 'bar',
+        data: {
+          labels: ['ELISA', 'PCR', 'Western', 'Seq', 'IF'],
+          datasets: [{
+            label: 'Success Rate %',
+            data: [92, 88, 78, 95, 82],
+            backgroundColor: ['#2a7a7a', '#4ecdc4', '#f4a261', '#e76f51', '#9c89b8'],
+            borderRadius: 8
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: { y: { beginAtZero: true, max: 100 } }
+        }
+      });
+
+      // ===== CONTINUOUS CHART UPDATES =====
+      function updateCharts() {
+        const newLineData = lineChart.data.datasets[0].data.map(() => 
+          Math.floor(Math.random() * 30) + 10
+        );
+        lineChart.data.datasets[0].data = newLineData;
+        
+        const values = [40, 25, 18, 12, 5].map(v => v + Math.floor(Math.random() * 8) - 4);
+        pieChart.data.datasets[0].data = values;
+        
+        barChart.data.datasets[0].data = barChart.data.datasets[0].data.map(() => 
+          Math.floor(Math.random() * (98 - 70 + 1)) + 70
+        );
+        
+        document.getElementById('statProjects').textContent = Math.floor(Math.random() * 3) + 3;
+        document.getElementById('statSamples').textContent = Math.floor(Math.random() * 100) + 80;
+        document.getElementById('statAnalyses').textContent = Math.floor(Math.random() * 40) + 30;
+        document.getElementById('statPapers').textContent = Math.floor(Math.random() * 8) + 6;
+        
+        document.getElementById('quickExperiments').textContent = Math.floor(Math.random() * 5) + 3;
+        document.getElementById('quickProcessing').textContent = Math.floor(Math.random() * 15) + 8;
+        document.getElementById('quickQueue').textContent = Math.floor(Math.random() * 5) + 2;
+        document.getElementById('quickStorage').textContent = (Math.random() * 300 + 700).toFixed(0) + ' GB';
+        
+        lineChart.update();
+        pieChart.update();
+        barChart.update();
+      }
+
+      setInterval(updateCharts, 4000);
+
+      // ===== SIDEBAR NAVIGATION =====
+      const navItems = document.querySelectorAll('.nav-item[data-section]');
+      const sections = {
+        dashboard: document.getElementById('dashboard-section'),
+        experiments: document.getElementById('experiments-section'),
+        samples: document.getElementById('samples-section'),
+        protocols: document.getElementById('protocols-section'),
+        data: document.getElementById('data-section'),
+        publications: document.getElementById('publications-section'),
+        settings: document.getElementById('settings-section')
+      };
+      
+      const pageTitle = document.getElementById('pageTitle');
+      const welcomeText = document.getElementById('welcomeText');
+      
+      const sectionTitles = {
+        dashboard: 'Welcome back, Dr. James Wilson!',
+        experiments: 'My Experiments',
+        samples: 'Sample Inventory',
+        protocols: 'Lab Protocols',
+        data: 'Data Analysis',
+        publications: 'My Publications',
+        settings: 'Account Settings'
+      };
+      
+      const sectionSubtitles = {
+        dashboard: 'Your personal research dashboard',
+        experiments: 'Track ongoing and completed experiments',
+        samples: 'Manage your sample inventory',
+        protocols: 'Access laboratory protocols',
+        data: 'Analyze your experimental data',
+        publications: 'View your papers and manuscripts',
+        settings: 'Manage your account preferences'
+      };
+
+      navItems.forEach(item => {
+        item.addEventListener('click', function(e) {
+          e.preventDefault();
+          
+          navItems.forEach(nav => nav.classList.remove('active'));
+          this.classList.add('active');
+          
+          const section = this.getAttribute('data-section');
+          
+          if (section === 'home') {
+            window.location.href = 'home1.html';
+            return;
+          }
+          if (section === 'login') {
+            window.location.href = 'login.html';
+            return;
+          }
+          
+          Object.values(sections).forEach(s => {
+            if (s) s.classList.add('hidden');
+          });
+          
+          if (sections[section]) {
+            sections[section].classList.remove('hidden');
+            pageTitle.textContent = sectionTitles[section] || sectionTitles.dashboard;
+            welcomeText.textContent = sectionSubtitles[section] || sectionSubtitles.dashboard;
+          }
+          
+          if (window.innerWidth <= 900) {
+            sidebar.classList.remove('active');
+            backdrop.classList.remove('active');
+          }
+        });
+      });
+
+      // ===== MOBILE SIDEBAR CONTROLS =====
+      const sidebar = document.getElementById('sidebar');
+      const backdrop = document.getElementById('sidebarBackdrop');
+      const menuBtn = document.getElementById('mobileMenuBtn');
+      const closeBtn = document.getElementById('sidebarClose');
+
+      function openSidebar() {
+        sidebar.classList.add('active');
+        backdrop.classList.add('active');
+      }
+
+      function closeSidebar() {
+        sidebar.classList.remove('active');
+        backdrop.classList.remove('active');
+      }
+
+      if (menuBtn) {
+        menuBtn.addEventListener('click', openSidebar);
+      }
+
+      if (closeBtn) {
+        closeBtn.addEventListener('click', closeSidebar);
+      }
+
+      backdrop.addEventListener('click', closeSidebar);
+
+      window.addEventListener('resize', function() {
+        if (window.innerWidth > 900) {
+          closeSidebar();
+        }
+      });
+
+      // ===== LOGO CLICK REDIRECT =====
+      const logoLink = document.querySelector('.sidebar-logo a');
+      if (logoLink) {
+        logoLink.addEventListener('click', function(e) {
+          e.preventDefault();
+          window.location.href = 'home1.html';
+        });
+      }
+
+      // ===== PREVENT DEFAULT ON LINKS =====
+      // Commented out to allow 404.html links to work
+      // document.querySelectorAll('.view-link, .ai-btn').forEach(link => {
+      //   link.addEventListener('click', function(e) {
+      //     e.preventDefault();
+      //   });
+      // });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>404 · page not found</title>
+  <!-- Inter font (clean) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet">
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #ecf5f8;
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1.5rem;
+      overflow-x: hidden;
+      width: 100%;
+    }
+
+    .container {
+      max-width: 550px;
+      width: 100%;
+      background: white;
+      border-radius: 36px;
+      padding: 3rem 2.5rem;
+      text-align: center;
+      box-shadow: 0 18px 30px -8px rgba(0, 50, 50, 0.1);
+      border: 1px solid #e0edf2;
+      animation: fadeSlideUp 0.6s ease-out;
+    }
+
+    .four04 {
+      font-size: 96px;
+      font-weight: 600;
+      color: #1f8a7c;
+      line-height: 1;
+      margin-bottom: 16px;
+      letter-spacing: 4px;
+      animation: softFloat 3s infinite ease-in-out;
+      display: inline-block;
+    }
+
+    h2 {
+      font-size: 28px;
+      font-weight: 500;
+      color: #145c66;
+      margin-bottom: 12px;
+      opacity: 0;
+      animation: fadeIn 0.5s ease-out forwards;
+      animation-delay: 0.2s;
+    }
+
+    p {
+      font-size: 18px;
+      color: #397a84;
+      margin-bottom: 40px;
+      font-weight: 300;
+      opacity: 0;
+      animation: fadeIn 0.5s ease-out forwards;
+      animation-delay: 0.3s;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeIn 0.5s ease-out forwards;
+      animation-delay: 0.4s;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: #1f9a8a;
+      color: white;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: 500;
+      padding: 16px 32px;
+      border-radius: 50px;
+      box-shadow: 0 6px 14px rgba(20, 110, 100, 0.3);
+      transition: all 0.25s ease;
+      border: none;
+      cursor: pointer;
+      min-width: 180px;
+      border: 2px solid transparent;
+    }
+
+    .btn i {
+      font-size: 16px;
+      transition: transform 0.2s ease;
+    }
+
+    .btn-home {
+      background: #1f9a8a;
+    }
+
+    .btn-home:hover {
+      background: #0e7b6e;
+      transform: translateY(-3px);
+      box-shadow: 0 15px 25px rgba(10, 90, 80, 0.35);
+    }
+
+    .btn-home:hover i {
+      transform: translateX(-4px);
+    }
+
+    .btn-prev {
+      background: #ffffff;
+      color: #1f8a7c;
+      border: 2px solid #1f8a7c;
+      box-shadow: 0 6px 14px rgba(20, 110, 100, 0.1);
+    }
+
+    .btn-prev:hover {
+      background: #e8f6f3;
+      transform: translateY(-3px);
+      box-shadow: 0 15px 25px rgba(10, 90, 80, 0.2);
+      border-color: #0e7b6e;
+      color: #0e7b6e;
+    }
+
+    .btn-prev:hover i {
+      transform: translateX(-4px);
+    }
+
+    .btn:hover {
+      opacity: 1;
+    }
+
+    @keyframes fadeSlideUp {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    @keyframes softFloat {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-6px);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 2.5rem 1.5rem;
+      }
+      
+      .button-group {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+      }
+      
+      .btn {
+        width: 100%;
+        max-width: 280px;
+        padding: 15px 24px;
+        font-size: 16px;
+      }
+    }
+
+    @media (max-width: 450px) {
+      .container {
+        padding: 2rem 1.2rem;
+      }
+      .four04 {
+        font-size: 72px;
+      }
+      h2 {
+        font-size: 24px;
+      }
+      p {
+        font-size: 16px;
+        margin-bottom: 32px;
+      }
+      .btn {
+        max-width: 240px;
+        padding: 14px 20px;
+        font-size: 15px;
+      }
+    }
+
+    @media (max-width: 350px) {
+      .four04 {
+        font-size: 60px;
+      }
+      h2 {
+        font-size: 20px;
+      }
+      p {
+        font-size: 14px;
+      }
+      .btn {
+        max-width: 200px;
+        padding: 12px 16px;
+        font-size: 14px;
+      }
+    }
+
+    html, body {
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="four04">404</div>
+    <h2>page not found</h2>
+    <p>sorry, the page you're looking for doesn't exist</p>
+    
+    <div class="button-group">
+      <a href="home1.html" class="btn btn-home">
+        <i class="fas fa-arrow-left"></i> back to home
+      </a>
+      
+      <!-- SIMPLE FIX: Just use history.back() directly -->
+      <a href="javascript:history.back()" class="btn btn-prev">
+        <i class="fas fa-undo-alt"></i> previous page
+      </a>
+    </div>
+  </div>
+
+  <!-- Backup JavaScript if the inline doesn't work -->
+  <script>
+    // This is just a backup - the inline javascript:history.back() should work
+    document.querySelector('.btn-prev').addEventListener('click', function(e) {
+      e.preventDefault();
+      window.history.back();
+    });
+  </script>
+</body>
+</html>

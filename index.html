@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Stackly ·Biotechnology</title>
+  <!-- Inter font (clean) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #e0f0f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Inter', sans-serif;
+      padding: 1rem;
+    }
+
+    .center-box {
+      text-align: center;
+      max-width: 360px;
+      width: 100%;
+    }
+
+    /* stackly word - smaller */
+    .word-stackly {
+      font-size: 48px;          /* reduced from 72px */
+      font-weight: 600;
+      color: #0b4f5c;
+      letter-spacing: 0.5px;
+      margin-bottom: 28px;
+      text-transform: lowercase;
+      line-height: 1.1;
+    }
+
+    .word-stackly::first-letter {
+      text-transform: uppercase;
+    }
+
+    /* horizontal track */
+    .track-slim {
+      width: 240px;             /* slightly narrower */
+      max-width: 65vw;
+      height: 6px;              /* thinner */
+      background: #b8d0da;
+      border-radius: 20px;
+      margin: 0 auto 10px;
+      overflow: hidden;
+    }
+
+    .fill-slim {
+      width: 0%;
+      height: 100%;
+      background: #1f9a8a;
+      border-radius: 20px;
+      transition: width 0.1s linear;
+    }
+
+    /* percentage number - smaller */
+    .percent-small {
+      font-size: 22px;          /* reduced */
+      font-weight: 400;
+      color: #146d7a;
+      margin-bottom: 22px;
+      letter-spacing: 0.5px;
+    }
+
+    /* biotechnology sub - minimized */
+    .sub-mini {
+      font-size: 16px;          /* smaller */
+      font-weight: 300;
+      color: #2a7f8c;
+      text-transform: uppercase;
+      letter-spacing: 5px;      /* tightened */
+      border-top: 1px solid rgba(20, 90, 90, 0.2);
+      padding-top: 18px;
+      display: inline-block;
+    }
+
+    /* responsive tweak */
+    @media (max-width: 380px) {
+      .word-stackly { font-size: 40px; }
+      .percent-small { font-size: 20px; }
+      .sub-mini { font-size: 14px; letter-spacing: 4px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="center-box">
+
+    <!-- 1. stackly (main) -->
+    <div class="word-stackly">stackly</div>
+
+    <!-- 2. horizontal loader with fill -->
+    <div class="track-slim">
+      <div class="fill-slim" id="loadFill"></div>
+    </div>
+    <div class="percent-small" id="percentDisplay">0%</div>
+
+    <!-- 3. biotechnology subheading -->
+    <div class="sub-mini">biotechnology</div>
+
+  </div>
+
+  <script>
+    (function() {
+      const fillBar = document.getElementById('loadFill');
+      const percentDisplay = document.getElementById('percentDisplay');
+      
+      let percent = 0;
+      const interval = setInterval(function() {
+        percent += 1;
+        fillBar.style.width = percent + '%';
+        percentDisplay.innerText = percent + '%';
+
+        // when reaching 100%, clear interval and redirect to home1.html
+        if (percent >= 100) {
+          clearInterval(interval);
+          // small delay before redirect so user sees 100%
+          setTimeout(function() {
+            window.location.href = 'home1.html';
+          }, 300); // 0.3 second delay
+        }
+      }, 25); // 25ms * 100 = 2.5 seconds to reach 100
+    })();
+  </script>
+</body>
+</html>
